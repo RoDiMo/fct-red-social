@@ -22,3 +22,33 @@ class Estados(viewsets.ModelViewSet):
 class Ciudades(viewsets.ModelViewSet):
     queryset = Ciudades.objects.all()
     serializer_class = CiudadesSerializer
+
+
+class Usuarios(viewsets.ModelViewSet):
+    queryset = Usuarios.objects.all()
+    serializer_class = UsuarioSerializer
+
+
+class Posts(viewsets.ModelViewSet):
+    queryset = Posts.objects.all()
+    serializer_class = PostSerializer
+
+
+class Comentarios(viewsets.ModelViewSet):
+    queryset = Comentarios.objects.all()
+    serializer_class = ComentariosSerializer
+
+
+class Likes(viewsets.ModelViewSet):
+    queryset = Likes.objects.all()
+    serializer_class = LikesSerializer
+
+
+class Amigos(viewsets.ModelViewSet):
+    queryset = Amigos.objects.all()
+    serializer_class = AmigosSerializer
+
+
+class NotificacionesAmistad(viewsets.ModelViewSet):
+    queryset = NotificacionesAmistad.objects.all()
+    serializer_class = NotificacionesSerializer

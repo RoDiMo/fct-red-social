@@ -9,6 +9,12 @@ router = DefaultRouter()
 router.register(r'paises', views.Paises, basename='paises')
 router.register(r'estados', views.Estados, basename='estados')
 router.register(r'ciudades', views.Ciudades, basename='ciudades')
+router.register(r'usuarios', views.Usuarios, basename='usuarios')
+router.register(r'post', views.Posts, basename='post')
+router.register(r'comentarios', views.Comentarios, basename='comentarios')
+router.register(r'likes', views.Likes, basename='likes')
+router.register(r'amigos', views.Amigos, basename='amigos')
+router.register(r'notificaciones', views.NotificacionesAmistad, basename='notificaciones')
 
 urlpatterns = [
     path('admin/', admin.site.urls),

@@ -1,4 +1,7 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.utils import timezone
+
 
 # Create your models here.
 
@@ -28,3 +31,65 @@ class Ciudades(models.Model):
 
     def __str__(self):
         return "Ciudad: {}".format(self.nombre_ciudad)
+
+
+class Usuarios(AbstractUser):
+    telefono = models.CharField(max_length=50)
+    administrador = models.BooleanField(default=False)
+    pais = models.CharField(max_length=250)
+    estado = models.CharField(max_length=250)
+    ciudad = models.CharField(max_length=250)
+    direccion = models.CharField(max_length=250)
+    foto_perfil = models.ImageField(upload_to='main/imagenes/usuarios')
+
+
+class Posts(models.Model):
+    usuario = models.ForeignKey(Usuarios, on_delete=models.RESTRICT)
+    titulo = models.CharField(max_length=50)
+    contenido = models.CharField(max_length=250)
+    imagen = models.ImageField(upload_to='main/imagenes/posts')
+    fecha_publicacion = models.DateTimeField(default=timezone.now())
+    num_likes = models.PositiveBigIntegerField(default=0)
+    num_visitas = models.BigIntegerField(default=0)
+
+    def __str__(self):
+        return "Titulo: {}".format(self.titulo)
+
+
+class Comentarios(models.Model):
+    post = models.ForeignKey(Posts, on_delete=models.RESTRICT)
+    usuario = models.ForeignKey(Usuarios, on_delete=models.RESTRICT)
+    contenido = models.CharField(max_length=250)
+    fecha_creacion = models.DateTimeField(default=timezone.now())
+
+
+class Likes(models.Model):
+    usuario = models.ForeignKey(Usuarios, on_delete=models.RESTRICT)
+    post = models.ForeignKey(Posts, on_delete=models.RESTRICT)
+
+
+class Amigos(models.Model):
+    usuario_solicitante = models.ForeignKey(Usuarios, related_name="usuario_solicitante", on_delete=models.RESTRICT)
+    usuario_receptor = models.ForeignKey(Usuarios, related_name="usuario_receptor", on_delete=models.RESTRICT)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['usuario_solicitante', 'usuario_receptor'], name='amigos'
+            )
+        ]
+
+
+class NotificacionesAmistad(models.Model):
+    usuario_origen = models.ForeignKey(Usuarios, related_name="usuario_origen", on_delete=models.RESTRICT)
+    usuario_destino = models.ForeignKey(Usuarios, related_name="usuario_destino", on_delete=models.RESTRICT)
+    contenido = models.CharField(max_length=250)
+    fecha_notificacion = models.DateTimeField(default=timezone.now())
+    procesada = models.BooleanField(default=False)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['usuario_origen', 'usuario_destino'], name='emisor_receptor'
+            )
+        ]
