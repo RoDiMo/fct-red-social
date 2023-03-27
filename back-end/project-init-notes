@@ -28,3 +28,10 @@ https://www.coderedcorp.com/blog/how-to-dump-your-django-database-and-load-it-in
 python manage.py dumpdata --natural-foreign --natural-primary -e contenttypes -e auth.Permission --indent 2 > dump.json
 # migrate
 loaddata fixtures/dump.json
+
+
+# Borrar base de datos
+- python manage.py flush
+
+- docker-compose down -v
+- docker-compose up --detach

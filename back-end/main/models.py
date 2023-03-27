@@ -24,6 +24,7 @@ class Ciudades(models.Model):
     id = models.BigIntegerField(primary_key=True, null=False)
     id_estado = models.ForeignKey(Estados, on_delete=models.RESTRICT)
     nombre_ciudad = models.CharField(max_length=250)
+    paginate_by = 10
 
     def __str__(self):
         return "Ciudad: {}".format(self.nombre_ciudad)
