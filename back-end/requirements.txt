@@ -10,3 +10,5 @@ django-environ
 psycopg2-binary
 #production ready
 # psycopg2
+
+djangorestframework~=3.14.0

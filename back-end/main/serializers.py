@@ -1,6 +1,6 @@
 from pyexpat import model
 
-from django.db.models import Avg
+from django.db.models import Avg, Count
 from rest_framework import serializers
 
 from main.models import *
@@ -27,25 +27,27 @@ class CiudadesSerializer(serializers.HyperlinkedModelSerializer):
 class UsuarioSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Usuarios
+
         fields = ('url',
                   'id',
                   'username',
+                  'password',
                   'first_name',
                   'last_name', 'email',
                   'telefono',
-                  'administrador',
+                  'is_staff',
                   'pais',
                   'estado',
                   'ciudad',
                   'direccion',
                   'foto_perfil')
-        read_only_fields = ('username',)
 
 
 class PostSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Posts
-        fields = ('usuario',
+        fields = ('url',
+                  'usuario',
                   'titulo',
                   'contenido',
                   'imagen',
@@ -57,22 +59,25 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
 class ComentariosSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Comentarios
-        fields = ('post', 'usuario', 'contenido', 'fecha_creacion')
+        fields = ('url', 'post', 'usuario', 'contenido', 'fecha_creacion')
 
 
 class LikesSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Likes
-        fields = ('usuario', 'post')
+        fields = ('url', 'usuario', 'post')
 
 
 class AmigosSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Amigos
-        fields = ('usuario_solicitante', 'usuario_receptor')
+        fields = ('url', 'usuario_solicitante', 'usuario_receptor')
 
 
 class NotificacionesSerializer(serializers.HyperlinkedModelSerializer):
+
     class Meta:
         model = NotificacionesAmistad
-        fields = ('usuario_origen', 'usuario_destino', 'contenido', 'fecha_notificacion', 'procesada')
+        fields = ('url', 'id', 'usuario_origen', 'usuario_destino', 'contenido', 'fecha_notificacion', 'procesada')
+
+

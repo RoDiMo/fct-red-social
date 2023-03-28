@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.db.models import Q, F
 from django.utils import timezone
 
 
@@ -35,7 +36,6 @@ class Ciudades(models.Model):
 
 class Usuarios(AbstractUser):
     telefono = models.CharField(max_length=50)
-    administrador = models.BooleanField(default=False)
     pais = models.CharField(max_length=250)
     estado = models.CharField(max_length=250)
     ciudad = models.CharField(max_length=250)
@@ -47,8 +47,8 @@ class Posts(models.Model):
     usuario = models.ForeignKey(Usuarios, on_delete=models.RESTRICT)
     titulo = models.CharField(max_length=50)
     contenido = models.CharField(max_length=250)
-    imagen = models.ImageField(upload_to='main/imagenes/posts')
-    fecha_publicacion = models.DateTimeField(default=timezone.now())
+    imagen = models.ImageField(upload_to='main/imagenes/posts', null=True)
+    fecha_publicacion = models.DateTimeField(default=timezone.now)
     num_likes = models.PositiveBigIntegerField(default=0)
     num_visitas = models.BigIntegerField(default=0)
 
@@ -60,12 +60,20 @@ class Comentarios(models.Model):
     post = models.ForeignKey(Posts, on_delete=models.RESTRICT)
     usuario = models.ForeignKey(Usuarios, on_delete=models.RESTRICT)
     contenido = models.CharField(max_length=250)
-    fecha_creacion = models.DateTimeField(default=timezone.now())
+    fecha_creacion = models.DateTimeField(default=timezone.now)
 
 
 class Likes(models.Model):
     usuario = models.ForeignKey(Usuarios, on_delete=models.RESTRICT)
     post = models.ForeignKey(Posts, on_delete=models.RESTRICT)
+
+    class Meta:
+        constraints = [
+
+            models.UniqueConstraint(
+                fields=['usuario', 'post'], name='likes'
+            )
+        ]
 
 
 class Amigos(models.Model):
@@ -74,6 +82,8 @@ class Amigos(models.Model):
 
     class Meta:
         constraints = [
+            models.CheckConstraint(check=~Q(usuario_solicitante=F('usuario_receptor')), name='could_not_block_itself'),
+
             models.UniqueConstraint(
                 fields=['usuario_solicitante', 'usuario_receptor'], name='amigos'
             )
@@ -84,12 +94,5 @@ class NotificacionesAmistad(models.Model):
     usuario_origen = models.ForeignKey(Usuarios, related_name="usuario_origen", on_delete=models.RESTRICT)
     usuario_destino = models.ForeignKey(Usuarios, related_name="usuario_destino", on_delete=models.RESTRICT)
     contenido = models.CharField(max_length=250)
-    fecha_notificacion = models.DateTimeField(default=timezone.now())
+    fecha_notificacion = models.DateTimeField(default=timezone.now)
     procesada = models.BooleanField(default=False)
-
-    class Meta:
-        constraints = [
-            models.UniqueConstraint(
-                fields=['usuario_origen', 'usuario_destino'], name='emisor_receptor'
-            )
-        ]
