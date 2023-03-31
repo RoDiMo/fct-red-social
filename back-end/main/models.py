@@ -1,7 +1,11 @@
+from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.db.models import Q, F
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.utils import timezone
+from rest_framework.authtoken.models import Token
 
 
 # Create your models here.
@@ -42,6 +46,11 @@ class Usuarios(AbstractUser):
     direccion = models.CharField(max_length=250)
     foto_perfil = models.ImageField(upload_to='main/imagenes/usuarios')
 
+    @receiver(post_save, sender=settings.AUTH_USER_MODEL)
+    def create_auth_token(sender, instance=None, created=False, **kwargs):
+        if created:
+            Token.objects.create(user=instance)
+
 
 class Posts(models.Model):
     usuario = models.ForeignKey(Usuarios, on_delete=models.RESTRICT)
@@ -79,6 +88,7 @@ class Likes(models.Model):
 class Amigos(models.Model):
     usuario_solicitante = models.ForeignKey(Usuarios, related_name="usuario_solicitante", on_delete=models.RESTRICT)
     usuario_receptor = models.ForeignKey(Usuarios, related_name="usuario_receptor", on_delete=models.RESTRICT)
+    fecha_creacion = models.DateTimeField(default=timezone.now)
 
     class Meta:
         constraints = [

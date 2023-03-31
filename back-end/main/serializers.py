@@ -72,7 +72,7 @@ class LikesSerializer(serializers.HyperlinkedModelSerializer):
 class AmigosSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Amigos
-        fields = ('url', 'usuario_solicitante', 'usuario_receptor')
+        fields = ('url', 'usuario_solicitante', 'usuario_receptor', 'fecha_creacion')
 
 
 class NotificacionesSerializer(serializers.HyperlinkedModelSerializer):
