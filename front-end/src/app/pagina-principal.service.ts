@@ -9,7 +9,7 @@ export class PaginaPrincipalService {
   public url:string;
 
   constructor(private http: HttpClient) {
-    this.url = 'http://localhost:8000/usuarios/';
+    this.url = 'http://localhost:8000/posts/';
    }
 
    getUsuario(): Observable<any>{

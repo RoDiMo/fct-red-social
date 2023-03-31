@@ -31,7 +31,7 @@ class Ciudades(viewsets.ModelViewSet):
 class Usuarios(viewsets.ModelViewSet):
     queryset = Usuarios.objects.all()
     serializer_class = UsuarioSerializer
-    permission_classes = [IsAuthenticated]
+    #permission_classes = [IsAuthenticated]
 
 
 '''LOGIN DE USUARIOS'''

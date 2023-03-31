@@ -1,0 +1,17 @@
+<form [formGroup]="logInForm" (ngSubmit)="onSubmit(logInForm?.value)">
+  <div>
+    <label for="username">Nombre de usuario:</label>
+    <input type="text" id="username" formControlName="username" required>
+    <div *ngIf="logInForm.controls['username'].invalid && (logInForm.controls['username'].dirty || logInForm.controls['username'].touched)">
+
+    </div>
+  </div>
+  <div>
+    <label for="password">Contraseña:</label>
+    <input type="password" id="password" formControlName="password" required>
+    <div *ngIf="logInForm.controls['password'].invalid && (logInForm.controls['password'].dirty || logInForm.controls['password'].touched)">
+
+    </div>
+  </div>
+  <button type="submit" [disabled]="logInForm.invalid">Ingresar</button>
+</form>

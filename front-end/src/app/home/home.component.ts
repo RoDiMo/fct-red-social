@@ -18,9 +18,11 @@ export class HomeComponent {
   }
 
     ngOnInit() {
+      /*
       this._paginaPrincipalService.getUsuario().subscribe(data => {
         this.datos = data;
         console.log(this.datos)
       })
+      */
   }
 }

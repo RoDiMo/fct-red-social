@@ -39,12 +39,12 @@ class Ciudades(models.Model):
 
 
 class Usuarios(AbstractUser):
-    telefono = models.CharField(max_length=50)
-    pais = models.CharField(max_length=250)
-    estado = models.CharField(max_length=250)
-    ciudad = models.CharField(max_length=250)
-    direccion = models.CharField(max_length=250)
-    foto_perfil = models.ImageField(upload_to='main/imagenes/usuarios')
+    telefono = models.CharField(max_length=50, default='')
+    pais = models.CharField(max_length=250, default='')
+    estado = models.CharField(max_length=250, default='')
+    ciudad = models.CharField(max_length=250, default='')
+    direccion = models.CharField(max_length=250, default='')
+    foto_perfil = models.ImageField(upload_to='main/imagenes/usuarios', default='')
 
     @receiver(post_save, sender=settings.AUTH_USER_MODEL)
     def create_auth_token(sender, instance=None, created=False, **kwargs):
