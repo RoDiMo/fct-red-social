@@ -3,8 +3,11 @@ from django.shortcuts import render
 
 from rest_framework import viewsets, permissions, filters, mixins, status
 from rest_framework.authtoken.views import ObtainAuthToken
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.generics import GenericAPIView
+from rest_framework.parsers import FileUploadParser, FormParser, MultiPartParser
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
+from rest_framework_simplejwt.tokens import RefreshToken
 
 from main.models import *
 from main.serializers import *
@@ -31,7 +34,7 @@ class Ciudades(viewsets.ModelViewSet):
 class Usuarios(viewsets.ModelViewSet):
     queryset = Usuarios.objects.all()
     serializer_class = UsuarioSerializer
-    #permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
 
 
 '''LOGIN DE USUARIOS'''
@@ -50,6 +53,20 @@ class UserLogIn(ObtainAuthToken):
             'id': user.pk,
             'username': user.username
         })
+
+
+class RegistroUsuario(GenericAPIView):
+    permission_classes = [AllowAny]
+    serializer_class = RegistroSerializer
+    parser_classes = [MultiPartParser, FormParser]
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.save()
+        token = RefreshToken.for_user(user)
+        data = serializer.data
+        data["tokens"] = {"refresh": str(token), "access": str(token.access_token)}
+        return Response(data, status=status.HTTP_201_CREATED)
 
 
 class Posts(viewsets.ModelViewSet):

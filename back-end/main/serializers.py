@@ -44,6 +44,28 @@ class UsuarioSerializer(serializers.HyperlinkedModelSerializer):
                   'foto_perfil')
 
 
+class RegistroSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Usuarios
+        fields = ('id',
+                  'username',
+                  'password',
+                  'first_name',
+                  'last_name',
+                  'email',
+                  'telefono',
+                  'is_staff',
+                  'pais',
+                  'estado',
+                  'ciudad',
+                  'direccion',
+                  'foto_perfil')
+        extra_kwargs = {"password": {"write_only": True}}
+
+    def create(self, validated_data):
+        return Usuarios.objects.create_user(**validated_data)
+
+
 class PostSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Posts
@@ -76,9 +98,6 @@ class AmigosSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class NotificacionesSerializer(serializers.HyperlinkedModelSerializer):
-
     class Meta:
         model = NotificacionesAmistad
         fields = ('url', 'id', 'usuario_origen', 'usuario_destino', 'contenido', 'fecha_notificacion', 'procesada')
-
-

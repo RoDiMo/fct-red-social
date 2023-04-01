@@ -11,6 +11,7 @@ import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
 import { PerfilUsuarioComponent } from './perfil-usuario/perfil-usuario.component';
 import { TokenInterceptor } from "./token.interceptor";
+import { RegistroUsuarioComponent } from './registro-usuario/registro-usuario.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { TokenInterceptor } from "./token.interceptor";
     AppComponent,
     HomeComponent,
     LoginUsuarioComponent,
-    PerfilUsuarioComponent
+    PerfilUsuarioComponent,
+    RegistroUsuarioComponent
   ],
   imports: [
     BrowserModule,

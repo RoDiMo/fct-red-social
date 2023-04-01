@@ -11,5 +11,5 @@ export interface PerfilUsuario{
     estado :string,
     ciudad :string,
     direccion :string,
-    foto_perfil :string
+    foto_perfil :any
 }

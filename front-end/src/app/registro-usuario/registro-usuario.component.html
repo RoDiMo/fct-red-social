@@ -1,0 +1,107 @@
+
+    <div class="card-body">
+      <form  [formGroup]="formulario" (ngSubmit)="formulario">
+        <div class="row row py-2 g-3 align-items-center">
+          <div class="col-auto">
+            <label class="col-form-label">Nombre de usuario: </label>
+          </div>
+          <div class="col-auto">
+            <input class="form-control" formControlName="username" type="text">
+          </div>
+        </div>
+
+        
+        <div class="row row py-2 g-3 align-items-center">
+          <div class="col-auto">
+            <label class="col-form-label">Correo electrónico: </label>
+          </div>
+          <div class="col-auto">
+            <input class="form-control" formControlName="email" type="text">
+          </div>
+        </div>
+
+        <div class="row row py-2 g-3 align-items-center">
+          <div class="col-auto">
+            <label class="col-form-label">Contraseña: </label>
+          </div>
+          <div class="col-auto">
+            <input class="form-control" formControlName="password" type="text">
+          </div>
+        </div>
+
+        <div class="row row py-2 g-3 align-items-center">
+            <div class="col-auto">
+              <label class="col-form-label">Nombre: </label>
+            </div>
+            <div class="col-auto">
+              <input class="form-control" formControlName="first_name" type="text">
+            </div>
+          </div>
+
+          <div class="row row py-2 g-3 align-items-center">
+            <div class="col-auto">
+              <label class="col-form-label">Apellido: </label>
+            </div>
+            <div class="col-auto">
+              <input class="form-control" formControlName="last_name" type="text">
+            </div>
+          </div>
+
+          <div class="row row py-2 g-3 align-items-center">
+            <div class="col-auto">
+              <label class="col-form-label">Teléfono: </label>
+            </div>
+            <div class="col-auto">
+              <input class="form-control" formControlName="telefono" type="text">
+            </div>
+          </div>
+
+          <div class="row row py-2 g-3 align-items-center">
+            <div class="col-auto">
+              <label class="col-form-label">Pais: </label>
+            </div>
+            <div class="col-auto">
+              <input class="form-control" formControlName="pais" type="text">
+            </div>
+          </div>
+
+          <div class="row row py-2 g-3 align-items-center">
+            <div class="col-auto">
+              <label class="col-form-label">Estado: </label>
+            </div>
+            <div class="col-auto">
+              <input class="form-control" formControlName="estado" type="text">
+            </div>
+          </div>
+
+          <div class="row row py-2 g-3 align-items-center">
+            <div class="col-auto">
+              <label class="col-form-label">Ciudad: </label>
+            </div>
+            <div class="col-auto">
+              <input class="form-control" formControlName="ciudad" type="text">
+            </div>
+          </div>
+
+          <div class="row row py-2 g-3 align-items-center">
+            <div class="col-auto">
+              <label class="col-form-label">Direccion: </label>
+            </div>
+            <div class="col-auto">
+              <input class="form-control" formControlName="direccion" type="text">
+            </div>
+          </div>
+
+          <div class="row row py-2 g-3 align-items-center">
+            <div class="col-auto">
+              <label class="col-form-label">Foto perfil: </label>
+            </div>
+            <div class="col-auto">
+              <input class="form-control" formControlName="foto_perfil" type="file"  (change)="onChange($event)">
+            </div>
+          </div>
+
+        <button class="btn btn-primary" (click)="nuevoUsuario()" [disabled]="formulario.invalid">Nuevo usuario</button>
+      </form>
+    </div>
+
