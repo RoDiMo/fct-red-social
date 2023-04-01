@@ -9,6 +9,12 @@ import { AutenticacionUsuariosService } from '../autenticacion-usuarios.service'
   ]
 })
 export class RegistroUsuarioComponent {
+  public get registroUsuario(): AutenticacionUsuariosService {
+    return this._registroUsuario;
+  }
+  public set registroUsuario(value: AutenticacionUsuariosService) {
+    this._registroUsuario = value;
+  }
   public datos:Array<any> = [];
   public formulario!: FormGroup;
   public response: any;
@@ -16,7 +22,7 @@ export class RegistroUsuarioComponent {
 
   constructor(
     private fb: FormBuilder,
-    private registroUsuario: AutenticacionUsuariosService,
+    private _registroUsuario: AutenticacionUsuariosService,
   ) {}
 
   ngOnInit() {
