@@ -58,7 +58,8 @@ class UserLogIn(ObtainAuthToken):
 class RegistroUsuario(GenericAPIView):
     permission_classes = [AllowAny]
     serializer_class = RegistroSerializer
-    parser_classes = [MultiPartParser, FormParser]
+
+    # parser_classes = [MultiPartParser, FormParser]
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)

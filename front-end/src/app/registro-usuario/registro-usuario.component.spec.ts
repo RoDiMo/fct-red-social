@@ -10,10 +10,13 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from '../app-routing.module';
+import { of } from 'rxjs';
+import { PaginaPrincipalService } from '../pagina-principal.service';
 
 describe('RegistroUsuarioComponent', () => {
   let component: RegistroUsuarioComponent;
   let fixture: ComponentFixture<RegistroUsuarioComponent>;
+  let paginaPrincipalService: PaginaPrincipalService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -87,4 +90,7 @@ describe('RegistroUsuarioComponent', () => {
 
     expect(component.registroUsuario.nuevoUsuario).toHaveBeenCalledWith(formData);
   });
+
+
+
 });

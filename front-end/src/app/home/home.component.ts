@@ -9,7 +9,7 @@ import { Usuarios } from './home';
   ]
 })
 export class HomeComponent {
-  public datos: Array<Usuarios> = []
+  public datos: Array<any> = []
 
   constructor(
     private _paginaPrincipalService: PaginaPrincipalService,
@@ -17,12 +17,13 @@ export class HomeComponent {
 
   }
 
+    // Codigo que se ejecuta al cargar la pagina
     ngOnInit() {
-      /*
-      this._paginaPrincipalService.getUsuario().subscribe(data => {
+      // Obtiene los post  
+      this._paginaPrincipalService.getPost().subscribe(data => {
         this.datos = data;
         console.log(this.datos)
       })
-      */
+      
   }
 }

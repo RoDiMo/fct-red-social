@@ -13,7 +13,7 @@ import { Router } from "@angular/router";
 })
 export class LoginUsuarioComponent implements OnInit{
   logInForm ;
-  constructor(private formBuilder: FormBuilder, private autenticacionUsuariosService: AutenticacionUsuariosService, private router: Router ) {
+  constructor(private formBuilder: FormBuilder, private loginUsuario: AutenticacionUsuariosService, private router: Router ) {
    this.logInForm = this.formBuilder.group({
      username: ['' as string | null, Validators.required],
      password: ['' as string | null, Validators.required]
@@ -24,6 +24,8 @@ export class LoginUsuarioComponent implements OnInit{
   ngOnInit(): void {
   }
 
+  /*
+  // Metodo que agrega las credenciales de un usuario al Local Storage
   logInUser(user: UserCredentials): void {
     this.autenticacionUsuariosService.logIn(user.username, user.password).subscribe({
       next: (data) => {
@@ -37,13 +39,13 @@ export class LoginUsuarioComponent implements OnInit{
     }
     );
    }
-
-   //Hay que controlar de que solo le lleguen datos tipo string
+*/
+   // Al rellenar el formulario de inicio de sesion se llama a la funcion logInUser
    onSubmit(formData:any): void {
     if (this.logInForm.invalid) {
       console.log(this.logInForm.errors);
     } else {
-      this.logInUser(formData);
+      this.loginUsuario.logInUser(formData);
     }
   }
   

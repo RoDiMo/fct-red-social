@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { LoggedInUser } from "./auth";
+import { LoggedInUser, UserCredentials } from "./auth";
 import { PerfilUsuario } from './perfil-usuario/perfil-usuario';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AutenticacionUsuariosService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   //  --------------LOGIN--------------------
 
@@ -20,7 +21,7 @@ export class AutenticacionUsuariosService {
        ) as  Observable<any>;
    }
 
-   // Almacena al usurio en el LocalSotrage
+   // Almacena al usuario en el LocalSotrage
    setLoggedInUser(userData: LoggedInUser): void {
     if (localStorage.getItem('userData') !== JSON.stringify(userData)) {
       localStorage.setItem('userData', JSON.stringify(userData));
@@ -33,9 +34,23 @@ export class AutenticacionUsuariosService {
     return this.http.get('http://localhost:8000/registro/')
   }
 
-  public nuevoUsuario(formData : FormData): Observable<any> {
-
-    return this.http.post<any>('http://localhost:8000/registro/', formData);
+  public nuevoUsuario(usuario : PerfilUsuario): Observable<any> {
+    return this.http.post<any>('http://localhost:8000/registro/', usuario);
   }
+
+
+  public logInUser(user: UserCredentials): void{
+    this.logIn(user.username, user.password).subscribe({
+        next: (data) => {
+          this.setLoggedInUser(data);
+          this.router.navigateByUrl(`/perfil-personal/${data.id}`);
+        },
+        error: (error) => {
+          console.log(error);
+        }
+      }
+    );
+  }
+
 
 }

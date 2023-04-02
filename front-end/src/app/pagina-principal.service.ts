@@ -12,7 +12,7 @@ export class PaginaPrincipalService {
     this.url = 'http://localhost:8000/posts/';
    }
 
-   getUsuario(): Observable<any>{
+   getPost(): Observable<any>{
     return this.http.get(this.url)
    }
 

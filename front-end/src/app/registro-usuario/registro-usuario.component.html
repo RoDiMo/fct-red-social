@@ -1,6 +1,7 @@
 
+
     <div class="card-body">
-      <form  [formGroup]="formulario" (ngSubmit)="formulario">
+      <form  [formGroup]="formulario" (ngSubmit)="nuevoUsuario(formulario.value)">
         <div class="row row py-2 g-3 align-items-center">
           <div class="col-auto">
             <label class="col-form-label">Nombre de usuario: </label>
@@ -92,16 +93,8 @@
             </div>
           </div>
 
-          <div class="row row py-2 g-3 align-items-center">
-            <div class="col-auto">
-              <label class="col-form-label">Foto perfil: </label>
-            </div>
-            <div class="col-auto">
-              <input class="form-control" formControlName="foto_perfil" type="file"  (change)="onChange($event)">
-            </div>
-          </div>
 
-        <button class="btn btn-primary" (click)="nuevoUsuario()" [disabled]="formulario.invalid">Nuevo usuario</button>
+        <button class="btn btn-primary" >Nuevo usuario</button>
       </form>
     </div>
 
