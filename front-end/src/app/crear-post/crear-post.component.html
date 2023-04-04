@@ -1,0 +1,24 @@
+<form [formGroup]="formularioPost" (ngSubmit)="nuevoPost()">
+    <div>
+      <label for="titulo">Titulo:</label>
+      <input type="text" id="titulo" formControlName="titulo" required>
+      <div *ngIf="formularioPost.controls['titulo'].invalid && (formularioPost.controls['titulo'].dirty || formularioPost.controls['titulo'].touched)">
+  
+      </div>
+    </div>
+    <div>
+      <label for="contenido">Contenido:</label>
+      <textarea rows="20" cols="120" id="contenido" formControlName="contenido" required></textarea>
+      <div *ngIf="formularioPost.controls['contenido'].invalid && (formularioPost.controls['contenido'].dirty || formularioPost.controls['contenido'].touched)">
+      </div>
+    </div>
+
+    <div>
+        <label for="imagen">Imagen:</label>
+        <input type="file" id="imagen" formControlName="imagen" required (change)="onFileSelected($event)">
+        <div *ngIf="formularioPost.controls['imagen'].invalid && (formularioPost.controls['imagen'].dirty || formularioPost.controls['imagen'].touched)">
+    
+        </div>
+      </div>
+    <button type="submit" [disabled]="formularioPost.invalid">Ingresar</button>
+  </form>

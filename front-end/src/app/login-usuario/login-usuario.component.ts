@@ -24,22 +24,7 @@ export class LoginUsuarioComponent implements OnInit{
   ngOnInit(): void {
   }
 
-  /*
-  // Metodo que agrega las credenciales de un usuario al Local Storage
-  logInUser(user: UserCredentials): void {
-    this.autenticacionUsuariosService.logIn(user.username, user.password).subscribe({
-      next: (data) => {
-        this.autenticacionUsuariosService.setLoggedInUser(data);
-        this.router.navigateByUrl(`/perfil-personal/${data.id}`);
-      },
-      error: (error) => {
-        
-        console.log(error);
-      }
-    }
-    );
-   }
-*/
+  
    // Al rellenar el formulario de inicio de sesion se llama a la funcion logInUser
    onSubmit(formData:any): void {
     if (this.logInForm.invalid) {

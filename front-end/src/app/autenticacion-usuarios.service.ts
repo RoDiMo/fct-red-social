@@ -53,4 +53,10 @@ export class AutenticacionUsuariosService {
   }
 
 
+  // ---------------OBTENER DATOS USUARIO--------------------
+
+  public obtenerCredenciales(){
+    return JSON.parse(localStorage.getItem('userData')!);
+  }
+
 }

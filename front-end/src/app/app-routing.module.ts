@@ -6,12 +6,14 @@ import { LoginUsuarioComponent } from './login-usuario/login-usuario.component';
 import { PerfilUsuarioComponent } from './perfil-usuario/perfil-usuario.component';
 import { AuthGuard } from "./auth.guard";
 import { RegistroUsuarioComponent } from './registro-usuario/registro-usuario.component';
+import { CrearPostComponent } from './crear-post/crear-post.component';
 
 const routes: Routes = [
   {path: '', component:HomeComponent},
   {path: 'login', component:LoginUsuarioComponent},
   {path: 'registro', component: RegistroUsuarioComponent},
   {path: 'perfil-personal/:id', component: PerfilUsuarioComponent, canActivate: [AuthGuard] },
+  {path: 'formulario-post', component: CrearPostComponent},
 ]
 
 @NgModule({

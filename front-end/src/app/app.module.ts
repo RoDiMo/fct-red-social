@@ -13,6 +13,9 @@ import { PerfilUsuarioComponent } from './perfil-usuario/perfil-usuario.componen
 import { TokenInterceptor } from "./token.interceptor";
 import { RegistroUsuarioComponent } from './registro-usuario/registro-usuario.component';
 import { RouterModule } from '@angular/router';
+import { PostComponent } from './post/post.component';
+import { CrearPostComponent } from './crear-post/crear-post.component';
+import { ComentarioComponent } from './comentario/comentario.component';
 
 
 
@@ -23,6 +26,9 @@ import { RouterModule } from '@angular/router';
     LoginUsuarioComponent ,
     PerfilUsuarioComponent,
     RegistroUsuarioComponent,
+    PostComponent,
+    CrearPostComponent,
+    ComentarioComponent,
   ],
   imports: [
     BrowserModule,
