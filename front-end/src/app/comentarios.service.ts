@@ -7,7 +7,7 @@ import { Comentario } from './comentario/comentario';
 })
 export class ComentariosService {
 
-  private url:string;
+  url:string;
 
   constructor(private http: HttpClient, ) { 
     this.url = 'http://localhost:8000/comentarios/'

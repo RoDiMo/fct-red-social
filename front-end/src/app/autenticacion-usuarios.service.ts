@@ -57,7 +57,16 @@ export class AutenticacionUsuariosService {
   // ---------------OBTENER DATOS USUARIO--------------------
 
   public obtenerCredenciales(){
-    return JSON.parse(localStorage.getItem('userData')!);
+    const userData =  localStorage.getItem('userData');
+    if (userData) {
+      try {
+        return JSON.parse(userData);
+      } catch (e) {
+        console.error('Error al analizar JSON: ', e);
+        return null;
+      }
+    }
+    return null;
   }
 
 }

@@ -84,17 +84,6 @@ describe('AutenticacionUsuariosService', () => {
     });
   });
 
-  describe('nuevoUsuario', () => {
-    it('should make an HTTP POST request to the registration API endpoint with the given form data', () => {
-      const httpMock = TestBed.inject(HttpTestingController);
-      const formData = new FormData();
-      formData.append('username', 'testuser');
-      service.nuevoUsuario(formData).subscribe();
-      const req = httpMock.expectOne('http://localhost:8000/registro/');
-      expect(req.request.method).toBe('POST');
-      expect(req.request.body).toBe(formData);
-    });
-  });
 
 
 

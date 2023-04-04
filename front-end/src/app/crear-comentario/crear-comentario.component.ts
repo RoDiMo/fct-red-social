@@ -14,17 +14,17 @@ import { ComentariosService } from '../comentarios.service';
 })
 export class CrearComentarioComponent implements OnInit{
 
-  private credenciales!: PerfilUsuario;
-  private usuario!: PerfilUsuario;
-  private post!: Post;
+  public credenciales!: PerfilUsuario;
+  public usuario!: PerfilUsuario;
+  public post!: Post;
   formularioComent;
 
 
   constructor(
-                private obtenerUsuario: PerfilUsuarioService, 
-                private obtenerCredenciales: AutenticacionUsuariosService,
-                private formBuilder: FormBuilder,
-                private publicarComentario: ComentariosService,
+    public obtenerUsuario: PerfilUsuarioService, 
+                public obtenerCredenciales: AutenticacionUsuariosService,
+                public formBuilder: FormBuilder,
+                public publicarComentario: ComentariosService,
             ){
                 this.formularioComent = this.formBuilder.group({
                   contenido: ['' as string | null, Validators.required],
@@ -38,7 +38,7 @@ export class CrearComentarioComponent implements OnInit{
   ngOnInit(): void {
     this.credenciales = this.obtenerCredenciales.obtenerCredenciales();
     
-
+    if (this.credenciales && this.credenciales.id) {
     // Obtengo al usuario que coincide con las credenciales
     this.obtenerUsuario.getPerfilUsuario(this.credenciales.id).subscribe({
       next: (data: PerfilUsuario) =>{
@@ -55,10 +55,11 @@ export class CrearComentarioComponent implements OnInit{
 
       }
       });
+    }
 
   }
 
   nuevoComentario(){
-    this.publicarComentario.nuevoComentario(this.formularioComent.value).subscribe(data =>{});
+    this.publicarComentario.nuevoComentario(this.formularioComent.value).subscribe();
   }
 }

@@ -19,10 +19,10 @@ export class CrearPostComponent implements OnInit{
 
 
   constructor(
-              private obtenerUsuario: PerfilUsuarioService, 
-              private obtenerCredenciales: AutenticacionUsuariosService,
-              private formBuilder: FormBuilder,
-              private publicarPost: PostService,
+              public obtenerUsuario: PerfilUsuarioService, 
+              public obtenerCredenciales: AutenticacionUsuariosService,
+              public formBuilder: FormBuilder,
+              public publicarPost: PostService,
               ){
 
                 this.formularioPost = this.formBuilder.group({
@@ -39,7 +39,7 @@ export class CrearPostComponent implements OnInit{
     // Obtengo las credenciales del usuario que hay en sesion
     this.credenciales = this.obtenerCredenciales.obtenerCredenciales();
     
-
+    if (this.credenciales && this.credenciales.id) {
     // Obtengo al usuario que coincide con las credenciales
     this.obtenerUsuario.getPerfilUsuario(this.credenciales.id).subscribe({
       next: (data: PerfilUsuario) =>{
@@ -58,11 +58,15 @@ export class CrearPostComponent implements OnInit{
       }
     });
   }
+}
 
 // Función para manejar la selección de una imagen por parte del usuario
   onFileSelected(event:any) {
+    
     const file = event.target.files[0];
+    if(file != null){
     this.formularioPost.get('imagen')?.setValue(file); // se asigna el archivo seleccionado al control de imagen
+    }
     }
 
   
