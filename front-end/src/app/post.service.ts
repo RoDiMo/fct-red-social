@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Post } from './post/post';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,13 +10,13 @@ import { Post } from './post/post';
 export class PostService {
   private url:string; 
 
-  constructor(private http: HttpClient, private router: Router) { 
+  constructor(private http: HttpClient) { 
       this.url ='http://localhost:8000/posts/'
   }
 
 
 
-  nuevoPost(post: Post){
+  nuevoPost(post: Post): Observable<any>{
     return this.http.post<any>(this.url, post)
   }
 }

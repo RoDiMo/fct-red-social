@@ -35,11 +35,12 @@ export class AutenticacionUsuariosService {
   }
 
   public nuevoUsuario(usuario : PerfilUsuario): Observable<any> {
+    console.log(usuario)
     return this.http.post<any>('http://localhost:8000/registro/', usuario);
   }
 
 
-  public logInUser(user: UserCredentials): void{
+  public logInUser(user: any): void{
     this.logIn(user.username, user.password).subscribe({
         next: (data) => {
           this.setLoggedInUser(data);

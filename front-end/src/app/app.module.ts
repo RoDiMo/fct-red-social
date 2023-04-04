@@ -16,6 +16,7 @@ import { RouterModule } from '@angular/router';
 import { PostComponent } from './post/post.component';
 import { CrearPostComponent } from './crear-post/crear-post.component';
 import { ComentarioComponent } from './comentario/comentario.component';
+import { CrearComentarioComponent } from './crear-comentario/crear-comentario.component';
 
 
 
@@ -29,6 +30,7 @@ import { ComentarioComponent } from './comentario/comentario.component';
     PostComponent,
     CrearPostComponent,
     ComentarioComponent,
+    CrearComentarioComponent,
   ],
   imports: [
     BrowserModule,

@@ -13,8 +13,8 @@ import { PostService } from '../post.service';
   ]
 })
 export class CrearPostComponent implements OnInit{
-  public credenciales!: PerfilUsuario;
-  public usuario!: PerfilUsuario;
+  private credenciales!: PerfilUsuario;
+  private usuario!: PerfilUsuario;
   formularioPost;
 
 
@@ -47,13 +47,13 @@ export class CrearPostComponent implements OnInit{
         console.log(this.usuario.id)
 
         
-    // Añado el objeto usuario a los valores del formulario
-    this.formularioPost.setValue({
-      titulo: '' as any,
-      contenido: '' as string | null,
-      usuario: `http://localhost:8000/usuarios/${this.usuario.id.toString()}/`,
-      imagen: null,
-    });
+        // Añado el objeto usuario a los valores del formulario
+        this.formularioPost.setValue({
+          titulo: '' as any,
+          contenido: '' as string | null,
+          usuario: `http://localhost:8000/usuarios/${this.usuario.id.toString()}/`,
+          imagen: null,
+        });
       
       }
     });
@@ -75,7 +75,7 @@ export class CrearPostComponent implements OnInit{
     formData.append('contenido', this.formularioPost.get('contenido')?.value);
     formData.append('usuario', this.formularioPost.get('usuario')?.value);
     formData.append('imagen', this.formularioPost.get('imagen')?.value);
-
+ 
 
     this.publicarPost.nuevoPost(formData).subscribe(data => {});
   }

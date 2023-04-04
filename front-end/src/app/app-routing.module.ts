@@ -7,13 +7,19 @@ import { PerfilUsuarioComponent } from './perfil-usuario/perfil-usuario.componen
 import { AuthGuard } from "./auth.guard";
 import { RegistroUsuarioComponent } from './registro-usuario/registro-usuario.component';
 import { CrearPostComponent } from './crear-post/crear-post.component';
+import { CrearComentarioComponent } from './crear-comentario/crear-comentario.component';
 
 const routes: Routes = [
   {path: '', component:HomeComponent},
+
+  // FORMULARIOS
   {path: 'login', component:LoginUsuarioComponent},
   {path: 'registro', component: RegistroUsuarioComponent},
-  {path: 'perfil-personal/:id', component: PerfilUsuarioComponent, canActivate: [AuthGuard] },
   {path: 'formulario-post', component: CrearPostComponent},
+  {path: 'formulario-comentario', component: CrearComentarioComponent},
+
+  // PÁGINAS
+  {path: 'perfil-personal/:id', component: PerfilUsuarioComponent, canActivate: [AuthGuard] },
 ]
 
 @NgModule({

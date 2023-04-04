@@ -1,0 +1,13 @@
+<form [formGroup]="formularioComent" (ngSubmit)="nuevoComentario()">
+
+    <div>
+      <label for="contenido">Contenido:</label>
+      <textarea rows="20" cols="120" id="contenido" formControlName="contenido" required></textarea>
+      <div *ngIf="formularioComent.controls['contenido'].invalid && (formularioComent.controls['contenido'].dirty || formularioComent.controls['contenido'].touched)">
+      </div>
+    </div>
+
+   
+    <button type="submit" [disabled]="formularioComent.invalid">Ingresar</button>
+  </form>
+
