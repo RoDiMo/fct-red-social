@@ -1,1 +1,19 @@
-<p>home works!</p>
+
+<!--Mostra Posts-->
+<div *ngFor="let post of posts">
+    <div style="border: 1px solid; margin-bottom: 20px;">
+        <p>{{post.id}}</p>
+        <p>{{post.titulo}}</p>
+        <p>{{post.contenido}}</p>
+
+        <div *ngIf="post.imagen != null">
+            <a [routerLink]='["/post/", post.id]'><img src="{{post.imagen}}" alt="" style="width: 250px;"></a>
+        </div>
+
+        <p>{{post.num_likes}}</p>
+        <p>{{post.num_visitas}}</p>
+        <p>{{post.usuario.username}}</p>
+
+    </div>
+
+</div>

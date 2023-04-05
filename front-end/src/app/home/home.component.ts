@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { PaginaPrincipalService } from '../pagina-principal.service';
 import { Usuarios } from './home';
+import { Post } from '../post/post';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +10,7 @@ import { Usuarios } from './home';
   ]
 })
 export class HomeComponent {
-  public datos: Array<any> = []
+  public posts: Array<Post> = []
 
   constructor(
     private _paginaPrincipalService: PaginaPrincipalService,
@@ -21,8 +22,9 @@ export class HomeComponent {
     ngOnInit() {
       // Obtiene los post  
       this._paginaPrincipalService.getPost().subscribe(data => {
-        this.datos = data;
-        console.log(this.datos)
+        this.posts = data.results;
+
+        console.log(this.posts)
       })
       
   }

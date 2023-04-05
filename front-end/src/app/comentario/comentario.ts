@@ -3,9 +3,11 @@ import { Post } from "../post/post";
 
 export class Comentario{
     constructor(
-         contenido : string,
-         post : Post,
-         usuario : PerfilUsuario
+        public contenido : string,
+        public post : Post,
+        public usuario : PerfilUsuario,
+        public fecha_creacion : Date,
+       
 
     ){}
 }

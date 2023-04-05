@@ -15,6 +15,9 @@ export class PostService {
   }
 
 
+  obtenerPost(id: string|null): Observable<any>{
+    return this.http.get<any>(this.url+`${id}/`)
+  }
 
   nuevoPost(post: Post): Observable<any>{
     return this.http.post<any>(this.url, post)

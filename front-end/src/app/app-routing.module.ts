@@ -8,6 +8,7 @@ import { AuthGuard } from "./auth.guard";
 import { RegistroUsuarioComponent } from './registro-usuario/registro-usuario.component';
 import { CrearPostComponent } from './crear-post/crear-post.component';
 import { CrearComentarioComponent } from './crear-comentario/crear-comentario.component';
+import { PostComponent } from './post/post.component';
 
 const routes: Routes = [
   {path: '', component:HomeComponent},
@@ -20,6 +21,7 @@ const routes: Routes = [
 
   // PÁGINAS
   {path: 'perfil-personal/:id', component: PerfilUsuarioComponent, canActivate: [AuthGuard] },
+  {path: 'post/:id', component: PostComponent, canActivate: [AuthGuard] },
 ]
 
 @NgModule({
