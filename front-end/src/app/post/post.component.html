@@ -7,7 +7,7 @@
         <p>{{post.contenido}}</p>
 
         <div *ngIf="post.imagen != null">
-            <a [routerLink]='["/post/", post.id]'><img src="{{post.imagen}}" alt="" style="width: 250px;"></a>
+           <img src="{{post.imagen}}" alt="" style="width: 250px;">
         </div>
 
         <p>{{post.num_likes}}</p>
@@ -18,10 +18,26 @@
 
     <h1>Comentarios</h1>
 
-    <div *ngFor="let comentario of comentarios">
+    <div>
+        <form [formGroup]="formularioComent" (ngSubmit)="nuevoComentario()">
+
+            <div>
+              <label for="contenido">Contenido:</label>
+              <textarea rows="10" cols="200" id="contenido" formControlName="contenido" required placeholder="Introduce tu comentario"></textarea>
+              <div *ngIf="formularioComent.controls['contenido'].invalid && (formularioComent.controls['contenido'].dirty || formularioComent.controls['contenido'].touched)">
+              </div>
+            </div>
+        
+           
+            <button type="submit" [disabled]="formularioComent.invalid">Ingresar</button>
+          </form>
+    </div>
+
+    <div *ngFor="let comentario of comentarios " >
         <div style="border: 1px solid; margin-bottom: 20px;">
             <p>{{comentario.contenido}}</p>
             <p>{{comentario.fecha_creacion}}</p>
+            <p>{{comentario.nombre_usuario}}</p>
 
         </div>
 

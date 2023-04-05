@@ -18,6 +18,10 @@ export class ComentariosService {
     return this.http.get<any>(this.url)
   }
 
+  obtenerComentariosPost(id:any): Observable<any>{
+    return this.http.get<any>(this.url+`?post=${id}`)
+  }
+
   nuevoComentario(comentario: any): Observable<any>{
     return this.http.post<any>(this.url, comentario)
   }

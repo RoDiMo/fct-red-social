@@ -21,7 +21,7 @@ export class CrearComentarioComponent implements OnInit{
 
 
   constructor(
-    public obtenerUsuario: PerfilUsuarioService, 
+                public obtenerUsuario: PerfilUsuarioService, 
                 public obtenerCredenciales: AutenticacionUsuariosService,
                 public formBuilder: FormBuilder,
                 public publicarComentario: ComentariosService,

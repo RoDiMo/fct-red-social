@@ -7,7 +7,7 @@ export class Comentario{
         public post : Post,
         public usuario : PerfilUsuario,
         public fecha_creacion : Date,
-       
+        public nombre_usuario: string,
 
     ){}
 }

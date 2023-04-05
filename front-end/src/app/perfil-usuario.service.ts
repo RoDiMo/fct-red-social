@@ -12,4 +12,9 @@ export class PerfilUsuarioService {
   getPerfilUsuario(id: string|null): Observable<any> {
     return this.http.get(`http://localhost:8000/usuarios/${id}/`);
   }
+
+
+  getUsuario(url: any): Observable<any> {
+    return this.http.get(`${url}`);
+  }
 }

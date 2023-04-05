@@ -1,6 +1,6 @@
 from django.db.models import Count
 from django.shortcuts import render
-
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, permissions, filters, mixins, status
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.generics import GenericAPIView
@@ -78,7 +78,8 @@ class Posts(viewsets.ModelViewSet):
 class Comentarios(viewsets.ModelViewSet):
     queryset = Comentarios.objects.all()
     serializer_class = ComentariosSerializer
-
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['post']
 
 class Likes(viewsets.ModelViewSet):
     queryset = Likes.objects.all()
