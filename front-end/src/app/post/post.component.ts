@@ -47,7 +47,7 @@ export class PostComponent implements OnInit{
     this._postService.obtenerPost(id).subscribe({
       next: (data) => {
         this.posts = [data];
-        console.log(this.posts)
+        //console.log(this.posts)
 
       },
       error: (error) => {
@@ -102,10 +102,25 @@ export class PostComponent implements OnInit{
   }
 
 
+  // Crea un nuevo comentario con los valores introducidos al fomrulario
   nuevoComentario(){
+ 
     this._comentarioService.nuevoComentario(this.formularioComent.value).subscribe();
 
     // Refresca la pagina
     window.location.reload();
+  }
+
+  eliminarPost(){
+    this._postService.eliminarPost(this.posts[0].id).subscribe();
+    this.router.navigateByUrl('/');
+  }
+
+  modificarPost(){
+    this.router.navigateByUrl(`modifica-post/${this.posts[0].id}`);
+  }
+
+  modificaComentario(id:string){
+    this.router.navigateByUrl(`modifica-comentario/${id}`);
   }
 }

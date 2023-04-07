@@ -14,6 +14,9 @@
         <p>{{post.num_visitas}}</p>
         <p>{{post.usuario.username}}</p>
 
+        <button (click)="eliminarPost()">Eliminar Post</button>
+        <button (click)="modificarPost()">Modificar Post</button>
+
     </div>
 
     <h1>Comentarios</h1>
@@ -38,6 +41,8 @@
             <p>{{comentario.contenido}}</p>
             <p>{{comentario.fecha_creacion}}</p>
             <p>{{comentario.nombre_usuario}}</p>
+
+            <button (click)="modificaComentario(comentario.id)">Modificar comentario</button>
 
         </div>
 

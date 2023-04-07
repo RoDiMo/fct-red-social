@@ -24,7 +24,7 @@ export class HomeComponent {
       this._paginaPrincipalService.getPost().subscribe(data => {
         this.posts = data.results;
 
-        console.log(this.posts)
+      
       })
       
   }

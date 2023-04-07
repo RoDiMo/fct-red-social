@@ -20,6 +20,18 @@ export class PostService {
   }
 
   nuevoPost(post: Post): Observable<any>{
+    //console.log(post)
     return this.http.post<any>(this.url, post)
   }
+
+  
+  modificarPost(id:string ,post: any): Observable<any>{
+    //console.log(post)
+    return this.http.put<any>(this.url+`${id}/`, post)
+  }
+
+  eliminarPost(id: string|null): Observable<any>{
+    return this.http.delete<any>(this.url+`${id}/`)
+  }
+
 }

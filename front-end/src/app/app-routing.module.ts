@@ -9,6 +9,9 @@ import { RegistroUsuarioComponent } from './registro-usuario/registro-usuario.co
 import { CrearPostComponent } from './crear-post/crear-post.component';
 import { CrearComentarioComponent } from './crear-comentario/crear-comentario.component';
 import { PostComponent } from './post/post.component';
+import { ComentarioComponent } from './comentario/comentario.component';
+
+
 
 const routes: Routes = [
   {path: '', component:HomeComponent},
@@ -17,7 +20,8 @@ const routes: Routes = [
   {path: 'login', component:LoginUsuarioComponent},
   {path: 'registro', component: RegistroUsuarioComponent},
   {path: 'formulario-post', component: CrearPostComponent},
-  {path: 'formulario-comentario', component: CrearComentarioComponent},
+  {path: 'modifica-post/:id', component: CrearPostComponent},
+  {path: 'modifica-comentario/:id', component: CrearComentarioComponent},
 
   // PÁGINAS
   {path: 'perfil-personal/:id', component: PerfilUsuarioComponent, canActivate: [AuthGuard] },

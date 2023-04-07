@@ -66,7 +66,7 @@ class Posts(models.Model):
 
 
 class Comentarios(models.Model):
-    post = models.ForeignKey(Posts, on_delete=models.RESTRICT)
+    post = models.ForeignKey(Posts, on_delete=models.CASCADE)
     usuario = models.ForeignKey(Usuarios, on_delete=models.RESTRICT)
     contenido = models.CharField(max_length=250)
     fecha_creacion = models.DateTimeField(default=timezone.now)

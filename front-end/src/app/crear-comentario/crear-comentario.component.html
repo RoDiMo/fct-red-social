@@ -1,8 +1,8 @@
-<form [formGroup]="formularioComent" (ngSubmit)="nuevoComentario()">
+<form [formGroup]="formularioComent" (ngSubmit)="editarComentario()">
 
-    <div>
-      <label for="contenido">Contenido:</label>
-      <textarea rows="20" cols="120" id="contenido" formControlName="contenido" required></textarea>
+    <div >
+      <label for="contenido">Contenido: {{comentario.post}}</label>
+      <textarea rows="20" cols="120" id="contenido" formControlName="contenido" [value]="comentario.contenido"  required></textarea>
       <div *ngIf="formularioComent.controls['contenido'].invalid && (formularioComent.controls['contenido'].dirty || formularioComent.controls['contenido'].touched)">
       </div>
     </div>

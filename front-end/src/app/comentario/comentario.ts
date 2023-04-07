@@ -3,6 +3,7 @@ import { Post } from "../post/post";
 
 export class Comentario{
     constructor(
+        public id: string,
         public contenido : string,
         public post : Post,
         public usuario : PerfilUsuario,

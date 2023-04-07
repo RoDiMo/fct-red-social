@@ -17,7 +17,7 @@ export class RegistroUsuarioComponent {
 
   constructor(
     private fb: FormBuilder,
-    private registroUsuario: AutenticacionUsuariosService,
+    private _registroUsuario: AutenticacionUsuariosService,
   ) {}
 
   ngOnInit() {
@@ -40,8 +40,8 @@ export class RegistroUsuarioComponent {
 
 
   nuevoUsuario(formData: any){
-    this.registroUsuario.nuevoUsuario(this.formulario.value).subscribe(data =>{
-      this.registroUsuario.logInUser(formData)
+    this._registroUsuario.nuevoUsuario(this.formulario.value).subscribe(data =>{
+      this._registroUsuario.logInUser(formData)
     });
   }
 
