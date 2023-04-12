@@ -19,3 +19,11 @@ export class Usuarios{
         return  this.username
     }
 }
+
+
+export class Likes{
+    constructor(
+        public usuario:string,
+        public post:string,
+    ){}
+}

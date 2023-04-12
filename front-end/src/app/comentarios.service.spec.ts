@@ -37,7 +37,7 @@ describe('ComentariosService', () => {
 
 
   it('debería enviar un comentario', () => {
-    const comentario: Comentario = {id: 1, texto: 'Este es un comentario.'};
+    const comentario: any = {id: 1, texto: 'Este es un comentario.'};
     service.nuevoComentario(comentario).subscribe(response => {
       expect(response).toBeDefined();
       expect(response.id).toBe(1);

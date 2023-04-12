@@ -2,6 +2,7 @@ import { PerfilUsuario } from "../perfil-usuario/perfil-usuario";
 
 export class Post{
     constructor(
+       public url:string, 
        public id: string,
        public titulo: string,
        public contenido: string,

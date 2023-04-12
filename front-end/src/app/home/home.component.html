@@ -10,7 +10,10 @@
             <a [routerLink]='["/post/", post.id]'><img src="{{post.imagen}}" alt="" style="width: 250px;"></a>
         </div>
 
-        <p>{{post.num_likes}}</p>
+        <p>
+            {{post.num_likes}}
+            <button (click)="gestionLikes(post.id, post.url)">Gestion Likes</button>
+        </p>
         <p>{{post.num_visitas}}</p>
         <p>{{post.usuario.username}}</p>
 
