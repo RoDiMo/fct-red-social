@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Post } from './post';
 import { Comentario } from '../comentario/comentario';
 import { ComentariosService } from '../comentarios.service';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PerfilUsuario } from '../perfil-usuario/perfil-usuario';
 import { PerfilUsuarioService } from '../perfil-usuario.service';
 import { AutenticacionUsuariosService } from '../autenticacion-usuarios.service';
@@ -22,6 +22,7 @@ export class PostComponent implements OnInit{
   public credenciales!: PerfilUsuario;
   public usuario!: PerfilUsuario;
   formularioComent;
+  formularioImagenPost!: FormGroup;
 
   constructor(private _postService: PostService,
               public obtenerUsuario: PerfilUsuarioService, 
@@ -29,18 +30,27 @@ export class PostComponent implements OnInit{
               private _comentarioService: ComentariosService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
-              public formBuilder: FormBuilder,
+              public commentPormBuilder: FormBuilder,
+              public postFormBuilder: FormBuilder,
               ){ 
-                this.formularioComent = this.formBuilder.group({
+                this.formularioComent = this.commentPormBuilder.group({
                   contenido: ['' as string | null, Validators.required],
                   post: ['' as string],
                   usuario: ['' as string],
+              })
+
+              this.formularioImagenPost = this.postFormBuilder.group({
+                titulo: ['' as string | null, Validators.required],
+                contenido: ['' as string | null, Validators.required],
+                usuario: ['' as string],
+                imagen: null,
               })
             }
 
     
   ngOnInit(): void {
     
+    // Id del Post
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     
     // Obtiene el post
@@ -48,6 +58,16 @@ export class PostComponent implements OnInit{
       next: (data) => {
         this.posts = [data];
         //console.log(this.posts)
+
+        this.formularioImagenPost.setValue({
+          titulo: this.posts[0].titulo,
+          contenido: this.posts[0].contenido,
+          usuario: this.posts[0].usuario,
+          imagen: null,
+        });
+
+        //console.log(this.posts[0])
+
 
       },
       error: (error) => {
@@ -59,7 +79,7 @@ export class PostComponent implements OnInit{
     this._comentarioService.obtenerComentariosPost(id).subscribe({
       next: (data)=>{
         this.comentarios = data.results
-        console.log(this.comentarios)
+        //console.log(this.comentarios)
 
         // Obtenemos los usuarios de cada comentario
         for(let comentario of this.comentarios){
@@ -92,6 +112,7 @@ export class PostComponent implements OnInit{
           contenido: '' as any,
           post: `http://localhost:8000/posts/${id}/`,
           usuario: `http://localhost:8000/usuarios/${this.usuario.id.toString()}/`,
+       
 
         });
 
@@ -100,6 +121,22 @@ export class PostComponent implements OnInit{
     }
      
   }
+
+
+
+    // Función para manejar la selección de una imagen por parte del usuario
+    onFileSelected(event: any) {
+
+      const file = event.target.files[0];
+   
+      if (file != null) {
+        this.formularioImagenPost.get('imagen')?.setValue(file); // se asigna el archivo seleccionado a su campo del formulario
+
+      }
+      
+ 
+     
+    }
 
 
   // Crea un nuevo comentario con los valores introducidos al fomrulario
@@ -122,5 +159,23 @@ export class PostComponent implements OnInit{
 
   modificaComentario(id:string){
     this.router.navigateByUrl(`modifica-comentario/${id}`);
+  }
+
+
+  modificarImagenPost(){
+    const formData: any = new FormData();
+    formData.append('titulo', this.formularioImagenPost.get('titulo')?.value);
+    formData.append('contenido', this.formularioImagenPost.get('contenido')?.value);
+    formData.append('usuario', this.formularioImagenPost.get('usuario')?.value);
+    formData.append('imagen', this.formularioImagenPost.get('imagen')?.value);
+
+    this._postService.modificarPost(this.posts[0].id,  formData).subscribe(data=>{ 
+      window.location.reload();
+    }
+      
+    );
+
+   
+
   }
 }

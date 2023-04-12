@@ -81,9 +81,12 @@ class Comentarios(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['post']
 
+
 class Likes(viewsets.ModelViewSet):
     queryset = Likes.objects.all()
     serializer_class = LikesSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['post']
 
 
 class Amigos(viewsets.ModelViewSet):

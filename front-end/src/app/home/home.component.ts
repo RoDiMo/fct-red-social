@@ -28,4 +28,9 @@ export class HomeComponent {
       })
       
   }
+
+
+  gestionLikes(idPost: String){
+    console.log(idPost)
+  }
 }

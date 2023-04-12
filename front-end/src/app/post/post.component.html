@@ -8,6 +8,23 @@
 
         <div *ngIf="post.imagen != null">
            <img src="{{post.imagen}}" alt="" style="width: 250px;">
+
+           <div>
+            <form [formGroup]="formularioImagenPost">
+    
+                <div>
+                    <label for="imagen">Imagen:</label>
+                    <input type="file" id="imagen" formControlName="imagen" required (change)="onFileSelected($event)">
+                    <div *ngIf="formularioImagenPost.controls['imagen'].invalid && (formularioImagenPost.controls['imagen'].dirty || formularioImagenPost.controls['imagen'].touched)">
+                
+                    </div>
+                </div>
+            
+               
+                <button type="submit" (click)="modificarImagenPost()">Ingresar</button>
+              </form>
+        </div>
+
         </div>
 
         <p>{{post.num_likes}}</p>

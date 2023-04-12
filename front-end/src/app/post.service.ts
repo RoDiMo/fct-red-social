@@ -26,7 +26,7 @@ export class PostService {
 
   
   modificarPost(id:string ,post: any): Observable<any>{
-    //console.log(post)
+    console.log(post)
     return this.http.put<any>(this.url+`${id}/`, post)
   }
 
