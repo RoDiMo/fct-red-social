@@ -13,7 +13,7 @@ export class PaginaPrincipalService {
    }
 
    getPost(): Observable<any>{
-    return this.http.get(this.url)
+    return this.http.get(this.url+"?ordering=fecha_publicacion")
    }
 
 }

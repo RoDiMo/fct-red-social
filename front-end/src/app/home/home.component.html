@@ -10,9 +10,14 @@
             <a [routerLink]='["/post/", post.id]'><img src="{{post.imagen}}" alt="" style="width: 250px;"></a>
         </div>
 
-        <p>
+        <p *ngIf="likeDado">
             {{post.num_likes}}
-            <button (click)="gestionLikes(post.id, post.url)">Gestion Likes</button>
+            <button (click)="gestionLikes(post.id, post.url)">Dar Like</button>
+        </p>
+
+        <p *ngIf="!likeDado">
+            {{post.num_likes}}
+            <button (click)="gestionLikes(post.id, post.url)">Quitar Like</button>
         </p>
         <p>{{post.num_visitas}}</p>
         <p>{{post.usuario.username}}</p>

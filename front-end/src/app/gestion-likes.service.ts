@@ -27,4 +27,8 @@ export class GestionLikesService {
     return this.http.delete<any>(like)
   }
 
+  actualizarLikesPost(post: any){
+    return this.http.post<any>(this.url, post)
+  }
+
 }

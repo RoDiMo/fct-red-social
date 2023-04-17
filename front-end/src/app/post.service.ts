@@ -15,8 +15,13 @@ export class PostService {
   }
 
 
+  //Obtiene el post por su id
   obtenerPost(id: string|null): Observable<any>{
     return this.http.get<any>(this.url+`${id}/`)
+  }
+
+  obtenerPostUrl(url:string){
+    return this.http.get<any>(url)
   }
 
   nuevoPost(post: any): Observable<any>{
@@ -28,6 +33,12 @@ export class PostService {
   modificarPost(id:string ,post: any): Observable<any>{
     console.log(post)
     return this.http.put<any>(this.url+`${id}/`, post)
+  }
+
+
+  modificarPostUrl(url:string ,post: any): Observable<any>{
+    console.log(post)
+    return this.http.put<any>(url, post)
   }
 
   eliminarPost(id: string|null): Observable<any>{

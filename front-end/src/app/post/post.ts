@@ -9,6 +9,7 @@ export class Post{
        public imagen: ImageData,
        public usuario: PerfilUsuario,
        public num_likes: Number,
-       public num_visitas: Number
+       public num_visitas: Number,
+       public fecha_publicacion: Date,
     ){}
 }

@@ -73,6 +73,8 @@ class RegistroUsuario(GenericAPIView):
 class Posts(viewsets.ModelViewSet):
     queryset = Posts.objects.all()
     serializer_class = PostSerializer
+    filter_backends = [filters.OrderingFilter]
+    ordering_fields = ['fecha_publicacion']
 
 
 class Comentarios(viewsets.ModelViewSet):

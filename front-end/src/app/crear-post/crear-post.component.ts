@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { PerfilUsuario } from '../perfil-usuario/perfil-usuario';
 import { PerfilUsuarioService } from '../perfil-usuario.service';
 import { ActivatedRoute } from '@angular/router';
-import { Router } from "@angular/router";
 import { AutenticacionUsuariosService } from '../autenticacion-usuarios.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PostService } from '../post.service';
@@ -105,9 +104,7 @@ export class CrearPostComponent implements OnInit {
   onFileSelected(event: any) {
 
     const file = event.target.files[0];
-    
-
-    if (file != null) {
+      if (file != null) {
       this.formData.append('imagen', file);
 
 
