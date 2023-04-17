@@ -19,7 +19,7 @@ export class PostService {
     return this.http.get<any>(this.url+`${id}/`)
   }
 
-  nuevoPost(post: Post): Observable<any>{
+  nuevoPost(post: any): Observable<any>{
     //console.log(post)
     return this.http.post<any>(this.url, post)
   }

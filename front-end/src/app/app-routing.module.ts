@@ -14,14 +14,14 @@ import { ComentarioComponent } from './comentario/comentario.component';
 
 
 const routes: Routes = [
-  {path: '', component:HomeComponent},
+  {path: '', component:HomeComponent,canActivate: [AuthGuard]},
 
   // FORMULARIOS
   {path: 'login', component:LoginUsuarioComponent},
   {path: 'registro', component: RegistroUsuarioComponent},
-  {path: 'formulario-post', component: CrearPostComponent},
-  {path: 'modifica-post/:id', component: CrearPostComponent},
-  {path: 'modifica-comentario/:id', component: CrearComentarioComponent},
+  {path: 'formulario-post', component: CrearPostComponent, canActivate: [AuthGuard]},
+  {path: 'modifica-post/:id', component: CrearPostComponent, canActivate: [AuthGuard]},
+  {path: 'modifica-comentario/:id', component: CrearComentarioComponent, canActivate: [AuthGuard]},
 
   // PÁGINAS
   {path: 'perfil-personal/:id', component: PerfilUsuarioComponent, canActivate: [AuthGuard] },

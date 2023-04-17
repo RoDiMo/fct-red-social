@@ -15,7 +15,7 @@ import { AutenticacionUsuariosService } from '../autenticacion-usuarios.service'
   styles: [
   ]
 })
-export class PostComponent implements OnInit{
+export class PostComponent implements OnInit {
   public posts: Array<Post> = [];
   public comentarios: Array<Comentario> = [];
   public usuarios: any;
@@ -23,38 +23,39 @@ export class PostComponent implements OnInit{
   public usuario!: PerfilUsuario;
   formularioComent;
   formularioImagenPost!: FormGroup;
+  public id:string|null = ""; 
 
   constructor(private _postService: PostService,
-              public obtenerUsuario: PerfilUsuarioService, 
-              public obtenerCredenciales: AutenticacionUsuariosService,
-              private _comentarioService: ComentariosService,
-              private activatedRoute: ActivatedRoute,
-              private router: Router,
-              public commentPormBuilder: FormBuilder,
-              public postFormBuilder: FormBuilder,
-              ){ 
-                this.formularioComent = this.commentPormBuilder.group({
-                  contenido: ['' as string | null, Validators.required],
-                  post: ['' as string],
-                  usuario: ['' as string],
-              })
+    public obtenerUsuario: PerfilUsuarioService,
+    public obtenerCredenciales: AutenticacionUsuariosService,
+    private _comentarioService: ComentariosService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    public commentPormBuilder: FormBuilder,
+    public postFormBuilder: FormBuilder,
+  ) {
+    this.formularioComent = this.commentPormBuilder.group({
+      contenido: ['' as string | null, Validators.required],
+      post: ['' as string],
+      usuario: ['' as string],
+    })
 
-              this.formularioImagenPost = this.postFormBuilder.group({
-                titulo: ['' as string | null, Validators.required],
-                contenido: ['' as string | null, Validators.required],
-                usuario: ['' as string],
-                imagen: null,
-              })
-            }
+    this.formularioImagenPost = this.postFormBuilder.group({
+      titulo: ['' as string | null, Validators.required],
+      contenido: ['' as string | null, Validators.required],
+      usuario: ['' as string],
+      imagen: null,
+    })
+  }
 
-    
+
   ngOnInit(): void {
-    
+
     // Id del Post
-    const id = this.activatedRoute.snapshot.paramMap.get('id');
-    
+    this.id = this.activatedRoute.snapshot.paramMap.get('id');
+
     // Obtiene el post
-    this._postService.obtenerPost(id).subscribe({
+    this._postService.obtenerPost(this.id).subscribe({
       next: (data) => {
         this.posts = [data];
         //console.log(this.posts)
@@ -75,107 +76,92 @@ export class PostComponent implements OnInit{
       }
     })
 
-     // Obtiene los comentaris del post
-    this._comentarioService.obtenerComentariosPost(id).subscribe({
-      next: (data)=>{
-        this.comentarios = data.results
-        //console.log(this.comentarios)
-
-        // Obtenemos los usuarios de cada comentario
-        for(let comentario of this.comentarios){
-          this.obtenerUsuario.getUsuario(comentario.usuario).subscribe({
-            next: (data)=>{
-              this.usuarios = data
-              
-              // Obtenemos el nombre de cada usuario
-              comentario.nombre_usuario =  this.usuarios.username
-            }
-          })
-          
-         
-        }
-      }
-    })
+    // Obtiene los comentarios del post
+    this.mostrarComentarios(this.id)
 
 
     //Obtener credenciales de usuario
     this.credenciales = this.obtenerCredenciales.obtenerCredenciales();
-    
+
     if (this.credenciales && this.credenciales.id) {
-    // Obtengo al usuario que coincide con las credenciales
-    this.obtenerUsuario.getPerfilUsuario(this.credenciales.id).subscribe({
-      next: (data: PerfilUsuario) =>{
-        this.usuario = data
-      
-        // Añado los valores a los campos del formulario
-        this.formularioComent.setValue({
-          contenido: '' as any,
-          post: `http://localhost:8000/posts/${id}/`,
-          usuario: `http://localhost:8000/usuarios/${this.usuario.id.toString()}/`,
-       
+      // Obtengo al usuario que coincide con las credenciales
+      this.obtenerUsuario.getPerfilUsuario(this.credenciales.id).subscribe({
+        next: (data: PerfilUsuario) => {
+          this.usuario = data
 
-        });
+          // Añado los valores a los campos del formulario
+          this.formularioComent.setValue({
+            contenido: '' as any,
+            post: `http://localhost:8000/posts/${this.id}/`,
+            usuario: `http://localhost:8000/usuarios/${this.usuario.id.toString()}/`,
 
-      }
+          });
+        }
       });
     }
-     
   }
 
+  // Función para manejar la selección de una imagen por parte del usuario
+  onFileSelected(event: any) {
+    const formData: any = new FormData();
+    const file = event.target.files[0];
 
+    if (file != null) {
+      formData.append('titulo', this.formularioImagenPost.get('titulo')?.value);
+      formData.append('contenido', this.formularioImagenPost.get('contenido')?.value);
+      formData.append('usuario', this.formularioImagenPost.get('usuario')?.value);
+      formData.append('imagen', file);
 
-    // Función para manejar la selección de una imagen por parte del usuario
-    onFileSelected(event: any) {
-
-      const file = event.target.files[0];
-   
-      if (file != null) {
-        this.formularioImagenPost.get('imagen')?.setValue(file); // se asigna el archivo seleccionado a su campo del formulario
-
-      }
-      
- 
-     
+      this._postService.modificarPost(this.posts[0].id, formData).subscribe(data => {
+        window.location.reload();
+      })
     }
+  }
 
+  // Obtiene los comentarios del post
+  mostrarComentarios(id: any) {
+    this._comentarioService.obtenerComentariosPost(id).subscribe({
+      next: (data) => {
+        this.comentarios = data.results
+        console.log(this.comentarios)
+
+        // Obtenemos los usuarios de cada comentario
+        for (let comentario of this.comentarios) {
+          this.obtenerUsuario.getUsuario(comentario.usuario).subscribe({
+            next: (data) => {
+              this.usuarios = data
+
+              // Obtenemos el nombre de cada usuario
+              comentario.nombre_usuario = this.usuarios.username
+            }
+          })
+        }
+      }
+    })
+  }
 
   // Crea un nuevo comentario con los valores introducidos al fomrulario
-  nuevoComentario(){
- 
-    this._comentarioService.nuevoComentario(this.formularioComent.value).subscribe();
+  nuevoComentario() {
 
-    // Refresca la pagina
-    window.location.reload();
+    this._comentarioService.nuevoComentario(this.formularioComent.value).subscribe();
+    //const id = this.activatedRoute.snapshot.paramMap.get('id');
+    setTimeout(()=>{
+      this.mostrarComentarios(this.id)
+    }, 200);
+    
   }
 
-  eliminarPost(){
+  eliminarPost() {
     this._postService.eliminarPost(this.posts[0].id).subscribe();
     this.router.navigateByUrl('/');
   }
 
-  modificarPost(){
+  modificarPost() {
     this.router.navigateByUrl(`modifica-post/${this.posts[0].id}`);
   }
 
-  modificaComentario(id:string){
+  modificaComentario(id: string) {
     this.router.navigateByUrl(`modifica-comentario/${id}`);
   }
 
-
-  modificarImagenPost(){
-    const formData: any = new FormData();
-    formData.append('titulo', this.formularioImagenPost.get('titulo')?.value);
-    formData.append('contenido', this.formularioImagenPost.get('contenido')?.value);
-    formData.append('usuario', this.formularioImagenPost.get('usuario')?.value);
-    formData.append('imagen', this.formularioImagenPost.get('imagen')?.value);
-
-    this._postService.modificarPost(this.posts[0].id,  formData).subscribe(data=>{ 
-      window.location.reload();
-    }
-      
-    );
-
-   
-
-  }
 }

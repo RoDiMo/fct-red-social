@@ -18,6 +18,7 @@ export class CrearPostComponent implements OnInit {
   formularioPost!: FormGroup;
   public post: any = {};
   public modoEdicion: boolean = false;
+  public formData : FormData = new FormData();
 
 
   constructor(
@@ -26,6 +27,7 @@ export class CrearPostComponent implements OnInit {
     public formBuilder: FormBuilder,
     public _postService: PostService,
     public activatedRoute: ActivatedRoute,
+   
   ) {
 
   }
@@ -70,7 +72,7 @@ export class CrearPostComponent implements OnInit {
         titulo: ['' as string | null, Validators.required],
         contenido: ['' as string | null, Validators.required],
         usuario: ['' as string],
-        imagen: [null],
+        imagen: null,
       });
 
       // Obtengo las credenciales del usuario que hay en sesion
@@ -103,8 +105,13 @@ export class CrearPostComponent implements OnInit {
   onFileSelected(event: any) {
 
     const file = event.target.files[0];
+    
+
     if (file != null) {
-      this.formularioPost.get('imagen')?.setValue(file); // se asigna el archivo seleccionado a su campo del formulario
+      this.formData.append('imagen', file);
+
+
+      //this.formularioPost.get('imagen')?.setValue(file); // se asigna el archivo seleccionado a su campo del formulario
     }
   }
 
@@ -112,15 +119,16 @@ export class CrearPostComponent implements OnInit {
   enviaPost() {
 
     // FormData para enviar los valores del formulario al servidor como datos (Necesario para guardar la imagen)
-    const formData: any = new FormData();
-    formData.append('titulo', this.formularioPost.get('titulo')?.value);
-    formData.append('contenido', this.formularioPost.get('contenido')?.value);
-    formData.append('usuario', this.formularioPost.get('usuario')?.value);
-    formData.append('imagen', this.formularioPost.get('imagen')?.value);
+    
+   
+    this.formData.append('titulo', this.formularioPost.get('titulo')?.value);
+    this.formData.append('contenido', this.formularioPost.get('contenido')?.value);
+    this.formData.append('usuario', this.formularioPost.get('usuario')?.value);
+ 
 
     // Si no estamos editando, creamos un nuevo post, de lo contrario modificamos los valores de uno ya existente
     if (!this.modoEdicion) {
-      this._postService.nuevoPost(formData).subscribe(data => { });
+      this._postService.nuevoPost(this.formData).subscribe(data => { });
     } else {
       this._postService.modificarPost(this.post.id, this.formularioPost.value).subscribe();
     }

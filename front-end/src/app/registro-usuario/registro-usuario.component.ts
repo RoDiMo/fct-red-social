@@ -14,6 +14,7 @@ import { UserCredentials } from '../auth';
 export class RegistroUsuarioComponent {
 
   public formulario!: FormGroup;
+  public formData : FormData = new FormData();
 
   constructor(
     private fb: FormBuilder,
@@ -24,24 +25,48 @@ export class RegistroUsuarioComponent {
 
     // Datos del formulario de registro del usuario
     this.formulario = this.fb.group({
-      username: new FormControl(''),
-      email: new FormControl(''),
-      password: new FormControl(''),
-      first_name : new FormControl(''),
-      last_name : new FormControl(''),
-      telefono : new FormControl(''),
-      pais :new FormControl(''),
-      estado : new FormControl(''),
-      ciudad :new FormControl(''),
-      direccion : new FormControl(''),
+      username: ['' as string | null, Validators.required],
+      email: ['' as string | null, Validators.required],
+      password: ['' as string | null, Validators.required],
+      first_name : ['' as string | null, Validators.required],
+      last_name : ['' as string | null, Validators.required],
+      telefono : ['' as string | null, Validators.required],
+      pais :['' as string | null, Validators.required],
+      estado : ['' as string | null, Validators.required],
+      ciudad :['' as string | null, Validators.required],
+      direccion : ['' as string | null, Validators.required],
+      foto_perfil: null,
 
     })
   }
 
 
-  nuevoUsuario(formData: any){
-    this._registroUsuario.nuevoUsuario(this.formulario.value).subscribe(data =>{
-      this._registroUsuario.logInUser(formData)
+  onFileSelected(event: any) {
+
+    const file = event.target.files[0];
+      if (file != null) {
+      this.formData.append('foto_perfil', file);
+
+
+      //this.formularioPost.get('imagen')?.setValue(file); // se asigna el archivo seleccionado a su campo del formulario
+    }
+  }
+
+  nuevoUsuario(){
+
+    this.formData.append('username', this.formulario.get('username')?.value);
+    this.formData.append('email', this.formulario.get('email')?.value);
+    this.formData.append('password', this.formulario.get('password')?.value);
+    this.formData.append('first_name', this.formulario.get('first_name')?.value);
+    this.formData.append('last_name', this.formulario.get('last_name')?.value);
+    this.formData.append('telefono', this.formulario.get('telefono')?.value);
+    this.formData.append('pais', this.formulario.get('pais')?.value);
+    this.formData.append('estado', this.formulario.get('estado')?.value);
+    this.formData.append('ciudad', this.formulario.get('ciudad')?.value);
+    this.formData.append('direccion', this.formulario.get('direccion')?.value);
+   
+    this._registroUsuario.nuevoUsuario(this.formData).subscribe(data =>{
+      this._registroUsuario.logInUser(this.formulario.value)
     });
   }
 

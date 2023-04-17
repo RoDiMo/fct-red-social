@@ -14,14 +14,11 @@
     
                 <div>
                     <label for="imagen">Imagen:</label>
-                    <input type="file" id="imagen" formControlName="imagen" required (change)="onFileSelected($event)">
+                    <input type="file" id="imagen" name="imagen" required (change)="onFileSelected($event)">
                     <div *ngIf="formularioImagenPost.controls['imagen'].invalid && (formularioImagenPost.controls['imagen'].dirty || formularioImagenPost.controls['imagen'].touched)">
                 
                     </div>
                 </div>
-            
-               
-                <button type="submit" (click)="modificarImagenPost()">Ingresar</button>
               </form>
         </div>
 

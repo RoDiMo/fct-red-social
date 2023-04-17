@@ -34,7 +34,7 @@ export class AutenticacionUsuariosService {
     return this.http.get('http://localhost:8000/registro/')
   }
 
-  public nuevoUsuario(usuario : PerfilUsuario): Observable<any> {
+  public nuevoUsuario(usuario : any): Observable<any> {
     console.log(usuario)
     return this.http.post<any>('http://localhost:8000/registro/', usuario);
   }

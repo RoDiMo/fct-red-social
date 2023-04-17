@@ -1,7 +1,7 @@
 
 
     <div class="card-body">
-      <form  [formGroup]="formulario" (ngSubmit)="nuevoUsuario(formulario.value)">
+      <form  [formGroup]="formulario" (ngSubmit)="nuevoUsuario()">
         <div class="row row py-2 g-3 align-items-center">
           <div class="col-auto">
             <label class="col-form-label">Nombre de usuario: </label>
@@ -90,6 +90,15 @@
             </div>
             <div class="col-auto">
               <input class="form-control" formControlName="direccion" type="text">
+            </div>
+          </div>
+
+          <div>
+            <label for="imagen">Imagen:</label>
+            <input type="file" id="foto_perfil" required (change)="onFileSelected($event)">
+            <div
+              *ngIf="formulario.controls['foto_perfil'].invalid && (formulario.controls['foto_perfil'].dirty || formulario.controls['foto_perfil'].touched)">
+      
             </div>
           </div>
 
