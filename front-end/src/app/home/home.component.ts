@@ -35,37 +35,18 @@ export class HomeComponent {
 
   // Codigo que se ejecuta al cargar la pagina
   ngOnInit() {
+
+
     // Obtiene los post  
     this._paginaPrincipalService.getPost().subscribe(data => {
       this.posts = data.results;
 
-    // Obtenemos las credenciales del usuario logueado
-    this.credencialesUsuario = this._obtenerUsuarioService.obtenerCredenciales()
+      // Obtenemos las credenciales del usuario logueado
+      this.credencialesUsuario = this._obtenerUsuarioService.obtenerCredenciales()
 
-    //Obtenemos los datos del usuario logueado
-    this._obtenerUsuarioService.getUsuario(this.credencialesUsuario.id).subscribe(data => {
-      this.usuarioRegistrado = [data]
-      console.log('Usuario registrado', this.usuarioRegistrado[0])
+      // Obtenemos el usuario registrado además de comprobar si le ha dado like a los diferentes posts
+      this.gestionarUsuarios();
 
-      for(let p of this.posts){
-        
-        this._gestionLikesService.obtenerPosts(p.id).subscribe(data => {
-          this.postsLikes = data.results;
-          
-          let likeUsuario = this.postsLikes.find(post => post.usuario == this.usuarioRegistrado[0].url);
-
-          if(this.postsLikes.length == 0){
-            p.likeDado = false;
-          }else{
-            if(likeUsuario!=undefined){
-              p.likeDado = true;
-            }else{
-              p.likeDado = false;
-            }
-          }
-        });
-      }
-    })
 
     })
 
@@ -77,22 +58,75 @@ export class HomeComponent {
       num_likes: [0 as number],
 
     });
-
-
-
-
   }
+
+
+  // -------- GESTION DE USUARIOS --------
+
+  gestionarUsuarios() {
+    //Obtenemos los datos del usuario logueado
+    this._obtenerUsuarioService.getUsuario(this.credencialesUsuario.id).subscribe(data => {
+      this.usuarioRegistrado = [data]
+
+      // -------- GESTION DE LIKES --------
+      // Comprobamos por cada post si hay alguna coincidencia en la tabla like
+      for (let p of this.posts) {
+
+        // Removemos todas las id los post registradas en el Local Storage
+        this.removerVisitas(p.id)
+
+        this._gestionLikesService.obtenerPosts(p.id).subscribe(data => {
+          this.postsLikes = data.results;
+
+          // Buscamos al usuario registrado en los post con likes
+          let likeUsuario = this.postsLikes.find(post => post.usuario == this.usuarioRegistrado[0].url);
+
+          // Si el post no tiene nignuna coincidencia en la tabla like significa que ningún usuario le ha dado like
+          if (this.postsLikes.length == 0) {
+            p.likeDado = false;
+          } else {
+
+            if (likeUsuario != undefined) { // El usuario le ha dado like al post
+              p.likeDado = true;
+            } else { // El usuario no le ha dado like al post
+              p.likeDado = false;
+            }
+          }
+        });
+      }
+    })
+  }
+
+  // -------- GESTION DE VISITAS --------
+
+  /**
+   * Método para evitar que aumente el numero de visitas sobre un post
+   * al actualizar la página varias veces.
+   * 
+   * Al acceder a un post, su id quedará almacenada en el Local Storage 
+   * y su numero de visitas no aumentará mientras se encuentre almacenado.
+   * 
+   * Esta funcion borra todas las ids almacenadas
+   * @param id - Id del post
+   */ 
+  removerVisitas(id: any) {
+    let postAlmacenado = localStorage.getItem(`post-${id}-visit-updated`);
+    if (postAlmacenado) {
+      localStorage.removeItem(`post-${id}-visit-updated`);
+    }
+  }
+
+  // -------- GESTION DE LIKES --------
 
   gestionLikes(idPost: any, urlPost: any) {
 
     // Obtenemos el numero de coincidencias de este Post en la tabla Likes
     this._gestionLikesService.obtenerPosts(idPost).subscribe(data => {
       this.postsLikes = data.results;
-      console.log("Post con like:" + this.postsLikes.length)
 
       // Comprobamos si el usuario lo ha dado like al post
       const likeUsuario = this.postsLikes.find(post => post.usuario == this.usuarioRegistrado[0].url);
-      console.log('El usuario ha dado like a este post', likeUsuario)
+
       let num_likes = 0;
       // Si se al algun usuario significa que ya le ha dado like al Post 
       if (likeUsuario != undefined) {
@@ -114,13 +148,8 @@ export class HomeComponent {
         this._gestionLikesService.guardarLike(like).subscribe();
       }
 
-
       this.actualizarNumLikes(num_likes, urlPost)
     });
-
-
-
-
 
   }
 

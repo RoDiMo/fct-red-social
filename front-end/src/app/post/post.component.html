@@ -24,7 +24,15 @@
 
         </div>
 
-        <p>{{post.num_likes}}</p>
+        <p *ngIf="!post.likeDado">
+            {{post.num_likes}}
+            <button (click)="gestionLikes(post.id, post.url)">Dar Like</button>
+        </p>
+
+        <p *ngIf="post.likeDado">
+            {{post.num_likes}}
+            <button (click)="gestionLikes(post.id, post.url)">Quitar Like</button>
+        </p>
         <p>{{post.num_visitas}}</p>
         <p>{{post.usuario.username}}</p>
 

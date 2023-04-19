@@ -14,6 +14,7 @@ export class PerfilUsuario{
         public  ciudad :string,
         public  direccion :string,
         public imagen : any,
+        public url: string
      )
         {}
 

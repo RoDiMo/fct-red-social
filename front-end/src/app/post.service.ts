@@ -25,19 +25,16 @@ export class PostService {
   }
 
   nuevoPost(post: any): Observable<any>{
-    //console.log(post)
     return this.http.post<any>(this.url, post)
   }
 
   
   modificarPost(id:string ,post: any): Observable<any>{
-    console.log(post)
     return this.http.put<any>(this.url+`${id}/`, post)
   }
 
 
   modificarPostUrl(url:string ,post: any): Observable<any>{
-    console.log(post)
     return this.http.put<any>(url, post)
   }
 
