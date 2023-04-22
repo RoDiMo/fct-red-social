@@ -4,6 +4,7 @@ import { AutenticacionUsuariosService } from '../autenticacion-usuarios.service'
 import { Router } from '@angular/router';
 import { PerfilUsuario } from '../perfil-usuario/perfil-usuario';
 import { UserCredentials } from '../auth';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-registro-usuario',
@@ -14,12 +15,14 @@ import { UserCredentials } from '../auth';
 export class RegistroUsuarioComponent {
 
   public formulario!: FormGroup;
-  public formData : FormData = new FormData();
+  public formData: FormData = new FormData();
+  public errors: Array<any> = [];
+  public mensajeInfo = "";
 
   constructor(
     private fb: FormBuilder,
     private _registroUsuario: AutenticacionUsuariosService,
-  ) {}
+  ) { }
 
   ngOnInit() {
 
@@ -28,13 +31,13 @@ export class RegistroUsuarioComponent {
       username: ['' as string | null, Validators.required],
       email: ['' as string | null, Validators.required],
       password: ['' as string | null, Validators.required],
-      first_name : ['' as string | null, Validators.required],
-      last_name : ['' as string | null, Validators.required],
-      telefono : ['' as string | null, Validators.required],
-      pais :['' as string | null, Validators.required],
-      estado : ['' as string | null, Validators.required],
-      ciudad :['' as string | null, Validators.required],
-      direccion : ['' as string | null, Validators.required],
+      first_name: ['' as string | null, Validators.required],
+      last_name: ['' as string | null, Validators.required],
+      telefono: ['' as string | null, Validators.required],
+      pais: ['' as string | null, Validators.required],
+      estado: ['' as string | null, Validators.required],
+      ciudad: ['' as string | null, Validators.required],
+      direccion: ['' as string | null, Validators.required],
       foto_perfil: null,
 
     })
@@ -44,7 +47,7 @@ export class RegistroUsuarioComponent {
   onFileSelected(event: any) {
 
     const file = event.target.files[0];
-      if (file != null) {
+    if (file != null) {
       this.formData.append('foto_perfil', file);
 
 
@@ -52,7 +55,7 @@ export class RegistroUsuarioComponent {
     }
   }
 
-  nuevoUsuario(){
+  nuevoUsuario() {
 
     this.formData.append('username', this.formulario.get('username')?.value);
     this.formData.append('email', this.formulario.get('email')?.value);
@@ -64,13 +67,34 @@ export class RegistroUsuarioComponent {
     this.formData.append('estado', this.formulario.get('estado')?.value);
     this.formData.append('ciudad', this.formulario.get('ciudad')?.value);
     this.formData.append('direccion', this.formulario.get('direccion')?.value);
-   
-    this._registroUsuario.nuevoUsuario(this.formData).subscribe(data =>{
-      this._registroUsuario.logInUser(this.formulario.value)
-    });
+
+
+    if (this.formulario.invalid) {
+      console.log(this.formulario.errors);
+      this.mensajeInfo = "Formulario no válido"
+    } else {
+
+      this._registroUsuario.nuevoUsuario(this.formData).subscribe(data => {
+        this._registroUsuario.logInUser(this.formulario.value)
+
+      }, err => {
+
+        if (err instanceof HttpErrorResponse) {
+          const ValidationErrors = err.error;
+          Object.keys(ValidationErrors).forEach(prop => {
+            const formControl = this.formulario.get(prop);
+            if (formControl) {
+              formControl.setErrors({
+                serverError: ValidationErrors[prop]
+              })
+            }
+          })
+        }
+        this.errors = err.error.message;
+        console.log(this.errors);
+      });
+    }
   }
 
-  }
-
-
+}
 

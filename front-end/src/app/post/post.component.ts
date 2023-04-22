@@ -126,6 +126,11 @@ export class PostComponent implements OnInit {
   obtenerPost() {
     this._postService.obtenerPost(this.id).subscribe(data => {
       this.posts = [data];
+      this.obtenerUsuario.getUsuario(this.posts[0].usuario).subscribe(data => {
+        this.posts[0].nombre_usuario = data.username;
+        this.posts[0].foto_perfil = data.foto_perfil;
+
+      })
 
       this.formularioImagenPost.setValue({
         titulo: this.posts[0].titulo,
@@ -135,6 +140,15 @@ export class PostComponent implements OnInit {
       });
 
     })
+  }
+
+
+  esCreadorPost(post:PostLike, urlUsuario:string): boolean{
+      if(post.nombre_usuario != this.credenciales.username){
+        return false
+      }
+
+      return true
   }
 
 
@@ -224,7 +238,8 @@ export class PostComponent implements OnInit {
     this._comentarioService.nuevoComentario(this.formularioComent.value).subscribe();
     //const id = this.activatedRoute.snapshot.paramMap.get('id');
     setTimeout(() => {
-      this.mostrarComentarios(this.id)
+      this.mostrarComentarios(this.id);
+      this.formularioComent.reset();
     }, 200);
 
   }

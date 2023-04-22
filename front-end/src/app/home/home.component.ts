@@ -63,6 +63,8 @@ export class HomeComponent {
 
   // -------- GESTION DE USUARIOS --------
 
+  // Gestión de todo el código necesario para trabajar con los datos de los usuarios
+
   gestionarUsuarios() {
     //Obtenemos los datos del usuario logueado
     this._obtenerUsuarioService.getUsuario(this.credencialesUsuario.id).subscribe(data => {
@@ -72,30 +74,51 @@ export class HomeComponent {
       // Comprobamos por cada post si hay alguna coincidencia en la tabla like
       for (let p of this.posts) {
 
+        this.obtenerUsuarioPost(p)
+
         // Removemos todas las id los post registradas en el Local Storage
         this.removerVisitas(p.id)
 
-        this._gestionLikesService.obtenerPosts(p.id).subscribe(data => {
-          this.postsLikes = data.results;
+        this.obtenerPostLikes(p)
 
-          // Buscamos al usuario registrado en los post con likes
-          let likeUsuario = this.postsLikes.find(post => post.usuario == this.usuarioRegistrado[0].url);
-
-          // Si el post no tiene nignuna coincidencia en la tabla like significa que ningún usuario le ha dado like
-          if (this.postsLikes.length == 0) {
-            p.likeDado = false;
-          } else {
-
-            if (likeUsuario != undefined) { // El usuario le ha dado like al post
-              p.likeDado = true;
-            } else { // El usuario no le ha dado like al post
-              p.likeDado = false;
-            }
-          }
-        });
       }
     })
   }
+
+
+//Obtenemos el usuario que creó el post
+  obtenerUsuarioPost(post:PostLike){
+        
+        this._obtenerUsuarioService.getUsuarioUrl(post.usuario).subscribe(data =>{
+          post.nombre_usuario = data.username;
+          post.foto_perfil = data.foto_perfil;
+
+        })
+  }
+
+
+  // Obtenemos los posts con likes
+  obtenerPostLikes(p:PostLike){
+    this._gestionLikesService.obtenerPosts(p.id).subscribe(data => {
+      this.postsLikes = data.results;
+
+      // Buscamos al usuario registrado en los post con likes
+      let likeUsuario = this.postsLikes.find(post => post.usuario == this.usuarioRegistrado[0].url);
+
+      // Si el post no tiene nignuna coincidencia en la tabla like significa que ningún usuario le ha dado like
+      if (this.postsLikes.length == 0) {
+        p.likeDado = false;
+      } else {
+
+        if (likeUsuario != undefined) { // El usuario le ha dado like al post
+          p.likeDado = true;
+        } else { // El usuario no le ha dado like al post
+          p.likeDado = false;
+        }
+      }
+    });
+  }
+
 
   // -------- GESTION DE VISITAS --------
 

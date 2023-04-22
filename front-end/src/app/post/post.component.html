@@ -1,5 +1,4 @@
-
-<!--Mostra Posts-->
+<!--
 <div *ngFor="let post of posts">
     <div style="border: 1px solid; margin-bottom: 20px;">
         <p>{{post.id}}</p>
@@ -67,5 +66,139 @@
             <button (click)="modificaComentario(comentario.id)">Modificar comentario</button>
 
         </div>
-
 </div>
+
+-->
+
+
+<div *ngFor="let post of posts" class="container-fluid d-flex mx-0 px-1">
+  <div class="container col-3 border"> </div>
+
+  <div class="col-9 border ">
+
+    <div class="py-4 border"> </div>
+
+
+    <!-- Cuerpo -->
+    <div>
+      <div class="container px-5 py-4" >
+
+        <!--Cabecera-->
+        <div class="row  py-2">
+          <div *ngIf="post.foto_perfil" class="col-1 text-center ">
+            <img style="width: 50px" src={{post.foto_perfil}} alt="Image Description">
+          </div>
+
+          <div *ngIf="!post.foto_perfil" class="col-1 text-center ">
+            <img style="width: 50px" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Image Description">
+          </div>
+          <div class="col-7 position-relative top-0 start-0 ">
+            <span>{{post.nombre_usuario}}</span>
+          </div>
+          <div class="col-4  text-end ">
+            <span>{{post.fecha_publicacion}}</span>
+          </div>
+        </div>
+        <!-- Texto del Post -->
+        <div class="row py-2">
+          <h3 class="py-3">{{post.titulo}}</h3>
+
+          <p>{{post.contenido}}</p>
+        </div>
+
+        <!-- Imagen del Post -->
+        <div *ngIf="post.imagen != null" class="row py-2">
+          <img class="img-fluid px-5" src={{post.imagen}}>
+        </div>
+
+        <!-- Iconos -->
+        <div class="row py-3 mx-4 ">
+
+          <div  class="col-7">
+            <button *ngIf="esCreadorPost(post, post.usuario)" class="btn btn-primary me-2" (click)="modificarPost()">Editar Post</button>
+            <button *ngIf="esCreadorPost(post, post.usuario)"type="submit" class="btn btn-danger me-2" (click)="eliminarPost()">Eliminar Post</button>
+
+
+            <input *ngIf="esCreadorPost(post, post.usuario)" type="file" id="imagen" name="imagen" required (change)="onFileSelected($event)">
+            <div  *ngIf="formularioImagenPost.controls['imagen'].invalid && (formularioImagenPost.controls['imagen'].dirty || formularioImagenPost.controls['imagen'].touched)">
+
+            </div>
+          </div>
+
+          <div class="col-5 d-flex justify-content-end">
+
+            <!-- Visitas -->
+            <div class="col-2">
+              <span class="material-symbols-outlined"> visibility </span>
+              <span>{{post.num_visitas}}</span>
+            </div>
+            <!-- Likes -->
+            <div *ngIf="!post.likeDado" class="col-1">
+              <span (click)="gestionLikes(post.id, post.url)" class="material-symbols-outlined"> favorite </span>
+              <span> {{post.num_likes}}</span>
+            </div>
+
+            <div *ngIf="post.likeDado" class="col-2">
+              <span (click)="gestionLikes(post.id, post.url)" class="material-symbols-outlined"> heart_check </span>
+              <span> {{post.num_likes}}</span>
+            </div>
+
+            <!-- Mensajes -->
+            <div class="col-1">
+              <span class="material-symbols-outlined"> comment </span>
+              <span>0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="w-75 mx-auto">
+
+      <!-- Comentarios -->
+      <div class="container p-5">
+        <div class="row p-3 text-center">
+          <h1>Comentarios</h1>
+        </div>
+
+        <!-- Formulario -->
+        <div class="row col-12  py-2 px-5">
+          <form [formGroup]="formularioComent" (ngSubmit)="nuevoComentario()">
+            <div class="mb-3">
+              <label for="contenido" class="form-label">Nuevo Comentario</label>
+              <textarea class="form-control" rows=8 formControlName="contenido" required
+                placeholder="Introduce tu comentario" [defaultValue]=""></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" [disabled]="formularioComent.invalid">Enviar</button>
+          </form>
+        </div>
+
+        <div class="row d-flex my-5">
+          <div *ngFor="let comentario of comentarios;  first as primera" class="col-md-12 col-lg-12">
+            <div class="card text-dark">
+              <div class="card-body p-5">
+                <h4 *ngIf="primera" class="m-0">Recent comments</h4>
+                <p *ngIf="primera" class="fw-light mb-5 pb-2">Latest Comments section by users</p>
+                <div class="d-flex flex-start">
+                  <img class="rounde	d-circle shadow-1-strong me-3"
+                    src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(23).webp" alt="avatar" width="60"
+                    height="60" />
+                  <div>
+                    <h6 class="fw-bold mb-1">{{comentario.nombre_usuario}}</h6>
+                    <div class="d-flex align-items-center mb-3">
+                      <p class="mb-0">{{comentario.fecha_creacion}}</p>
+                      <a class="link-muted ms-3"><span (click)="modificaComentario(comentario.id)"
+                          class="material-symbols-outlined">edit</span></a>
+                      <a class="link-muted ms-3"><span class="material-symbols-outlined"> delete </span></a>
+                    </div>
+                    <p class="mb-0">{{comentario.contenido}}</p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>

@@ -78,7 +78,6 @@ class Likes(models.Model):
 
     class Meta:
         constraints = [
-
             models.UniqueConstraint(
                 fields=['usuario', 'post'], name='likes'
             )

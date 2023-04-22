@@ -74,4 +74,8 @@ export class AutenticacionUsuariosService {
     return this.http.get(`http://localhost:8000/usuarios/${id}/`);
   }
 
+  getUsuarioUrl(url: any): Observable<any> {
+    return this.http.get(`${url}`);
+  }
+
 }

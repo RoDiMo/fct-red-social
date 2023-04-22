@@ -7,10 +7,13 @@ export class Post{
        public titulo: string,
        public contenido: string,
        public imagen: ImageData,
-       public usuario: PerfilUsuario,
+       public usuario: any,
        public num_likes: Number,
        public num_visitas: Number,
        public fecha_publicacion: Date,
+       public nombre_usuario:string,
+       public foto_perfil:string,
+       public creador:boolean,
     ){}
 }
 
@@ -21,10 +24,13 @@ export class PostLike{
        public titulo: string,
        public contenido: string,
        public imagen: ImageData,
-       public usuario: PerfilUsuario,
+       public usuario: string,
        public num_likes: Number,
        public num_visitas: number,
        public fecha_publicacion: Date,
        public likeDado: Boolean,
+       public nombre_usuario:string,
+       public foto_perfil:string,
+       public creador:boolean,
     ){}
 }

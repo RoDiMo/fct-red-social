@@ -13,7 +13,7 @@ export class PerfilUsuario{
         public  estado :string,
         public  ciudad :string,
         public  direccion :string,
-        public imagen : any,
+        public foto_perfil : any,
         public url: string
      )
         {}
