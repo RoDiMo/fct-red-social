@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { PerfilUsuario } from '../perfil-usuario/perfil-usuario';
 import { UserCredentials } from '../auth';
 import { HttpErrorResponse } from '@angular/common/http';
+import { NG_VALIDATORS, AbstractControl, ValidationErrors, Validator, } from '@angular/forms';
 
 @Component({
   selector: 'app-registro-usuario',
@@ -16,8 +17,9 @@ export class RegistroUsuarioComponent {
 
   public formulario!: FormGroup;
   public formData: FormData = new FormData();
-  public errors: Array<any> = [];
+ 
   public mensajeInfo = "";
+  public errors : Array<any> = [];
 
   constructor(
     private fb: FormBuilder,
@@ -91,10 +93,41 @@ export class RegistroUsuarioComponent {
           })
         }
         this.errors = err.error.message;
-        console.log(this.errors);
       });
     }
   }
 
 }
 
+
+/*
+onSubmit() {
+  if (this.registroForm.invalid) {
+    console.log(this.registroForm.errors);
+    this.infoMessage = "Formulario no válido"
+  } else {
+    this.UserProfileService.postUser(this.registroForm.value).subscribe(x => {
+      console.log('Persona registrada', x)
+      this.authService.logInUser(this.registroForm.value)
+    },
+      err => {
+        if(err instanceof HttpErrorResponse){
+          const ValidationErrors = err.error;
+          Object.keys(ValidationErrors).forEach(prop=>{
+            const formControl = this.registroForm.get(prop);
+            if(formControl){
+              formControl.setErrors({
+                serverError: ValidationErrors[prop]
+              })
+            }
+          })
+        }
+        this.errors = err.error.message;
+        console.log(this.errors);
+      }
+    );
+  }
+
+
+}
+*/

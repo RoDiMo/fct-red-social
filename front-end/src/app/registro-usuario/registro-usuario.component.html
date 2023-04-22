@@ -8,7 +8,7 @@
           </div>
           <div class="col-auto">
             <input class="form-control" formControlName="username" type="text">
-            <mat-error *ngIf="formulario.get('first_name')?.errors?.['serverError']"> {{formulario.get('first_name')?.errors?.['serverError']}}</mat-error>
+            <mat-error *ngIf="formulario.get('username')?.errors?.['serverError']"> {{formulario.get('username')?.errors?.['serverError']}}</mat-error>
           </div>
         </div>
 
@@ -59,7 +59,7 @@
             </div>
             <div class="col-auto">
               <input class="form-control" formControlName="telefono" type="text">
-              <mat-error *ngIf="formulario.get('first_name')?.errors?.['serverError']"> {{formulario.get('first_name')?.errors?.['serverError']}}</mat-error>
+              <p *ngIf="formulario.get('telefono')?.errors?.['serverError']"> {{formulario.get('telefono')?.errors?.['serverError']}}</p>
             </div>
           </div>
 
