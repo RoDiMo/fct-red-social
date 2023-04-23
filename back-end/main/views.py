@@ -1,7 +1,7 @@
 from django.db.models import Count
 from django.shortcuts import render
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import viewsets, permissions, filters, mixins, status
+from rest_framework import viewsets, permissions, filters, mixins, status, generics
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.generics import GenericAPIView
 from rest_framework.parsers import FileUploadParser, FormParser, MultiPartParser
@@ -55,12 +55,13 @@ class UserLogIn(ObtainAuthToken):
         })
 
 
-class RegistroUsuario(GenericAPIView):
+class RegistroUsuario(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [AllowAny]
     serializer_class = RegistroSerializer
 
     # parser_classes = [MultiPartParser, FormParser]
     def post(self, request, *args, **kwargs):
+
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
@@ -68,6 +69,9 @@ class RegistroUsuario(GenericAPIView):
         data = serializer.data
         data["tokens"] = {"refresh": str(token), "access": str(token.access_token)}
         return Response(data, status=status.HTTP_201_CREATED)
+
+
+
 
 
 class Posts(viewsets.ModelViewSet):

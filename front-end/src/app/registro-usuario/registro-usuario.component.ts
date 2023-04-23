@@ -75,12 +75,9 @@ export class RegistroUsuarioComponent {
       console.log(this.formulario.errors);
       this.mensajeInfo = "Formulario no válido"
     } else {
-
       this._registroUsuario.nuevoUsuario(this.formData).subscribe(data => {
         this._registroUsuario.logInUser(this.formulario.value)
-
       }, err => {
-
         if (err instanceof HttpErrorResponse) {
           const ValidationErrors = err.error;
           Object.keys(ValidationErrors).forEach(prop => {
@@ -99,35 +96,3 @@ export class RegistroUsuarioComponent {
 
 }
 
-
-/*
-onSubmit() {
-  if (this.registroForm.invalid) {
-    console.log(this.registroForm.errors);
-    this.infoMessage = "Formulario no válido"
-  } else {
-    this.UserProfileService.postUser(this.registroForm.value).subscribe(x => {
-      console.log('Persona registrada', x)
-      this.authService.logInUser(this.registroForm.value)
-    },
-      err => {
-        if(err instanceof HttpErrorResponse){
-          const ValidationErrors = err.error;
-          Object.keys(ValidationErrors).forEach(prop=>{
-            const formControl = this.registroForm.get(prop);
-            if(formControl){
-              formControl.setErrors({
-                serverError: ValidationErrors[prop]
-              })
-            }
-          })
-        }
-        this.errors = err.error.message;
-        console.log(this.errors);
-      }
-    );
-  }
-
-
-}
-*/

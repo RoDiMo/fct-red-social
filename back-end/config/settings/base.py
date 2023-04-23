@@ -138,6 +138,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(CONFIG_BASE_DIR, 'media')
 
