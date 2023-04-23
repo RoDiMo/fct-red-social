@@ -81,7 +81,7 @@
 
     <!-- Cuerpo -->
     <div>
-      <div class="container px-5 py-4" >
+      <div class="container px-5 py-4">
 
         <!--Cabecera-->
         <div class="row  py-2">
@@ -114,21 +114,25 @@
         <!-- Iconos -->
         <div class="row py-3 mx-4 ">
 
-          <div  class="col-7">
-            <button *ngIf="esCreadorPost(post, post.usuario)" class="btn btn-primary me-2" (click)="modificarPost()">Editar Post</button>
-            <button *ngIf="esCreadorPost(post, post.usuario)"type="submit" class="btn btn-danger me-2" (click)="eliminarPost()">Eliminar Post</button>
+          <div class="col-7">
+            <button *ngIf="esCreadorPost(post, post.usuario)" class="btn btn-primary me-2"
+              (click)="modificarPost()">Editar Post</button>
+            <button *ngIf="esCreadorPost(post, post.usuario)" type="submit" class="btn btn-danger me-2"
+              (click)="eliminarPost()">Eliminar Post</button>
 
 
-            <input *ngIf="esCreadorPost(post, post.usuario)" type="file" id="imagen" name="imagen" required (change)="onFileSelected($event)">
-            <div  *ngIf="formularioImagenPost.controls['imagen'].invalid && (formularioImagenPost.controls['imagen'].dirty || formularioImagenPost.controls['imagen'].touched)">
+            <input *ngIf="esCreadorPost(post, post.usuario)" type="file" id="imagen" name="imagen" required
+              (change)="onFileSelected($event)">
+            <div
+              *ngIf="formularioImagenPost.controls['imagen'].invalid && (formularioImagenPost.controls['imagen'].dirty || formularioImagenPost.controls['imagen'].touched)">
 
             </div>
           </div>
 
-          <div class="col-5 d-flex justify-content-end">
+          <div class="col-12 d-flex justify-content-end">
 
             <!-- Visitas -->
-            <div class="col-2">
+            <div class="col-1">
               <span class="material-symbols-outlined"> visibility </span>
               <span>{{post.num_visitas}}</span>
             </div>
@@ -138,7 +142,7 @@
               <span> {{post.num_likes}}</span>
             </div>
 
-            <div *ngIf="post.likeDado" class="col-2">
+            <div *ngIf="post.likeDado" class="col-1">
               <span (click)="gestionLikes(post.id, post.url)" class="material-symbols-outlined"> heart_check </span>
               <span> {{post.num_likes}}</span>
             </div>
@@ -186,9 +190,12 @@
                     <h6 class="fw-bold mb-1">{{comentario.nombre_usuario}}</h6>
                     <div class="d-flex align-items-center mb-3">
                       <p class="mb-0">{{comentario.fecha_creacion}}</p>
-                      <a class="link-muted ms-3"><span (click)="modificaComentario(comentario.id)"
-                          class="material-symbols-outlined">edit</span></a>
-                      <a class="link-muted ms-3"><span class="material-symbols-outlined"> delete </span></a>
+                      <a class="link-muted ms-3">
+                        <span class="material-symbols-outlined" (click)="modificaComentario(comentario.id)">edit</span>
+                      </a>
+                      <a class="link-muted ms-3">
+                        <span class="material-symbols-outlined" (click)="eliminarComentario(comentario.id)"> delete </span>
+                      </a>
                     </div>
                     <p class="mb-0">{{comentario.contenido}}</p>
                   </div>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PostService } from '../post.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Post, PostLike } from './post';
+import { Post } from './post';
 import { Comentario } from '../comentario/comentario';
 import { ComentariosService } from '../comentarios.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -18,7 +18,7 @@ import { Likes } from '../home/home';
   ]
 })
 export class PostComponent implements OnInit {
-  public posts: Array<PostLike> = [];
+  public posts: Array<Post> = [];
   public postsLikes: Array<Post> = []
   public comentarios: Array<Comentario> = [];
   public usuarios: any;
@@ -143,7 +143,7 @@ export class PostComponent implements OnInit {
   }
 
 
-  esCreadorPost(post:PostLike, urlUsuario:string): boolean{
+  esCreadorPost(post:Post, urlUsuario:string): boolean{
       if(post.nombre_usuario != this.credenciales.username){
         return false
       }
@@ -191,6 +191,7 @@ export class PostComponent implements OnInit {
           let likeUsuario = this.postsLikes.find(post => post.usuario == this.usuario.url);
 
           // Si el post no tiene nignuna coincidencia en la tabla like significa que ningún usuario le ha dado like
+          console.log(this.posts[0].likeDado)
           if (this.postsLikes.length == 0) {
             this.posts[0].likeDado = false;
           } else {
@@ -247,6 +248,15 @@ export class PostComponent implements OnInit {
 
   modificaComentario(id: string) {
     this.router.navigateByUrl(`modifica-comentario/${id}`);
+  }
+
+  eliminarComentario(id:string){
+    this._comentarioService.eliminarComentario(id).subscribe();
+
+    setTimeout(() => {
+      this.mostrarComentarios(this.id);
+      this.formularioComent.reset();
+    }, 5);
   }
 
 

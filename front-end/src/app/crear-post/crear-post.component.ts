@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PerfilUsuario } from '../perfil-usuario/perfil-usuario';
 import { PerfilUsuarioService } from '../perfil-usuario.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AutenticacionUsuariosService } from '../autenticacion-usuarios.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PostService } from '../post.service';
@@ -26,6 +26,7 @@ export class CrearPostComponent implements OnInit {
     public formBuilder: FormBuilder,
     public _postService: PostService,
     public activatedRoute: ActivatedRoute,
+    public router: Router,
    
   ) {
 
@@ -126,9 +127,13 @@ export class CrearPostComponent implements OnInit {
     // Si no estamos editando, creamos un nuevo post, de lo contrario modificamos los valores de uno ya existente
     if (!this.modoEdicion) {
       this._postService.nuevoPost(this.formData).subscribe(data => { });
+      this.router.navigateByUrl(`/`);
     } else {
       this._postService.modificarPost(this.post.id, this.formularioPost.value).subscribe();
+      this.router.navigateByUrl(`post/${this.post.id}`);
     }
+
+   
   }
 
 }

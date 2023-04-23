@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { PaginaPrincipalService } from '../pagina-principal.service';
 import { Likes, Usuarios } from './home';
-import { Post, PostLike } from '../post/post';
+import { Post } from '../post/post';
 import { GestionLikesService } from '../gestion-likes.service';
 import { AutenticacionUsuariosService } from '../autenticacion-usuarios.service';
 import { PostService } from '../post.service';
@@ -14,7 +14,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   ]
 })
 export class HomeComponent {
-  public posts: Array<PostLike> = []
+  public posts: Array<Post> = []
   public postsLikes: Array<Post> = []
   public credencialesUsuario: any;
   public usuarioRegistrado: any = {}
@@ -87,7 +87,7 @@ export class HomeComponent {
 
 
 //Obtenemos el usuario que creó el post
-  obtenerUsuarioPost(post:PostLike){
+  obtenerUsuarioPost(post:Post){
         
         this._obtenerUsuarioService.getUsuarioUrl(post.usuario).subscribe(data =>{
           post.nombre_usuario = data.username;
@@ -98,7 +98,7 @@ export class HomeComponent {
 
 
   // Obtenemos los posts con likes
-  obtenerPostLikes(p:PostLike){
+  obtenerPostLikes(p:Post){
     this._gestionLikesService.obtenerPosts(p.id).subscribe(data => {
       this.postsLikes = data.results;
 
