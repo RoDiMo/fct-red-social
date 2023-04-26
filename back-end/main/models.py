@@ -102,6 +102,21 @@ class Amigos(models.Model):
 class NotificacionesAmistad(models.Model):
     usuario_origen = models.ForeignKey(Usuarios, related_name="usuario_origen", on_delete=models.RESTRICT)
     usuario_destino = models.ForeignKey(Usuarios, related_name="usuario_destino", on_delete=models.RESTRICT)
-    contenido = models.CharField(max_length=250)
+    estado = models.CharField(max_length=10)
     fecha_notificacion = models.DateTimeField(default=timezone.now)
     procesada = models.BooleanField(default=False)
+
+
+class AmistadesCanceladas(models.Model):
+    amigo_emisor = models.ForeignKey(Usuarios, related_name="amigo_emisor", on_delete=models.RESTRICT)
+    amigo_receptor = models.ForeignKey(Usuarios, related_name="amigo_receptor", on_delete=models.RESTRICT)
+    fecha_inicio = models.DateTimeField(default=timezone.now)
+    fecha_fin = models.DateTimeField(default=timezone.now)
+
+
+class Chat(models.Model):
+    emisor = models.ForeignKey(Usuarios, related_name="emisor", on_delete=models.RESTRICT)
+    receptor = models.ForeignKey(Usuarios, related_name="receptor", on_delete=models.RESTRICT)
+    fecha_mensaje = models.DateTimeField(default=timezone.now)
+    leido = models.BooleanField(default=False)
+    mensaje = models.CharField(max_length=250)

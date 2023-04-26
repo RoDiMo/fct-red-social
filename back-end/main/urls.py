@@ -17,6 +17,8 @@ router.register(r'comentarios', views.Comentarios, basename='comentarios')
 router.register(r'likes', views.Likes, basename='likes')
 router.register(r'amigos', views.Amigos, basename='amigos')
 router.register(r'notificacionesamistad', views.NotificacionesAmistad, basename='notificacionesamistad')
+router.register(r'chat', views.Chat, basename='chat')
+router.register(r'amistadescanceladas', views.AmistadesCanceladas, basename='amistadescanceladas')
 
 urlpatterns = [
     path('admin/', admin.site.urls),

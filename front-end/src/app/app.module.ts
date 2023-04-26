@@ -17,6 +17,7 @@ import { PostComponent } from './post/post.component';
 import { CrearPostComponent } from './crear-post/crear-post.component';
 import { ComentarioComponent } from './comentario/comentario.component';
 import { CrearComentarioComponent } from './crear-comentario/crear-comentario.component';
+import { AmigosComponent } from './amigos/amigos.component';
 
 
 
@@ -31,6 +32,7 @@ import { CrearComentarioComponent } from './crear-comentario/crear-comentario.co
     CrearPostComponent,
     ComentarioComponent,
     CrearComentarioComponent,
+    AmigosComponent,
   ],
   imports: [
     BrowserModule,

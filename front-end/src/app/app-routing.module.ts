@@ -10,6 +10,7 @@ import { CrearPostComponent } from './crear-post/crear-post.component';
 import { CrearComentarioComponent } from './crear-comentario/crear-comentario.component';
 import { PostComponent } from './post/post.component';
 import { ComentarioComponent } from './comentario/comentario.component';
+import { AmigosComponent } from './amigos/amigos.component';
 
 
 
@@ -26,6 +27,8 @@ const routes: Routes = [
   // PÁGINAS
   {path: 'perfil-personal/:id', component: PerfilUsuarioComponent, canActivate: [AuthGuard] },
   {path: 'post/:id', component: PostComponent, canActivate: [AuthGuard] },
+  {path: 'amigos', component: AmigosComponent, canActivate: [AuthGuard] },
+
 ]
 
 @NgModule({

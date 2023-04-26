@@ -61,7 +61,6 @@ class RegistroUsuario(generics.RetrieveUpdateDestroyAPIView):
 
     # parser_classes = [MultiPartParser, FormParser]
     def post(self, request, *args, **kwargs):
-
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
@@ -69,9 +68,6 @@ class RegistroUsuario(generics.RetrieveUpdateDestroyAPIView):
         data = serializer.data
         data["tokens"] = {"refresh": str(token), "access": str(token.access_token)}
         return Response(data, status=status.HTTP_201_CREATED)
-
-
-
 
 
 class Posts(viewsets.ModelViewSet):
@@ -98,8 +94,20 @@ class Likes(viewsets.ModelViewSet):
 class Amigos(viewsets.ModelViewSet):
     queryset = Amigos.objects.all()
     serializer_class = AmigosSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['usuario_solicitante','usuario_receptor']
 
 
 class NotificacionesAmistad(viewsets.ModelViewSet):
     queryset = NotificacionesAmistad.objects.all()
     serializer_class = NotificacionesSerializer
+
+
+class AmistadesCanceladas(viewsets.ModelViewSet):
+    queryset = AmistadesCanceladas.objects.all()
+    serializer_class = AmistadesCanceladasSerializer
+
+
+class Chat(viewsets.ModelViewSet):
+    queryset = Chat.objects.all()
+    serializer_class = ChatSerializer

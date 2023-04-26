@@ -113,4 +113,17 @@ class AmigosSerializer(serializers.HyperlinkedModelSerializer):
 class NotificacionesSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = NotificacionesAmistad
-        fields = ('url', 'id', 'usuario_origen', 'usuario_destino', 'contenido', 'fecha_notificacion', 'procesada')
+        fields = ('url', 'id', 'usuario_origen', 'usuario_destino', 'estado', 'fecha_notificacion', 'procesada')
+
+
+class AmistadesCanceladasSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = AmistadesCanceladas
+        fields = ('url', 'id', 'amigo_emisor', 'amigo_receptor', 'fecha_inicio', 'fecha_fin')
+
+
+class ChatSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Chat
+        fields = ('url', 'id', 'emisor', 'receptor', 'fecha_mensaje', 'leido', 'mensaje')
+
