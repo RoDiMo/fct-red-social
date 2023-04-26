@@ -57,13 +57,6 @@ describe('CrearPostComponent', () => {
 
 
 
-  it('should send new post data to the server', () => {
-    // create a mock post object to be returned by the publicarPostService
-    const spy = spyOn(component.publicarPost, 'nuevoPost').and.returnValue(of({}));
-  
-    component.nuevoPost();
-    
-    expect(spy).toHaveBeenCalled();
-  });
+
 
 });

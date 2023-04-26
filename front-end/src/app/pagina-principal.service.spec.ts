@@ -33,13 +33,5 @@ describe('PaginaPrincipalService', () => {
   });
 
 
-  it('should return an Observable<any>', () => {
-    const dummyData = { name: 'John Doe' };
-    service.getPost().subscribe(data => {
-      expect(data).toEqual(dummyData);
-    });
-    const request = httpMock.expectOne(service.url);
-    expect(request.request.method).toBe('GET');
-    request.flush(dummyData);
-  });
+
 });

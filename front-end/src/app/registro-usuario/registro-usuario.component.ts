@@ -22,8 +22,8 @@ export class RegistroUsuarioComponent {
   public errors : Array<any> = [];
 
   constructor(
-    private fb: FormBuilder,
-    private _registroUsuario: AutenticacionUsuariosService,
+    public fb: FormBuilder,
+    public _registroUsuario: AutenticacionUsuariosService,
   ) { }
 
   ngOnInit() {
