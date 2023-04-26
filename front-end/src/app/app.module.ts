@@ -18,6 +18,7 @@ import { CrearPostComponent } from './crear-post/crear-post.component';
 import { ComentarioComponent } from './comentario/comentario.component';
 import { CrearComentarioComponent } from './crear-comentario/crear-comentario.component';
 import { AmigosComponent } from './amigos/amigos.component';
+import { AmistadesCanceladasComponent } from './amistades-canceladas/amistades-canceladas.component';
 
 
 
@@ -33,6 +34,7 @@ import { AmigosComponent } from './amigos/amigos.component';
     ComentarioComponent,
     CrearComentarioComponent,
     AmigosComponent,
+    AmistadesCanceladasComponent,
   ],
   imports: [
     BrowserModule,

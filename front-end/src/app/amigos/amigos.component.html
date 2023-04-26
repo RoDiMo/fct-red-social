@@ -15,10 +15,33 @@
                 <p class="title">Amigos desde hace 2 dias</p>
 
             </div>
-            <button class="btn btn-danger" (click)="agregarAmigo(amigo.url)">Agregar a amigos</button>
-            <button class="btn btn-danger" (click)="obtenerAmistad(amigo.id)">Eliminar amigo</button>
+            
+            <button class="btn btn-danger" (click)="eliminarAmistad(amigo.id)">Eliminar amigo</button>
         </div>
     </div>
+    <hr>
+</div>
 
 
+<div class="container-fluid  d-flex mx-0 px-1 min-vh-100">
+
+    <div class="container col-3 border"> </div>
+
+    <div class="row col-9 px-5 border">
+
+        <div class="py-4 border"> </div>
+
+        <div *ngFor=" let amigo of usuarios" class="col-3 border mx-5 text-center p-4 mt-4" style="height: 300px;">
+            <div class="box" style="height: 200px;">
+                <img *ngIf="amigo.foto_perfil" class="rounded-circle" src={{amigo.foto_perfil}} style="width: 100px; height: 100px;">
+                <img *ngIf="!amigo.foto_perfil" class="rounded-circle"
+                    src="https://bootdey.com/img/Content/avatar/avatar7.png" style="width: 100px; height: 100px;">
+                <h3 class="name">{{amigo.username}}</h3>
+                <p class="title">Amigos desde hace 2 dias</p>
+
+            </div>
+            <button class="btn btn-danger" (click)="agregarAmigo(amigo.url)">Agregar a amigos</button>
+        </div>
+    </div>
+    <hr>
 </div>

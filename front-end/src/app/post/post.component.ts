@@ -191,7 +191,7 @@ export class PostComponent implements OnInit {
           let likeUsuario = this.postsLikes.find(post => post.usuario == this.usuario.url);
 
           // Si el post no tiene nignuna coincidencia en la tabla like significa que ningún usuario le ha dado like
-          console.log(this.posts[0].likeDado)
+
           if (this.postsLikes.length == 0) {
             this.posts[0].likeDado = false;
           } else {

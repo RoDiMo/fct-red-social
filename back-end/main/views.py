@@ -94,8 +94,9 @@ class Likes(viewsets.ModelViewSet):
 class Amigos(viewsets.ModelViewSet):
     queryset = Amigos.objects.all()
     serializer_class = AmigosSerializer
-    filter_backends = [DjangoFilterBackend]
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
     filterset_fields = ['usuario_solicitante','usuario_receptor']
+    ordering_fields = ['fecha_creacion']
 
 
 class NotificacionesAmistad(viewsets.ModelViewSet):
