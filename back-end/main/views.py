@@ -102,6 +102,8 @@ class Amigos(viewsets.ModelViewSet):
 class NotificacionesAmistad(viewsets.ModelViewSet):
     queryset = NotificacionesAmistad.objects.all()
     serializer_class = NotificacionesSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['usuario_destino']
 
 
 class AmistadesCanceladas(viewsets.ModelViewSet):

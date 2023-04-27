@@ -11,6 +11,7 @@ import { CrearComentarioComponent } from './crear-comentario/crear-comentario.co
 import { PostComponent } from './post/post.component';
 import { ComentarioComponent } from './comentario/comentario.component';
 import { AmigosComponent } from './amigos/amigos.component';
+import { NotificacionesComponent } from './notificaciones/notificaciones.component';
 
 
 
@@ -28,6 +29,7 @@ const routes: Routes = [
   {path: 'perfil-personal/:id', component: PerfilUsuarioComponent, canActivate: [AuthGuard] },
   {path: 'post/:id', component: PostComponent, canActivate: [AuthGuard] },
   {path: 'amigos', component: AmigosComponent, canActivate: [AuthGuard] },
+  {path: 'notificaciones', component: NotificacionesComponent, canActivate: [AuthGuard] },
 
 ]
 
