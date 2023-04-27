@@ -17,6 +17,7 @@ export class AmigosComponent {
   public amigos: Array<PerfilUsuario> = [];
   public usuarios: Array<PerfilUsuario> = [];
   public recomendaciones: Array<PerfilUsuario> = [];
+  public notificaciones: Array<Notificacion> = []
   public usuariosAmigos: Array<Amigo> = [];
   public usuarioRegistrado: any = {};
   public credencialesUsuario: any;
@@ -51,9 +52,36 @@ export class AmigosComponent {
 
       this.usuarios = this.usuarios.filter(usuario => usuario.id !== this.credencialesUsuario.id);
       console.log(this.usuarios)
+
+        for (let usuario of this.usuarios){
+          this._notificacionesService.obtenerNotificacionesUsuarioOrigenDestino( this.credencialesUsuario.id, usuario.id).subscribe( data => {
+            this.notificaciones = data.results
+            console.log(this.notificaciones)
+            if(this.notificaciones.length != 0){
+              usuario.amistadPendiente = true
+            }
+
+          })
+         }
     })
   }
 
+  /**
+   * Comprueba si los usuarios tienen notificaciones pendientes nuestras
+   * @param usuario 
+   */
+  obtenerNotificacion(usuario: any){
+    for (let usuario of this.usuarios){
+      this._notificacionesService.obtenerNotificacionesUsuarioOrigenDestino( this.credencialesUsuario.id, usuario.id).subscribe( data => {
+        this.notificaciones = data.results
+        console.log(this.notificaciones)
+        if(this.notificaciones.length != 0){
+          usuario.amistadPendiente = true
+        }
+
+      })
+     }
+  }
 
   /**
    * Función que gestiona todo el proceso de gestión de amistades
@@ -109,6 +137,14 @@ export class AmigosComponent {
       this.usuarios = this.usuarios.filter(usuario => !this.recomendaciones.some((amigo: { id: string; }) => usuario.id === amigo.id));
       this.usuarios = this.usuarios.filter(usuario => !this.recomendaciones.some((amigo: { id: string; }) => usuario.id === this.credencialesUsuario.id));
 
+      //console.log(this.usuarios)
+
+      this.obtenerNotificacion(this.usuarios)
+      /*
+      for (let usuario of this.usuarios){
+        console.log(usuario)
+      }
+  */
     })
 
   }

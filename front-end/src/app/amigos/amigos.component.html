@@ -40,7 +40,8 @@
                 <p class="title">Amigos desde hace 2 dias</p>
 
             </div>
-            <button class="btn btn-danger" (click)="agregarAmigo(amigo.url)">Agregar a amigos</button>
+            <button *ngIf="!amigo.amistadPendiente" class="btn btn-danger" (click)="agregarAmigo(amigo.url)">Agregar a amigos</button>
+            <button *ngIf="amigo.amistadPendiente" class="btn btn-danger" (click)="agregarAmigo(amigo.url)" disabled>Esperando respuesta</button>
         </div>
     </div>
     <hr>

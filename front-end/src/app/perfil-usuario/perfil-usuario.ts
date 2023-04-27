@@ -14,7 +14,8 @@ export class PerfilUsuario{
         public  ciudad :string,
         public  direccion :string,
         public foto_perfil : any,
-        public url: string
+        public url: string,
+        public amistadPendiente: boolean,
      )
         {}
 

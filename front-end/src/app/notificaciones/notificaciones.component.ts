@@ -33,11 +33,11 @@ export class NotificacionesComponent {
 
 
   obtenerNotificaciones() {
-    this._notificacionesService.obtenerNotificacionesUsuario(this.credencialesUsuario.id).subscribe(data => {
+    this._notificacionesService.obtenerNotificacionesUsuarioDestino(this.credencialesUsuario.id).subscribe(data => {
       this.notificaciones = data.results
       //console.log("notificaciones", this.notificaciones)
 
-      for(let notificacion of this.notificaciones){
+      for (let notificacion of this.notificaciones) {
         this._obtenerUsuarioService.getUsuarioUrl(notificacion.usuario_origen).subscribe({
           next: (data) => {
             let usuarios = data.username
@@ -53,16 +53,16 @@ export class NotificacionesComponent {
 
 
 
-  confirmarAmistad(idNotificacion: any,usuarioOrigen: string, usuarioDestino: string){
+  confirmarAmistad(idNotificacion: any, usuarioOrigen: string, usuarioDestino: string) {
 
-     
+
     let usuario_emisor = new Amigo(usuarioOrigen, usuarioDestino, this.fecha)
     let usuario_receptor = new Amigo(usuarioDestino, usuarioOrigen, this.fecha)
 
     this._amigosService.nuevaAmistad(usuario_emisor).subscribe()
     this._amigosService.nuevaAmistad(usuario_receptor).subscribe()
 
-    this._notificacionesService.obtenerNotificacionPorId(idNotificacion).subscribe( data => {
+    this._notificacionesService.obtenerNotificacionPorId(idNotificacion).subscribe(data => {
       this.notificacionActualizada = [data]
 
       this.notificacionActualizada[0].estado = "Aceptada"
@@ -70,17 +70,30 @@ export class NotificacionesComponent {
 
       this._notificacionesService.actualizarNotificacion(idNotificacion, this.notificacionActualizada[0]).subscribe()
 
+
+      setTimeout(() => {
+        this.ngOnInit()
+      }, 50)
+
     })
-  
-
-
-  /*
-    setTimeout(() => {
-      this.ngOnInit()
-    }, 50)
-    
-*/
   }
 
+
+  rechazarAmistad(idNotificacion: any){
+    this._notificacionesService.obtenerNotificacionPorId(idNotificacion).subscribe(data => {
+      this.notificacionActualizada = [data]
+
+      this.notificacionActualizada[0].estado = "Rechazada"
+      this.notificacionActualizada[0].procesada = true
+
+      this._notificacionesService.actualizarNotificacion(idNotificacion, this.notificacionActualizada[0]).subscribe()
+
+
+      setTimeout(() => {
+        this.ngOnInit()
+      }, 50)
+
+    })
+  }
 
 }
