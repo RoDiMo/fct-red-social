@@ -33,7 +33,6 @@ export class AmigosComponent {
 
   ngOnInit() {
 
-    //this.obtenerUsuarios()
 
     this.credencialesUsuario = this._obtenerUsuarioService.obtenerCredenciales()
     this.gestionarUsuarios()
@@ -53,28 +52,24 @@ export class AmigosComponent {
       this.usuarios = this.usuarios.filter(usuario => usuario.id !== this.credencialesUsuario.id);
       console.log(this.usuarios)
 
-        for (let usuario of this.usuarios){
-          this._notificacionesService.obtenerNotificacionesUsuarioOrigenDestino( this.credencialesUsuario.id, usuario.id).subscribe( data => {
-            this.notificaciones = data.results
-            console.log(this.notificaciones)
-            if(this.notificaciones.length != 0){
-              usuario.amistadPendiente = true
-            }
-
-          })
-         }
+      // Marca como pendiente a los usuarios que no sean nuestros amigos, pero que tengan una solicitud de amistad nuestra
+      this.obtenerNotificacionPendiente(this.usuarios)
     })
   }
 
   /**
-   * Comprueba si los usuarios tienen notificaciones pendientes nuestras
-   * @param usuario 
+   * Encuentra los usuarios que tienen notificaciones nuestras
+   * @param usuarios Usuario registrado
    */
-  obtenerNotificacion(usuario: any){
-    for (let usuario of this.usuarios){
+  obtenerNotificacionPendiente(usuarios: any){
+
+    // Busca por cada usuario alguna relación en la tabla NotificacionesAmistad con el usuario registrado
+    for (let usuario of usuarios){
       this._notificacionesService.obtenerNotificacionesUsuarioOrigenDestino( this.credencialesUsuario.id, usuario.id).subscribe( data => {
         this.notificaciones = data.results
         console.log(this.notificaciones)
+
+        // Si encuentra un usuario con notificacion, lo pondrá en pendiente de amistad
         if(this.notificaciones.length != 0){
           usuario.amistadPendiente = true
         }
@@ -137,14 +132,10 @@ export class AmigosComponent {
       this.usuarios = this.usuarios.filter(usuario => !this.recomendaciones.some((amigo: { id: string; }) => usuario.id === amigo.id));
       this.usuarios = this.usuarios.filter(usuario => !this.recomendaciones.some((amigo: { id: string; }) => usuario.id === this.credencialesUsuario.id));
 
-      //console.log(this.usuarios)
 
-      this.obtenerNotificacion(this.usuarios)
-      /*
-      for (let usuario of this.usuarios){
-        console.log(usuario)
-      }
-  */
+      // Marca como pendiente a los usuarios que no sean nuestros amigos, pero que tengan una solicitud de amistad nuestra
+      this.obtenerNotificacionPendiente(this.usuarios)
+
     })
 
   }
@@ -179,6 +170,10 @@ export class AmigosComponent {
 
     this._notificacionesService.nuevaNotificacion(notificacion).subscribe();
 
+    setTimeout(() => {
+      window.location.reload();
+    }, 50)
+
   }
 
 
@@ -192,22 +187,29 @@ export class AmigosComponent {
    */
   eliminarAmistad(amigoId: string) {
 
+    // Obtiene la amistad de la base de datos perteneciente al usuario registrado
     this._amigosService.obtenerAmistad(this.credencialesUsuario.id, amigoId).subscribe(data => {
       this.idAmistad = data.results
-      let amistadCancelada = new AmistadesCanceladas(this.usuarioRegistrado[0].url, this.idAmistad[0].usuario_receptor, this.idAmistad[0].fecha_creacion, this.fecha)
 
+      // Creamos un objeto AmistadesCanceladas  
+      let amistadCancelada = new AmistadesCanceladas(this.usuarioRegistrado[0].url, this.idAmistad[0].usuario_receptor, this.idAmistad[0].fecha_creacion, this.fecha)
+      
+      // Añadimos una nueva fila a la tabla AmistadesCanceladas con los datos de la amistad 
       this._amigosService.nuevaCancelacion(amistadCancelada).subscribe()
+
+      // Eliminamos la amistad de la base de datos
       this._amigosService.eliminarAmigo(this.idAmistad[0].url).subscribe()
 
       setTimeout(() => {
-
         window.location.reload();
       }, 50)
     })
 
+    // Obtiene la amistad de la base de datos perteneciente al amigo del usuario registrado
     this._amigosService.obtenerAmistad(amigoId, this.credencialesUsuario.id).subscribe(data => {
       this.idAmistad = data.results
 
+       // Eliminamos la amistad de la base de datos
       this._amigosService.eliminarAmigo(this.idAmistad[0].url).subscribe()
     })
   }
