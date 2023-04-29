@@ -153,8 +153,10 @@ export class PostComponent implements OnInit {
 
 
   eliminarPost() {
-    this._postService.eliminarPost(this.posts[0].id).subscribe();
-    this.router.navigateByUrl('/');
+    this._postService.eliminarPost(this.posts[0].id).subscribe(data =>{
+      this.router.navigateByUrl('/');
+    });
+   
   }
 
   modificarPost() {
