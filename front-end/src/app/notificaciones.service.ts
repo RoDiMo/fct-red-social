@@ -1,13 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { url } from './utils';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotificacionesService {
 
-  public url = "http://localhost:8000/notificacionesamistad/"
+  public url = url()+"notificacionesamistad/"
 
   constructor(private http: HttpClient) { }
 

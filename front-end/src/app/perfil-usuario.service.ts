@@ -1,16 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { url } from './utils';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PerfilUsuarioService {
-
-  constructor(private http: HttpClient) { }
+  private url: string = url()+'usuarios/'
+  constructor(private http: HttpClient) {  }
 
   getPerfilUsuario(id: string|null): Observable<any> {
-    return this.http.get(`http://localhost:8000/usuarios/${id}/`);
+    return this.http.get(this.url+`${id}/`);
   }
 
 

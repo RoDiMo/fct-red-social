@@ -4,11 +4,15 @@ import { Observable } from "rxjs";
 import { LoggedInUser, UserCredentials } from "./auth";
 import { PerfilUsuario } from './perfil-usuario/perfil-usuario';
 import { Router } from '@angular/router';
+import { url } from './utils';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AutenticacionUsuariosService {
+  public urlLogin:string = url()+'api-user-login/';
+  public urlRegistro:string = url()+'registro/';
+  public urlUsuarios:string = url()+'usuarios/';
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -16,9 +20,7 @@ export class AutenticacionUsuariosService {
 
   //Recibe el token con los datos del usuario
    logIn(username: string, password: string): Observable<any> {
-     return this.http.post(
-       'http://localhost:8000/api-user-login/', { username, password }
-       ) as  Observable<any>;
+     return this.http.post( this.urlLogin, { username, password }) as  Observable<any>;
    }
 
    // Almacena al usuario en el LocalSotrage
@@ -31,12 +33,12 @@ export class AutenticacionUsuariosService {
 
    //  --------------REGISTRO--------------------
    public getUsuarios(): Observable<any> {
-    return this.http.get('http://localhost:8000/registro/')
+    return this.http.get(this.urlRegistro)
   }
 
   public nuevoUsuario(usuario : any): Observable<any> {
     console.log(usuario)
-    return this.http.post<any>('http://localhost:8000/registro/', usuario);
+    return this.http.post<any>(this.urlRegistro, usuario);
   }
 
 
@@ -70,12 +72,12 @@ export class AutenticacionUsuariosService {
   }
 
   getUsuariosAll() : Observable<any>{
-    return this.http.get('http://localhost:8000/usuarios/');
+    return this.http.get(this.urlUsuarios);
   }
 
 
   getUsuario(id: string|null): Observable<any> {
-    return this.http.get(`http://localhost:8000/usuarios/${id}/`);
+    return this.http.get(this.urlUsuarios+`${id}/`);
   }
 
   getUsuarioUrl(url: any): Observable<any> {

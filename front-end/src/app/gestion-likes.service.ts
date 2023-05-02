@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Likes } from './home/home';
+import { url } from './utils';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class GestionLikesService {
 
   url:string;
   constructor(private http:HttpClient) {
-    this.url = 'http://localhost:8000/likes/'
+    this.url = url()+'likes/'
    }
 
 

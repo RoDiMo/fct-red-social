@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Post } from './post/post';
 import { Observable } from 'rxjs';
+import { url } from './utils';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,8 @@ export class PostService {
   private url:string; 
 
   constructor(private http: HttpClient) { 
-      this.url ='http://localhost:8000/posts/'
+      this.url = url()+'posts/'
+      //this.url ='http://localhost:8000/posts/'
   }
 
 

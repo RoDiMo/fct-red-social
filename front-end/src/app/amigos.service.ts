@@ -1,13 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { url } from './utils';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AmigosService {
-  private urlAmistades: string = "http://localhost:8000/amigos/"
-  private urlCancelaciones: string = "http://localhost:8000/amistadescanceladas/"
+  private urlAmistades: string = url()+"amigos/"
+  private urlCancelaciones: string = url()+"amistadescanceladas/"
 
   constructor(private http: HttpClient) { }
 
