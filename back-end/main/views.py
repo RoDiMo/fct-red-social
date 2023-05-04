@@ -36,6 +36,21 @@ class Usuarios(viewsets.ModelViewSet):
     serializer_class = UsuarioSerializer
     # permission_classes = [IsAuthenticated]
 
+    def update(self, request, *args, **kwargs):
+        # Obtener el usuario que se va a actualizar
+        usuario = self.get_object()
+        # Obtener los datos actualizados del usuario
+        serializer = self.get_serializer(usuario, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        # Verificar si se cambió la contraseña
+        if 'password' in request.data:
+            # Cambiar la contraseña del usuario
+            usuario.set_password(request.data['password'])
+            usuario.save()
+            # Regenerar el token de autenticación del usuario
+            usuario.regenerar_token()
+        return Response(serializer.data)
 
 '''LOGIN DE USUARIOS'''
 
@@ -73,8 +88,9 @@ class RegistroUsuario(generics.RetrieveUpdateDestroyAPIView):
 class Posts(viewsets.ModelViewSet):
     queryset = Posts.objects.all()
     serializer_class = PostSerializer
-    filter_backends = [filters.OrderingFilter]
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
     ordering_fields = ['fecha_publicacion']
+    filterset_fields = ['usuario']
 
 
 class Comentarios(viewsets.ModelViewSet):

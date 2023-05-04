@@ -50,7 +50,7 @@ export class AmigosComponent {
       this.usuarios = data.results
 
       this.usuarios = this.usuarios.filter(usuario => usuario.id !== this.credencialesUsuario.id);
-      console.log(this.usuarios)
+      
 
       // Marca como pendiente a los usuarios que no sean nuestros amigos, pero que tengan una solicitud de amistad nuestra
       this.obtenerNotificacionPendiente(this.usuarios)
@@ -67,7 +67,7 @@ export class AmigosComponent {
     for (let usuario of usuarios){
       this._notificacionesService.obtenerNotificacionesUsuarioOrigenDestino( this.credencialesUsuario.id, usuario.id).subscribe( data => {
         this.notificaciones = data.results
-        console.log(this.notificaciones)
+       
 
         // Si encuentra un usuario con notificacion, lo pondrá en pendiente de amistad
         if(this.notificaciones.length != 0){

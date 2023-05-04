@@ -18,4 +18,8 @@ export class PerfilUsuarioService {
   getUsuario(url: any): Observable<any> {
     return this.http.get(`${url}`);
   }
+
+  editarDatosPerfil(id:string, usuario:any){
+    return this.http.put<any>(this.url+`${id}/`, usuario)
+  }
 }

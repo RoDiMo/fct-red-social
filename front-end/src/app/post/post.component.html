@@ -70,13 +70,13 @@
 
 -->
 
+<div class="row">
+  <div class="container col-3 border">
+    <app-cabecera></app-cabecera>
+  </div>
 
-<div *ngFor="let post of posts" class="container-fluid d-flex mx-0 px-1">
-  <div class="container col-3 border"> </div>
+  <div *ngFor="let post of posts" class="col-6 border container-fluid d-flex pt-5 mx-0 px-1">
 
-  <div class="col-9 border ">
-
-    <div class="py-4 border"> </div>
 
 
     <!-- Cuerpo -->
@@ -180,8 +180,8 @@
           <div *ngFor="let comentario of comentarios;  first as primera" class="col-md-12 col-lg-12">
             <div class="card text-dark">
               <div class="card-body p-5">
-                <h4 *ngIf="primera" class="m-0">Recent comments</h4>
-                <p *ngIf="primera" class="fw-light mb-5 pb-2">Latest Comments section by users</p>
+                <h4 *ngIf="primera" class="m-0">Coentarios recientes</h4>
+                <p *ngIf="primera" class="fw-light mb-5 pb-2">Ultimos comentarios de los usuarios</p>
                 <div class="d-flex flex-start">
                   <img class="rounde	d-circle shadow-1-strong me-3"
                     src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(23).webp" alt="avatar" width="60"
@@ -194,7 +194,8 @@
                         <span class="material-symbols-outlined" (click)="modificaComentario(comentario.id)">edit</span>
                       </a>
                       <a class="link-muted ms-3">
-                        <span class="material-symbols-outlined" (click)="eliminarComentario(comentario.id)"> delete </span>
+                        <span class="material-symbols-outlined" (click)="eliminarComentario(comentario.id)"> delete
+                        </span>
                       </a>
                     </div>
                     <p class="mb-0">{{comentario.contenido}}</p>
@@ -206,6 +207,13 @@
           </div>
 
         </div>
+
+
       </div>
+
     </div>
   </div>
+
+  <div class="col-3"></div>
+
+</div>

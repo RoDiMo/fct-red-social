@@ -1,0 +1,77 @@
+<div class="container-fluid mx-0 px-0 border">
+
+    <!-- Cabecera -->
+    <div class="row mx-0 border">
+
+        <div class="col-3 mx-0 border">
+        
+            <app-cabecera></app-cabecera>
+        
+        </div>
+
+        <div class="col-6">
+            <div class="row border" style="height: 75px;"></div>
+
+            <div class="row  text-center border-bottom" style="height: 75px;">
+
+                <div class="col-6 pt-3 border-start"  routerLink="/perfil-usuario/{{id}}">
+                    <h2>Datos personales</h2>
+                </div>
+
+                <div class="col-6 pt-3  border-end border-start" routerLink="/perfil-usuario-publicaciones/{{id}}">
+                    <h2>Publicaciones</h2>
+                </div>
+            </div>
+
+
+            <!-- Contenido -->
+            <div class="col-12 px-3">
+
+                <!-- Posts -->
+                <!-- Aquí va el For -->
+                <div *ngFor="let post of postsUsuario" class="row border mx-0 px-0 m-5 border-black rounded-4">
+
+                    <!-- Imagen -->
+                    <div class="col-4  my-3">
+                        <img class="img-fluid" src={{post.imagen}} style="width: 250px; height: 140px;">
+                    </div>
+
+                    <!-- Contenido -->
+                    <div class="col-8 mt-3">
+
+                        <div class="row">
+                            <p> {{post.contenido}} <p>
+                        </div>
+
+                        <!-- Iconos -->
+                        <div class="row m   mb-3">
+
+                            <div class="d-flex  justify-content-end">
+                                <!-- Visitas -->
+                                <div class="mx-2">
+                                    <span class="material-symbols-outlined"> visibility </span>
+                                    <span>{{post.num_visitas}}</span>
+                                </div>
+                                <!-- Likes -->
+                                <div class="mx-2">
+                                    <span class="material-symbols-outlined"> favorite   </span>
+                                    <span>{{post.num_likes}}</span>
+                                </div>
+
+                                <!-- Mensajes -->
+                                <div class="mx-2">
+                                    <span class="material-symbols-outlined"> comment </span>
+                                    <span>4</span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-3 border"> </div>
+
+    </div>
+</div>

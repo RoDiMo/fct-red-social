@@ -12,6 +12,12 @@ import { PostComponent } from './post/post.component';
 import { ComentarioComponent } from './comentario/comentario.component';
 import { AmigosComponent } from './amigos/amigos.component';
 import { NotificacionesComponent } from './notificaciones/notificaciones.component';
+import { EditarDatosPersonalesComponent } from './editar-datos-personales/editar-datos-personales.component';
+import { CambiarContraseniaComponent } from './cambiar-contrasenia/cambiar-contrasenia.component';
+import { PerfilPersonalEstadisticasComponent } from './perfil-personal-estadisticas/perfil-personal-estadisticas.component';
+import { PerfilOtroUsuarioComponent } from './perfil-otro-usuario/perfil-otro-usuario.component';
+import { PerfilUsuarioPublicacionesComponent } from './perfil-usuario-publicaciones/perfil-usuario-publicaciones.component';
+import { CabeceraComponent } from './cabecera/cabecera.component';
 
 
 
@@ -24,12 +30,24 @@ const routes: Routes = [
   {path: 'formulario-post', component: CrearPostComponent, canActivate: [AuthGuard]},
   {path: 'modifica-post/:id', component: CrearPostComponent, canActivate: [AuthGuard]},
   {path: 'modifica-comentario/:id', component: CrearComentarioComponent, canActivate: [AuthGuard]},
+  {path: 'editar-datos-usuario', component: EditarDatosPersonalesComponent, canActivate: [AuthGuard]},
+  {path: 'cambiar-contrasenia', component: CambiarContraseniaComponent, canActivate: [AuthGuard]},
 
   // PÁGINAS
-  {path: 'perfil-personal/:id', component: PerfilUsuarioComponent, canActivate: [AuthGuard] },
-  {path: 'post/:id', component: PostComponent, canActivate: [AuthGuard] },
+
+  // Usuarios
+  {path: 'perfil-personal', component: PerfilUsuarioComponent, canActivate: [AuthGuard] },
+  {path: 'perfil-personal-estadisticas', component: PerfilPersonalEstadisticasComponent, canActivate: [AuthGuard] },
   {path: 'amigos', component: AmigosComponent, canActivate: [AuthGuard] },
+  {path: 'perfil-usuario/:id', component: PerfilOtroUsuarioComponent, canActivate: [AuthGuard] },
+  {path: 'perfil-usuario-publicaciones/:id', component: PerfilUsuarioPublicacionesComponent, canActivate: [AuthGuard] },
   {path: 'notificaciones', component: NotificacionesComponent, canActivate: [AuthGuard] },
+  
+  // Detalles post
+  {path: 'post/:id', component: PostComponent, canActivate: [AuthGuard] },
+ 
+  // Cabecera
+  {path: 'cabecera', component: CabeceraComponent, canActivate: [AuthGuard] },
 
 ]
 

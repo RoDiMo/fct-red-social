@@ -20,6 +20,12 @@ import { CrearComentarioComponent } from './crear-comentario/crear-comentario.co
 import { AmigosComponent } from './amigos/amigos.component';
 import { AmistadesCanceladasComponent } from './amistades-canceladas/amistades-canceladas.component';
 import { NotificacionesComponent } from './notificaciones/notificaciones.component';
+import { EditarDatosPersonalesComponent } from './editar-datos-personales/editar-datos-personales.component';
+import { CambiarContraseniaComponent } from './cambiar-contrasenia/cambiar-contrasenia.component';
+import { PerfilPersonalEstadisticasComponent } from './perfil-personal-estadisticas/perfil-personal-estadisticas.component';
+import { PerfilOtroUsuarioComponent } from './perfil-otro-usuario/perfil-otro-usuario.component';
+import { PerfilUsuarioPublicacionesComponent } from './perfil-usuario-publicaciones/perfil-usuario-publicaciones.component';
+import { CabeceraComponent } from './cabecera/cabecera.component';
 
 
 
@@ -37,6 +43,12 @@ import { NotificacionesComponent } from './notificaciones/notificaciones.compone
     AmigosComponent,
     AmistadesCanceladasComponent,
     NotificacionesComponent,
+    EditarDatosPersonalesComponent,
+    CambiarContraseniaComponent,
+    PerfilPersonalEstadisticasComponent,
+    PerfilOtroUsuarioComponent,
+    PerfilUsuarioPublicacionesComponent,
+    CabeceraComponent,
   ],
   imports: [
     BrowserModule,

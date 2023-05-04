@@ -26,6 +26,10 @@ export class PostService {
     return this.http.get<any>(url)
   }
 
+  obtenerPostsUsuario(id: string): Observable<any>{
+    return this.http.get<any>(this.url+`?usuario=${id}`)
+  }
+
   nuevoPost(post: any): Observable<any>{
     return this.http.post<any>(this.url, post)
   }

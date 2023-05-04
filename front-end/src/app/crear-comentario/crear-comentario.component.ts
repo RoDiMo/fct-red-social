@@ -56,7 +56,6 @@ export class CrearComentarioComponent implements OnInit{
         contenido: this.comentario.contenido as any,
         post: this.comentario.post,
         usuario: this.comentario.usuario,
-
       });
   
 

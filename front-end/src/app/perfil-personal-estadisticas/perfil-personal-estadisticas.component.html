@@ -1,0 +1,139 @@
+<div class="container-fluid mx-0 px-0 border">
+
+    <!-- Cabecera -->
+    <div class="row  mx-3 border">
+
+        <div class="col-3">
+            
+            <app-cabecera></app-cabecera>
+        
+        </div>
+
+        <div class="col-6 border">
+
+            <!-- Cabecera -->
+            <div class="row border" style="height: 75px;"></div>
+            <div class="row  text-center" style="height: 75px;">
+
+                <div class="col-4 pt-3 border-start" routerLink="/perfil-personal">
+                    <h2>Datos personales</h2>
+                </div>
+                <div class="col-4 pt-3 border-start border-end" routerLink="/amigos">
+                    <h2>Amigos</h2>
+                </div>
+                <div class="col-4 pt-3  border-end" routerLink="/perfil-personal-estadisticas">
+                    <h2>Estadísticas</h2>
+                </div>
+            </div>
+
+            <!-- Estadísticas de Rendimiento -->
+            <div class="row border t-3">
+
+                <div class="text-center p-3">
+                    <h3>Rendimiento de las publicaciones</h3>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6 p-3 border-end my-3">
+                    <p>Publicaciones realizadas: {{numeroPosts}}</p>
+                    <p>Media de visitas: {{mediaViews}}</p>
+                    <p>Media de likes: {{mediaLikes}}</p>
+                    <p>Media de comentarios: 5.65</p>
+                </div>
+
+                <div class="col-6 p-3 my-3 ">
+
+                    <p>Máximo número de visitas: {{maxViews}}</p>
+                    <p>Máximo número de likes: {{maxLikes}}</p>
+                    <hr>
+
+                    <p>Total de visitas: {{sumaViews}}</p>
+                    <p>Total de likes: {{sumaLikes}}</p>
+                </div>
+            </div>
+
+            <hr>
+            <!-- Estadisticas de los Posts -->
+
+            <div class="row ">
+                <div class="text-center p-3">
+                    <h2>Publicaciones más vistas</h2>
+                </div>
+            </div>
+            <hr>
+            
+            <div class="row  py-5">
+                <div *ngFor="let postViews of postsMasViews" class="card col-6 mx-5 mb-5" style="width: 18rem;">
+                    <img class="card-img-top" src="{{postViews.imagen}}" alt="Card image cap">
+                    <div class="card-body">
+                        <h3 class="card-text">{{postViews.titulo}}</h3>
+                        <hr>
+                        <div class="row d-flex justify-content-end">
+                            <!-- Visitas -->
+                            <div class=" col-4">
+                                <span class="material-symbols-outlined"> visibility </span>
+                                <span>{{postViews.num_visitas}}</span>
+                            </div>
+                            <!-- Likes -->
+                            <div class=" col-4">
+                                <span class="material-symbols-outlined"> favorite   </span>
+                                <span>{{postViews.num_likes}}</span>
+                            </div>
+
+                            <!-- Mensajes -->
+                            <div class=" col-4">
+                                <span class="material-symbols-outlined"> comment </span>
+                                <span>3</span>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+            <hr>
+            <div class="row ">
+                <div class="text-center p-3">
+                    <h2>Publicaciones más gustadas</h2>
+                </div>
+            </div>
+            <hr>
+            <div class="row  py-5">
+                <div *ngFor="let postLikes of postMasLikes" class="card col-6 mx-5 mb-5" style="width: 18rem;">
+                    <img class="card-img-top" src="{{postLikes.imagen}}" alt="Card image cap">
+                    <div class="card-body">
+                        <h3 class="card-text">{{postLikes.titulo}}</h3>
+                        <hr>
+                        <div class="row d-flex justify-content-end">
+                            <!-- Visitas -->
+                            <div class=" col-4">
+                                <span class="material-symbols-outlined"> visibility </span>
+                                <span>{{postLikes.num_visitas}}</span>
+                            </div>
+                            <!-- Likes -->
+                            <div class=" col-4">
+                                <span class="material-symbols-outlined"> favorite   </span>
+                                <span>{{postLikes.num_likes}}</span>
+                            </div>
+
+                            <!-- Mensajes -->
+                            <div class=" col-4">
+                                <span class="material-symbols-outlined"> comment </span>
+                                <span>3</span>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-3"> </div>
+
+    </div>
+</div>

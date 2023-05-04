@@ -1,0 +1,99 @@
+<p>editar-datos-personales works!</p>
+
+<div class="container-fluid pt-5 d-flex mx-0 px-0 pb-5 min-vh-100">
+
+    <div class="container mt-5 pt-5 pb-5 border">
+  
+      <div class="row col-12 offset-3 py-3 border w-50 text-center">
+        <h1>Registrate</h1>
+      </div>
+  
+      <div class="row col-8 offset-3 px-5 pt-5 border  w-50">
+  
+        <form [formGroup]="formularioDatosUsuario" (ngSubmit)="editarDatosUsuario()">
+          <!-- 2 column grid layout with text inputs for the first and last names -->
+          <div class="row mb-4">
+
+            <div class="col">
+              <div class="form-outline">
+                <input  class="form-control" id="email" formControlName="email" type="email" />
+                <label class="form-label" for="email">Correo electrónico</label>
+                <mat-error *ngIf="formularioDatosUsuario.get('email')?.errors?.['serverError']">
+                  {{formularioDatosUsuario.get('email')?.errors?.['serverError']}}</mat-error>
+              </div>
+            </div>
+          </div>
+  
+  
+          <!-- Text input -->
+          <div class="row mb-4">
+            <div class="col">
+              <div class="form-outline">
+                <input class="form-control" id="first_name" formControlName="first_name" type="text" />
+                <label class="form-label" for="first_name">Nombre</label>
+                <mat-error *ngIf="formularioDatosUsuario.get('first_name')?.errors?.['serverError']">
+                  {{formularioDatosUsuario.get('first_name')?.errors?.['serverError']}}</mat-error>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-outline">
+                <input class="form-control" id="last_name" formControlName="last_name" type="text" />
+                <label class="form-label" for="last_name">Apellido</label>
+                <mat-error *ngIf="formularioDatosUsuario.get('last_name')?.errors?.['serverError']">
+                  {{formularioDatosUsuario.get('last_name')?.errors?.['serverError']}}</mat-error>
+              </div>
+            </div>
+          </div>
+  
+          <!-- Number input -->
+          <div class="form-outline mb-4">
+            <input class="form-control"  id="telefono" formControlName="telefono" type="text"/>
+            <label class="form-label" for="telefono">Telefono</label>
+            <mat-error *ngIf="formularioDatosUsuario.get('telefono')?.errors?.['serverError']">
+              {{formularioDatosUsuario.get('telefono')?.errors?.['serverError']}}</mat-error>
+          </div>
+  
+          <!-- Text input -->
+          <div class="row mb-4">
+            <div class="col">
+              <div class="form-outline">
+                <input class="form-control"  id="pais" formControlName="pais" type="text"/>
+                <label class="form-label" for="form6paisExample1">Pais</label>
+                <mat-error *ngIf="formularioDatosUsuario.get('pais')?.errors?.['serverError']">
+                  {{formularioDatosUsuario.get('pais')?.errors?.['serverError']}}</mat-error>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-outline">
+                <input class="form-control"  id="estado" formControlName="estado" type="text"/>
+                <label class="form-label" for="form6Example2">Estado</label>
+                <mat-error *ngIf="formularioDatosUsuario.get('first_name')?.errors?.['serverError']">
+                  {{formularioDatosUsuario.get('first_name')?.errors?.['serverError']}}</mat-error>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-outline">
+                <input class="form-control" id="ciudad" formControlName="ciudad" type="text" />
+                <label class="form-label" for="ciudad">Ciudad</label>
+                <mat-error *ngIf="formularioDatosUsuario.get('ciudad')?.errors?.['serverError']">
+                  {{formularioDatosUsuario.get('ciudad')?.errors?.['serverError']}}</mat-error>
+              </div>
+            </div>
+          </div>
+  
+          <!-- Email input -->
+          <div class="form-outline mb-4">
+            <input class="form-control"  id="direccion" formControlName="direccion" type="text" />
+            <label class="form-label" for="direccion">Direccion</label>
+            <mat-error *ngIf="formularioDatosUsuario.get('direccion')?.errors?.['serverError']">
+              {{formularioDatosUsuario.get('direccion')?.errors?.['serverError']}}</mat-error>
+          </div>
+  
+  
+          <!-- Submit button -->
+          <button type="submit" class="btn btn-primary btn-block mb-4">Modificar</button>
+        
+        </form>
+      </div>
+    </div>
+  </div>

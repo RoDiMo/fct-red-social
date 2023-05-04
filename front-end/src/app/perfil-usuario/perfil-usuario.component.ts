@@ -3,6 +3,7 @@ import { PerfilUsuario } from './perfil-usuario';
 import { PerfilUsuarioService } from '../perfil-usuario.service';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from "@angular/router";
+import { AutenticacionUsuariosService } from '../autenticacion-usuarios.service';
 @Component({
   selector: 'app-perfil-usuario',
   templateUrl: './perfil-usuario.component.html',
@@ -10,28 +11,28 @@ import { Router } from "@angular/router";
   ]
 })
 export class PerfilUsuarioComponent implements OnInit{
-  public datosUsuario: PerfilUsuario | null = null;
+  public datosUsuario!: PerfilUsuario;
+  public id = this._obtenerUsuarioService.obtenerCredenciales().id
 
-  constructor(private perfilUsuarioService: PerfilUsuarioService,
-     private activatedRoute: ActivatedRoute,private router: Router) { }
+  constructor(
+     public _obtenerUsuarioService: AutenticacionUsuariosService,
+      private _perfilUsuarioService: PerfilUsuarioService,
+      private activatedRoute: ActivatedRoute,
+      private router: Router
+     ) { }
 
   ngOnInit(): void {
     // Id del usuario que ha iniciado sesion
-    const id = this.activatedRoute.snapshot.paramMap.get('id');
+    //const id = this.activatedRoute.snapshot.paramMap.get('id');
 
     // Obtiene los datos del usuario registrado en la sesion
-    this.perfilUsuarioService.getPerfilUsuario(id).subscribe({
-        next: (data) => {
+    this._perfilUsuarioService.getPerfilUsuario(this.id).subscribe(data => {
           this.datosUsuario = data;
-          console.log(this.datosUsuario);
-
-        },
-        error: (error) => {
-          console.log(error);
-        }
-      }
-    );
+      
+        });
   }
+
+
 
   // Borra los datos del usuario del LocaleStorage, cerrando la sesion
   logout() {

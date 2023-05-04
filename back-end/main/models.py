@@ -51,6 +51,10 @@ class Usuarios(AbstractUser):
         if created:
             Token.objects.create(user=instance)
 
+    def regenerar_token(self):
+        Token.objects.filter(user=self).delete()
+        Token.objects.create(user=self)
+
 
 class Posts(models.Model):
     usuario = models.ForeignKey(Usuarios, on_delete=models.RESTRICT)
