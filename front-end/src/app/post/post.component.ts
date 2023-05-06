@@ -241,7 +241,7 @@ export class PostComponent implements OnInit {
     this._comentarioService.nuevoComentario(this.formularioComent.value).subscribe();
     //const id = this.activatedRoute.snapshot.paramMap.get('id');
     setTimeout(() => {
-      this.mostrarComentarios(this.id);
+      this.ngOnInit()
       this.formularioComent.reset();
     }, 200);
 
@@ -256,9 +256,9 @@ export class PostComponent implements OnInit {
     this._comentarioService.eliminarComentario(id).subscribe();
 
     setTimeout(() => {
-      this.mostrarComentarios(this.id);
-      this.formularioComent.reset();
-    }, 5);
+      this.ngOnInit()
+    }, 200);
+
   }
 
 

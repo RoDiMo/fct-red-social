@@ -1,8 +1,8 @@
 
-    <div class="sticky-top mb-5">
+    <div  class="sticky-top mb-5" >
 
       <div class="row d-flex" style="height: 75px; ">
-        <img class="ms-5" src="https://s3-eu-west-1.amazonaws.com/tpd/logos/5be01d787b5e5b0001ebb6bb/0x0.png" alt="" style="width: 160px; height: 90px;">
+        <img class="ms-5" src="../../assets/logo.png" alt="" style="width: 160px; height: 90px;">
       </div>
 
       <hr>
@@ -13,8 +13,8 @@
         </div>
 
         <div class="col-9 ">
-          <p>roberto</p>
-          <button class="btn btn-secondary"> Cerrar sesion</button>
+          <p>{{credenciales.username}}</p>
+          <button class="btn btn-secondary" (click)="logout()"> Cerrar sesion</button>
         </div>
       </div>
 
@@ -25,7 +25,7 @@
         </div>
 
         <div class="col-9 ">
-          <h3>Inicio</h3>
+          <h3 style="cursor: pointer;"  routerLink="/">Inicio</h3>
         </div>
       </div>
 
@@ -35,7 +35,7 @@
         </div>
 
         <div class="col-9 ">
-          <h3>Notificaciones</h3>
+          <h3  style="cursor: pointer;"  routerLink="/notificaciones" >Notificaciones</h3>
         </div>
       </div>
 
@@ -46,7 +46,7 @@
         </div>
 
         <div class="col-9 ">
-          <h3>Perfil</h3>
+          <h3 style="cursor: pointer;"  routerLink="/perfil-personal">Perfil</h3>
         </div>
       </div>
 
@@ -65,7 +65,7 @@
       <div class="row mt-5 mb-5">
 
         <div class="col-9 d-flex justify-content-center">
-          <h3>Nueva publicacion</h3>
+          <h3 style="cursor: pointer;"  routerLink="/formulario-post">Nueva publicacion</h3>
         </div>
 
         <div class="col-3  d-flex align-items-center ">
@@ -78,7 +78,7 @@
       </div>
 
       <!-- Amigos -->
-
+<!--
       <div class="row mb-5 mx-5">
 
         <div class="row mt-2">
@@ -90,51 +90,25 @@
 
         <div class="row mt-2 text-center">
 
-          <div class="col-4 mb-4 ">
-            <img class="w-75 border border-black" src="https://bootdey.com/img/Content/avatar/avatar7.png"
-              alt="Image Description">
-            <p>nombre usuario</p>
-          </div>
+          <div *ngFor="let amigo of usuariosAmigos" class="col-4 mb-4 ">
 
-          <div class="col-4 text-center">
-            <img class="w-75 border border-black" src="https://bootdey.com/img/Content/avatar/avatar7.png"
-              alt="Image Description">
-            <p>nombre usuario</p>
-          </div>
+            <img *ngIf="amigo.foto_perfil" class="w-75 border border-black rounded-circle" src={{amigo.foto_perfil}}
+            alt="Image Description" style="height: 50px;">
 
-          <div class="col-4 text-center">
-            <img class="w-75 border border-black" src="https://bootdey.com/img/Content/avatar/avatar7.png"
+            <img *ngIf="!amigo.foto_perfil" class="w-75 border border-black rounded-circle" src="https://bootdey.com/img/Content/avatar/avatar7.png"
               alt="Image Description">
-            <p>nombre usuario</p>
+            <p>{{amigo.username}}</p>
           </div>
-
-          <div class="col-4 text-center">
-            <img class="w-75 border border-black" src="https://bootdey.com/img/Content/avatar/avatar7.png"
-              alt="Image Description">
-            <p>nombre usuario</p>
-          </div>
-
-          <div class="col-4 text-center">
-            <img class="w-75 border border-black" src="https://bootdey.com/img/Content/avatar/avatar7.png"
-              alt="Image Description">
-            <p>nombre usuario</p>
-          </div>
-
-          <div class="col-4 text-center">
-            <img class="w-75 border border-black" src="https://bootdey.com/img/Content/avatar/avatar7.png"
-              alt="Image Description">
-            <p>nombre usuario</p>
-          </div>
-
         </div>
 
         <div class="row text-center">
           <div>
-            <button class="btn border btn-danger">Ver Amigos</button>
+            <button class="btn border btn-danger" style="cursor: pointer;"  routerLink="/amigos">Ver Amigos</button>
           </div>
         </div>
 
       </div>
+      -->
 
     </div>
 

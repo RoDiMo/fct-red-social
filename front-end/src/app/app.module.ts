@@ -26,6 +26,7 @@ import { PerfilPersonalEstadisticasComponent } from './perfil-personal-estadisti
 import { PerfilOtroUsuarioComponent } from './perfil-otro-usuario/perfil-otro-usuario.component';
 import { PerfilUsuarioPublicacionesComponent } from './perfil-usuario-publicaciones/perfil-usuario-publicaciones.component';
 import { CabeceraComponent } from './cabecera/cabecera.component';
+import { ContactosChatComponent } from './contactos-chat/contactos-chat.component';
 
 
 
@@ -49,6 +50,7 @@ import { CabeceraComponent } from './cabecera/cabecera.component';
     PerfilOtroUsuarioComponent,
     PerfilUsuarioPublicacionesComponent,
     CabeceraComponent,
+    ContactosChatComponent,
   ],
   imports: [
     BrowserModule,

@@ -46,7 +46,7 @@ export class AutenticacionUsuariosService {
     this.logIn(user.username, user.password).subscribe({
         next: (data) => {
           this.setLoggedInUser(data);
-          this.router.navigateByUrl(`/perfil-personal`);
+          this.router.navigateByUrl(`/`);
         },
         error: (error) => {
           console.log(error);

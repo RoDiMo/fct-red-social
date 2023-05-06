@@ -126,8 +126,15 @@ export class CrearPostComponent implements OnInit {
 
     // Si no estamos editando, creamos un nuevo post, de lo contrario modificamos los valores de uno ya existente
     if (!this.modoEdicion) {
-      this._postService.nuevoPost(this.formData).subscribe(data => { });
-      this.router.navigateByUrl(`/`);
+      this._postService.nuevoPost(this.formData).subscribe(data => {
+        
+        setTimeout(() => {
+          this.router.navigateByUrl(`/`);
+        }, 50)
+
+      });
+ 
+     
     } else {
       this._postService.modificarPost(this.post.id, this.formularioPost.value).subscribe();
       this.router.navigateByUrl(`post/${this.post.id}`);

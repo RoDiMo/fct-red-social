@@ -44,7 +44,6 @@ export class ComentariosService {
 
   // Elimina un comentario
   eliminarComentario(id:string): Observable<any>{
-    console.log("eliminar comentario", this.url+`${id}/`)
     return this.http.delete<any>(this.url+`${id}/`)
   }
 
