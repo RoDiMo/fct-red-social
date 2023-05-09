@@ -122,13 +122,13 @@
                     <hr class="mt-1">
 
                     <div *ngFor=" let amigo of amigos" class="col-4 text-center">
-                        <div class="py-4">
-                            <img *ngIf="amigo.foto_perfil" class="rounded-circle border border-black"
-                                src={{amigo.foto_perfil}} style="width: 150px; height: 170px;" alt="">
+                        <div class="py-4" >
+                            <img [routerLink]='["/perfil-usuario/", amigo.id]' *ngIf="amigo.foto_perfil" class="rounded-circle border border-black"
+                                src={{amigo.foto_perfil}} style="width: 150px; height: 170px; cursor: pointer;" alt="">
 
-                            <img *ngIf="!amigo.foto_perfil" class="rounded-circle border border-black pt-4"
+                            <img [routerLink]='["/perfil-usuario/", amigo.id]' *ngIf="!amigo.foto_perfil" class="rounded-circle border border-black pt-4"
                                 src="https://bootdey.com/img/Content/avatar/avatar7.png"
-                                style="width: 150px; height: 170px;">
+                                style="width: 150px; height: 170px;  cursor: pointer;">
 
                             <p class="py-2">{{amigo.username}}</p>
 
@@ -142,6 +142,8 @@
             </div>
         </div>
 
-        <div class="col-3 border"> </div>
+        <div class="col-3 border"> 
+            <app-contactos-chat></app-contactos-chat>
+        </div>
     </div>
 </div>

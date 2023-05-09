@@ -50,6 +50,16 @@
         </div>
       </div>
 
+      <div class="row  mt-4">
+        <div class="col-3  d-flex align-items-center justify-content-end">
+          <span class="material-symbols-outlined" style="font-size: 40px;"> diversity_3 </span>
+        </div>
+
+        <div class="col-9 ">
+          <h3 style="cursor: pointer;"  routerLink="/amigos">Amigos</h3>
+        </div>
+      </div>
+
 
       <div class="row mt-4">
         <div class="col-3  d-flex align-items-center justify-content-end ">
@@ -77,38 +87,6 @@
         <hr class="w-75">
       </div>
 
-      <!-- Amigos -->
-<!--
-      <div class="row mb-5 mx-5">
-
-        <div class="row mt-2">
-
-          <div class="col-12 text-center">
-            <h3>Amigos</h3>
-          </div>
-        </div>
-
-        <div class="row mt-2 text-center">
-
-          <div *ngFor="let amigo of usuariosAmigos" class="col-4 mb-4 ">
-
-            <img *ngIf="amigo.foto_perfil" class="w-75 border border-black rounded-circle" src={{amigo.foto_perfil}}
-            alt="Image Description" style="height: 50px;">
-
-            <img *ngIf="!amigo.foto_perfil" class="w-75 border border-black rounded-circle" src="https://bootdey.com/img/Content/avatar/avatar7.png"
-              alt="Image Description">
-            <p>{{amigo.username}}</p>
-          </div>
-        </div>
-
-        <div class="row text-center">
-          <div>
-            <button class="btn border btn-danger" style="cursor: pointer;"  routerLink="/amigos">Ver Amigos</button>
-          </div>
-        </div>
-
-      </div>
-      -->
 
     </div>
 

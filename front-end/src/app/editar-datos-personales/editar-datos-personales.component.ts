@@ -58,7 +58,7 @@ export class EditarDatosPersonalesComponent {
 
   editarDatosUsuario(){
     this._perfilUsuarioService.editarDatosPerfil(this.credenciales.id, this.formularioDatosUsuario.value).subscribe();
-    this.router.navigateByUrl(`perfil-personal/${this.credenciales.id}`);
+    this.router.navigateByUrl('perfil-personal');
   }
 
 }

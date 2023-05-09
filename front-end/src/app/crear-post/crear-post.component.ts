@@ -133,7 +133,6 @@ export class CrearPostComponent implements OnInit {
         }, 50)
 
       });
- 
      
     } else {
       this._postService.modificarPost(this.post.id, this.formularioPost.value).subscribe();

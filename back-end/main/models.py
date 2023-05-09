@@ -124,3 +124,4 @@ class Chat(models.Model):
     fecha_mensaje = models.DateTimeField(default=timezone.now)
     leido = models.BooleanField(default=False)
     mensaje = models.CharField(max_length=250)
+

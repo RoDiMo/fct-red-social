@@ -31,9 +31,6 @@ export class CabeceraComponent {
 
      ngOnInit(): void {
       this.obtenerAmistades()
-
-
-
     }
 
      obtenerAmistades(){

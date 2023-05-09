@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, permissions, filters, mixins, status, generics
 from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.decorators import action
 from rest_framework.generics import GenericAPIView
 from rest_framework.parsers import FileUploadParser, FormParser, MultiPartParser
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -10,6 +11,7 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from main.models import *
+from main.models import Chat
 from main.serializers import *
 
 
@@ -31,9 +33,26 @@ class Ciudades(viewsets.ModelViewSet):
     serializer_class = CiudadesSerializer
 
 
-class Usuarios(viewsets.ModelViewSet):
+class Usuario(viewsets.ModelViewSet):
     queryset = Usuarios.objects.all()
     serializer_class = UsuarioSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['id']
+
+    '''
+    @action(detail=False, methods=['get'])
+    def obtener_pareja_usuarios(self, request):
+        usuario_logeado = request.query_params.get('id')
+        usuario_amigo = request.query_params.get('id')
+
+        mensajes = Usuarios.objects.all().filter(
+            Q(pk=usuario_logeado) | Q(pk=usuario_amigo)
+        )
+
+        serializers_context = self.get_serializer_context()
+        serializer = UsuarioSerializer(instance=mensajes.distinct(), context=serializers_context, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    '''
     # permission_classes = [IsAuthenticated]
 
     def update(self, request, *args, **kwargs):
@@ -51,6 +70,7 @@ class Usuarios(viewsets.ModelViewSet):
             # Regenerar el token de autenticación del usuario
             usuario.regenerar_token()
         return Response(serializer.data)
+
 
 '''LOGIN DE USUARIOS'''
 
@@ -111,7 +131,7 @@ class Amigos(viewsets.ModelViewSet):
     queryset = Amigos.objects.all()
     serializer_class = AmigosSerializer
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
-    filterset_fields = ['usuario_solicitante','usuario_receptor']
+    filterset_fields = ['usuario_solicitante', 'usuario_receptor']
     ordering_fields = ['fecha_creacion']
 
 
@@ -119,7 +139,7 @@ class NotificacionesAmistad(viewsets.ModelViewSet):
     queryset = NotificacionesAmistad.objects.all()
     serializer_class = NotificacionesSerializer
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['usuario_origen','usuario_destino','procesada']
+    filterset_fields = ['usuario_origen', 'usuario_destino', 'procesada']
 
 
 class AmistadesCanceladas(viewsets.ModelViewSet):
@@ -127,6 +147,21 @@ class AmistadesCanceladas(viewsets.ModelViewSet):
     serializer_class = AmistadesCanceladasSerializer
 
 
-class Chat(viewsets.ModelViewSet):
+class Chats(viewsets.ModelViewSet):
     queryset = Chat.objects.all()
     serializer_class = ChatSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['emisor', 'receptor']
+
+    @action(detail=False, methods=['get'])
+    def mensajes_chat(self, request):
+        emisor = request.query_params.get('emisor')
+        receptor = request.query_params.get('receptor')
+
+        mensajes = Chat.objects.all().filter(
+            (Q(emisor=emisor) & Q(receptor=receptor)) |
+            (Q(emisor=receptor) & Q(receptor=emisor))
+        )
+        serializers_context = self.get_serializer_context()
+        serializer = ChatSerializer(instance=mensajes.distinct(), context=serializers_context, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)

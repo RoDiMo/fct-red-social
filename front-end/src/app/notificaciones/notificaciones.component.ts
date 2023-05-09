@@ -31,12 +31,12 @@ export class NotificacionesComponent {
     this.obtenerNotificaciones()
   }
 
-
+  // Obtenemos las notificaciones destinadas a este usuario que no han sido aún procesadas
   obtenerNotificaciones() {
     this._notificacionesService.obtenerNotificacionesUsuarioDestino(this.credencialesUsuario.id).subscribe(data => {
       this.notificaciones = data.results
-      //console.log("notificaciones", this.notificaciones)
 
+      // Obtenemos los datos del usuario que envio la notificacion
       for (let notificacion of this.notificaciones) {
         this._obtenerUsuarioService.getUsuarioUrl(notificacion.usuario_origen).subscribe({
           next: (data) => {
@@ -52,7 +52,7 @@ export class NotificacionesComponent {
   }
 
 
-
+  // Si el usuario confirma la amistad, se crea una nueva relacion en la base de datos y se pasa el estado de la notificacion a Aceptada
   confirmarAmistad(idNotificacion: any, usuarioOrigen: string, usuarioDestino: string) {
 
 
@@ -62,12 +62,14 @@ export class NotificacionesComponent {
     this._amigosService.nuevaAmistad(usuario_emisor).subscribe()
     this._amigosService.nuevaAmistad(usuario_receptor).subscribe()
 
+    // Una vez la solicitud es procesada se modifica su estado
     this._notificacionesService.obtenerNotificacionPorId(idNotificacion).subscribe(data => {
       this.notificacionActualizada = [data]
 
       this.notificacionActualizada[0].estado = "Aceptada"
       this.notificacionActualizada[0].procesada = true
 
+      // Actualizamos la notificacion a procesada
       this._notificacionesService.actualizarNotificacion(idNotificacion, this.notificacionActualizada[0]).subscribe()
 
 
@@ -78,14 +80,17 @@ export class NotificacionesComponent {
     })
   }
 
-
+    // Si el usuario rechaza la amistad, pasa el estado de la notificacion a Rechazada
   rechazarAmistad(idNotificacion: any){
     this._notificacionesService.obtenerNotificacionPorId(idNotificacion).subscribe(data => {
       this.notificacionActualizada = [data]
 
+      
+    // Una vez la solicitud es procesada se modifica su estado
       this.notificacionActualizada[0].estado = "Rechazada"
       this.notificacionActualizada[0].procesada = true
 
+      // Actualizamos la notificacion a procesada
       this._notificacionesService.actualizarNotificacion(idNotificacion, this.notificacionActualizada[0]).subscribe()
 
 

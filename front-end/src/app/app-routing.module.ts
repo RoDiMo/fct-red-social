@@ -18,6 +18,7 @@ import { PerfilPersonalEstadisticasComponent } from './perfil-personal-estadisti
 import { PerfilOtroUsuarioComponent } from './perfil-otro-usuario/perfil-otro-usuario.component';
 import { PerfilUsuarioPublicacionesComponent } from './perfil-usuario-publicaciones/perfil-usuario-publicaciones.component';
 import { CabeceraComponent } from './cabecera/cabecera.component';
+import { ChatComponent } from './chat/chat.component';
 
 
 
@@ -42,6 +43,7 @@ const routes: Routes = [
   {path: 'perfil-usuario/:id', component: PerfilOtroUsuarioComponent, canActivate: [AuthGuard] },
   {path: 'perfil-usuario-publicaciones/:id', component: PerfilUsuarioPublicacionesComponent, canActivate: [AuthGuard] },
   {path: 'notificaciones', component: NotificacionesComponent, canActivate: [AuthGuard] },
+  {path: 'chat/:id', component: ChatComponent, canActivate: [AuthGuard] },
   
   // Detalles post
   {path: 'post/:id', component: PostComponent, canActivate: [AuthGuard] },
