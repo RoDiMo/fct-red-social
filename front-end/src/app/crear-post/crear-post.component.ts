@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AutenticacionUsuariosService } from '../autenticacion-usuarios.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PostService } from '../post.service';
+import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'app-crear-post',
   templateUrl: './crear-post.component.html',
@@ -18,7 +19,10 @@ export class CrearPostComponent implements OnInit {
   public post: any = {};
   public modoEdicion: boolean = false;
   public formData : FormData = new FormData();
-
+  public caracRestantes: number= 1024;
+  public caracSobrantes?: number
+  public quedanCaracteres: boolean = true;
+  public errors : Array<any> = [];
 
   constructor(
     public obtenerUsuario: PerfilUsuarioService,
@@ -26,8 +30,7 @@ export class CrearPostComponent implements OnInit {
     public formBuilder: FormBuilder,
     public _postService: PostService,
     public activatedRoute: ActivatedRoute,
-    public router: Router,
-   
+    public router: Router,   
   ) {
 
   }
@@ -39,7 +42,9 @@ export class CrearPostComponent implements OnInit {
     // 2. Si no se recibe una id, significa que se debe crear un post nuevo
 
     const id = this.activatedRoute.snapshot.paramMap.get('id');
-    if (id) { // -------> MODO EDICION <-------
+
+    // -------> MODO EDICION <-------
+    if (id) { 
 
       // En la modificacion solo trabajaremos con los valores de titulo, contenido e usuario (La imagen se modifica aparte)
       this.formularioPost = this.formBuilder.group({
@@ -63,7 +68,11 @@ export class CrearPostComponent implements OnInit {
           usuario: this.post.usuario,
 
         });
+
+        this.controlarCaracteres(this.post.contenido)
       })
+
+
 
     } else {// -------> MODO CREACION <-------
 
@@ -131,14 +140,60 @@ export class CrearPostComponent implements OnInit {
         setTimeout(() => {
           this.router.navigateByUrl(`/`);
         }, 50)
-
+      }, err => {
+        if (err instanceof HttpErrorResponse) {
+          const ValidationErrors = err.error;
+          Object.keys(ValidationErrors).forEach(prop => {
+            const formControl = this.formularioPost.get(prop);
+            if (formControl) {
+              formControl.setErrors({
+                serverError: ValidationErrors[prop]
+              })
+            }
+          })
+        }
+        this.errors = err.error.message;
       });
+
+    
      
     } else {
-      this._postService.modificarPost(this.post.id, this.formularioPost.value).subscribe();
-      this.router.navigateByUrl(`post/${this.post.id}`);
+      this._postService.modificarPost(this.post.id, this.formularioPost.value).subscribe(data =>{
+
+        this.router.navigateByUrl(`post/${this.post.id}`);
+      }, err => {
+        if (err instanceof HttpErrorResponse) {
+          const ValidationErrors = err.error;
+          Object.keys(ValidationErrors).forEach(prop => {
+            const formControl = this.formularioPost.get(prop);
+            if (formControl) {
+              formControl.setErrors({
+                serverError: ValidationErrors[prop]
+              })
+            }
+          })
+        }
+        this.errors = err.error.message;
+      }
+      );
+   
     }
 
+   
+  }
+
+
+
+  controlarCaracteres(contenido: string){
+    this.caracRestantes = 1024 - contenido.length
+
+    if(this.caracRestantes > 0){
+      this.quedanCaracteres = true
+    }else{
+      this.quedanCaracteres = false
+      this.caracSobrantes = -(1024 - contenido.length)
+      this.caracRestantes = 0
+    }
    
   }
 

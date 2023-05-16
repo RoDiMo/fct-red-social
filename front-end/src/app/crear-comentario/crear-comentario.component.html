@@ -1,13 +1,44 @@
-<form [formGroup]="formularioComent" (ngSubmit)="editarComentario()">
+<div class="container-fluid d-flex mx-0 px-0">
 
-    <div >
-      <label for="contenido">Contenido: {{comentario.post}}</label>
-      <textarea rows="20" cols="120" id="contenido" formControlName="contenido" [value]="comentario.contenido"  required></textarea>
-      <div *ngIf="formularioComent.controls['contenido'].invalid && (formularioComent.controls['contenido'].dirty || formularioComent.controls['contenido'].touched)">
+
+  <div class="container col-3 border">
+    <app-cabecera></app-cabecera>
+  </div>
+
+  <div class="col-6 p-5">
+
+    <div class="row">
+    <form [formGroup]="formularioComent" (ngSubmit)="editarComentario()">
+
+      <div class="row mb-3">
+        <textarea rows="20" cols="120" id="contenido" formControlName="contenido" [value]="comentario.contenido"
+            (keydown)="controlarCaracteres(formularioComent.value.contenido)" placeholder="Introduzca su comentario aqui"></textarea>
+            <div *ngIf="formularioComent.get('contenido')?.errors?.['serverError']" class="text-start mt-2">
+              <ul>
+                <li> {{formularioComent.get('contenido')?.errors?.['serverError']}}</li>
+              </ul>
+            </div>
       </div>
-    </div>
 
-   
-    <button type="submit" [disabled]="formularioComent.invalid">Ingresar</button>
-  </form>
 
+      <div class="row mb-3">
+        <div class="col-6">
+          <button class="btn btn-primary btn-block mb-4" type="submit">Ingresar</button>
+        </div>
+        <div class="col-6 text-end">
+          <p>Caracteres restantes: {{caracRestantes}} </p>
+
+          <div class="row">
+            <p *ngIf="!quedanCaracteres">Excedida la capacidad de caracterres por {{caracSobrantes}} </p>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  </div>
+
+  <div class="col-3 border">
+    <app-contactos-chat></app-contactos-chat>
+  </div>
+</div>

@@ -21,7 +21,7 @@ export class PostComponent implements OnInit {
   public posts: Array<Post> = [];
   public postsLikes: Array<Post> = []
   public comentarios: Array<Comentario> = [];
-  public usuarios: any;
+  public usuariosComentarios: any;
   public credenciales!: PerfilUsuario;
   public usuario!: any;
   formularioComent;
@@ -30,6 +30,11 @@ export class PostComponent implements OnInit {
   public formularioVisitas!: FormGroup;
   public id: string | null = "";
   public likeDado: boolean = false;
+
+  public caracRestantes: number= 1024;
+  public caracSobrantes?: number
+  public quedanCaracteres: boolean = true;
+  public errors : Array<any> = [];
 
   constructor(private _postService: PostService,
     public obtenerUsuario: PerfilUsuarioService,
@@ -143,11 +148,20 @@ export class PostComponent implements OnInit {
   }
 
 
-  esCreadorPost(post:Post, urlUsuario:string): boolean{
-      if(post.nombre_usuario != this.credenciales.username){
-        return false
-      }
+  esCreadorPost(campo:any): boolean{
+    
+      //console.log(this.usuario)
+      if(this.usuario != undefined){
 
+        if(this.usuario.is_staff){
+          return true
+        }
+        
+        if(campo.nombre_usuario != this.credenciales.username){
+          return false
+        }
+      }
+    
       return true
   }
 
@@ -224,10 +238,11 @@ export class PostComponent implements OnInit {
         for (let comentario of this.comentarios) {
           this.obtenerUsuario.getUsuario(comentario.usuario).subscribe({
             next: (data) => {
-              this.usuarios = data
+              this.usuariosComentarios = data
 
               // Obtenemos el nombre de cada usuario
-              comentario.nombre_usuario = this.usuarios.username
+              comentario.nombre_usuario = this.usuariosComentarios.username
+              comentario.foto_perfil = this.usuariosComentarios.foto_perfil
             }
           })
         }
@@ -377,4 +392,19 @@ export class PostComponent implements OnInit {
 
     localStorage.setItem(`post-${id}-visit-updated`, 'true');
   }
+
+
+  controlarCaracteres(contenido: string){
+    this.caracRestantes = 1024 - contenido.length
+
+    if(this.caracRestantes > 0){
+      this.quedanCaracteres = true
+    }else{
+      this.quedanCaracteres = false
+      this.caracSobrantes = -(1024 - contenido.length)
+      this.caracRestantes = 0
+    }
+   
+  }
+
 }

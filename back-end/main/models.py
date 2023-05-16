@@ -45,6 +45,7 @@ class Usuarios(AbstractUser):
     ciudad = models.CharField(max_length=250, default='')
     direccion = models.CharField(max_length=250, default='')
     foto_perfil = models.ImageField(upload_to='main/imagenes/usuarios', null=True)
+    fecha_alta = models.DateTimeField(default=timezone.now)
 
     @receiver(post_save, sender=settings.AUTH_USER_MODEL)
     def create_auth_token(sender, instance=None, created=False, **kwargs):
@@ -58,12 +59,14 @@ class Usuarios(AbstractUser):
 
 class Posts(models.Model):
     usuario = models.ForeignKey(Usuarios, on_delete=models.RESTRICT)
-    titulo = models.CharField(max_length=50)
-    contenido = models.CharField(max_length=250)
+    titulo = models.CharField(max_length=125)
+    contenido = models.CharField(max_length=1024)
     imagen = models.ImageField(upload_to='main/imagenes/posts', null=True)
     fecha_publicacion = models.DateTimeField(default=timezone.now)
     num_likes = models.PositiveBigIntegerField(default=0)
     num_visitas = models.BigIntegerField(default=0)
+    num_comentarios = models.BigIntegerField(default=0)
+    oculto = models.BooleanField(default=False)
 
     def __str__(self):
         return "Titulo: {}".format(self.titulo)
@@ -71,14 +74,14 @@ class Posts(models.Model):
 
 class Comentarios(models.Model):
     post = models.ForeignKey(Posts, on_delete=models.CASCADE)
-    usuario = models.ForeignKey(Usuarios, on_delete=models.RESTRICT)
-    contenido = models.CharField(max_length=250)
+    usuario = models.ForeignKey(Usuarios, on_delete=models.CASCADE)
+    contenido = models.CharField(max_length=1024)
     fecha_creacion = models.DateTimeField(default=timezone.now)
 
 
 class Likes(models.Model):
-    usuario = models.ForeignKey(Usuarios, on_delete=models.RESTRICT)
-    post = models.ForeignKey(Posts, on_delete=models.RESTRICT)
+    usuario = models.ForeignKey(Usuarios, on_delete=models.CASCADE)
+    post = models.ForeignKey(Posts, on_delete=models.CASCADE)
 
     class Meta:
         constraints = [

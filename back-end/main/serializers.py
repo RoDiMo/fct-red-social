@@ -42,7 +42,9 @@ class UsuarioSerializer(serializers.HyperlinkedModelSerializer):
                   'estado',
                   'ciudad',
                   'direccion',
-                  'foto_perfil')
+                  'foto_perfil',
+                  'fecha_alta',
+                  )
 
 
 class RegistroSerializer(serializers.ModelSerializer):
@@ -60,7 +62,9 @@ class RegistroSerializer(serializers.ModelSerializer):
                   'estado',
                   'ciudad',
                   'direccion',
-                  'foto_perfil')
+                  'foto_perfil',
+
+                  )
         extra_kwargs = {"password": {"write_only": True}}
 
     def create(self, validated_data):
@@ -89,7 +93,10 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
                   'imagen',
                   'fecha_publicacion',
                   'num_likes',
-                  'num_visitas')
+                  'num_visitas',
+                  'num_comentarios',
+                  'oculto'
+                  )
 
 
 class ComentariosSerializer(serializers.HyperlinkedModelSerializer):

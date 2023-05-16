@@ -18,7 +18,7 @@ export class RegistroUsuarioComponent {
   public formulario!: FormGroup;
   public formData: FormData = new FormData();
  
-  public mensajeInfo = "";
+  public mensajeInfo = {};
   public errors : Array<any> = [];
 
   constructor(
@@ -71,10 +71,11 @@ export class RegistroUsuarioComponent {
     this.formData.append('direccion', this.formulario.get('direccion')?.value);
 
 
-    if (this.formulario.invalid) {
+    if (this.formulario.get("password")?.value == '') {
       console.log(this.formulario.errors);
-      this.mensajeInfo = "Formulario no válido"
+      this.mensajeInfo = {invalid: "Este campo es obligatorio"}
     } else {
+      this.mensajeInfo = {}
       this._registroUsuario.nuevoUsuario(this.formData).subscribe(data => {
         this._registroUsuario.logInUser(this.formulario.value)
       }, err => {
@@ -94,5 +95,7 @@ export class RegistroUsuarioComponent {
     }
   }
 
+
+  protected readonly Object = Object;
 }
 

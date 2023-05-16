@@ -1,60 +1,103 @@
-<div *ngIf="!modoEdicion">
-  <form [formGroup]="formularioPost" (ngSubmit)="enviaPost()">
-    <div>
-      <label for="titulo">Titulo:</label>
-      <input type="text" id="titulo" formControlName="titulo" required>
-      <div
-        *ngIf="formularioPost.controls['titulo'].invalid && (formularioPost.controls['titulo'].dirty || formularioPost.controls['titulo'].touched)">
+<div class="container-fluid d-flex mx-0 px-0">
+
+
+  <div class="container col-3 border">
+    <app-cabecera></app-cabecera>
+  </div>
+
+  <div class="col-6 m-5">
+    <div *ngIf="!modoEdicion">
+      <div class="row">
+        <form [formGroup]="formularioPost" (ngSubmit)="enviaPost()">
+          <div class="row mb-3">
+            <input type="text" id="titulo" formControlName="titulo" style="width: 50%;" placeholder="Título del Post"
+              required>
+            <div *ngIf="formularioPost.get('titulo')?.errors?.['serverError']" class="text-start mt-2">
+              <ul>
+                <li> {{formularioPost.get('titulo')?.errors?.['serverError']}}</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <textarea rows="10" id="contenido" name="" formControlName="contenido" required style="width: 100%"
+              placeholder="Contenido del post"
+              (keydown)="controlarCaracteres(formularioPost.value.contenido)"></textarea>
+
+            <div *ngIf="formularioPost.get('contenido')?.errors?.['serverError']" class="text-start mt-2">
+              <ul>
+                <li> {{formularioPost.get('contenido')?.errors?.['serverError']}}</li>
+              </ul>
+            </div>
+
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-6">
+              <label for="imagen">Imagen:</label>
+              <input type="file" id="imagen" placeholder="Imagen" required (change)="onFileSelected($event)">
+            </div>
+            <div class="col-6 text-end">
+              <p>Caracteres restantes: {{caracRestantes}} </p>
+
+              <div class="row">
+                <p *ngIf="!quedanCaracteres">Excedida la capacidad de caracterres por {{caracSobrantes}} </p>
+              </div>
+            </div>
+          </div>
+
+
+
+          <button class="btn btn-primary btn-block mb-4" type="submit" [disabled]="formularioPost.invalid"
+            [disabled]="!quedanCaracteres">Ingresar</button>
+        </form>
 
       </div>
     </div>
-    <div>
-      <label for="contenido">Contenido:</label>
-      <textarea rows="20" cols="120" id="contenido" formControlName="contenido" required></textarea>
-      <div
-        *ngIf="formularioPost.controls['contenido'].invalid && (formularioPost.controls['contenido'].dirty || formularioPost.controls['contenido'].touched)">
+
+    <div *ngIf="modoEdicion">
+      <div class="row">
+        <form [formGroup]="formularioPost" (ngSubmit)="enviaPost()">
+          <div class="row mb-3">
+            <input type="text" id="titulo" formControlName="titulo" style="width: 50%;" placeholder="Título del Post"
+              [value]="post.titulo" required>
+            <div *ngIf="formularioPost.get('titulo')?.errors?.['serverError']" class="text-start mt-2">
+              <ul>
+                <li> {{formularioPost.get('titulo')?.errors?.['serverError']}}</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <textarea rows="20" id="contenido" formControlName="contenido" style="width: 100%"
+              placeholder="Contenido del post" [value]="post.contenido"
+              (keydown)="controlarCaracteres(formularioPost.value.contenido)"></textarea>
+            <div *ngIf="formularioPost.get('contenido')?.errors?.['serverError']" class="text-start mt-2">
+              <ul>
+                <li> {{formularioPost.get('contenido')?.errors?.['serverError']}}</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-6">
+              <button class="btn btn-primary btn-block mb-4" type="submit">Ingresar</button>
+            </div>
+            <div class="col-6 text-end">
+              <p>Caracteres restantes: {{caracRestantes}} </p>
+
+              <div class="row">
+                <p *ngIf="!quedanCaracteres">Excedida la capacidad de caracterres por {{caracSobrantes}} </p>
+              </div>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
-
-    <div>
-      <label for="imagen">Imagen:</label>
-      <input type="file" id="imagen" required (change)="onFileSelected($event)">
-      <div
-        *ngIf="formularioPost.controls['imagen'].invalid && (formularioPost.controls['imagen'].dirty || formularioPost.controls['imagen'].touched)">
-
-      </div>
-    </div>
+  </div>
 
 
-
-    <button type="submit" [disabled]="formularioPost.invalid">Ingresar</button>
-  </form>
-
-</div>
-
-
-<div *ngIf="modoEdicion">
-  <form [formGroup]="formularioPost" (ngSubmit)="enviaPost()">
-    <div>
-      <label for="titulo">Titulo:</label>
-      <input type="text" id="titulo" formControlName="titulo" [value]="post.titulo" required>
-      <div
-        *ngIf="formularioPost.controls['titulo'].invalid && (formularioPost.controls['titulo'].dirty || formularioPost.controls['titulo'].touched)">
-
-      </div>
-    </div>
-    <div>
-      <label for="contenido">Contenido Editar:</label>
-      <textarea rows="20" cols="120" id="contenido" formControlName="contenido" [value]="post.contenido"
-        required></textarea>
-      <div
-        *ngIf="formularioPost.controls['contenido'].invalid && (formularioPost.controls['contenido'].dirty || formularioPost.controls['contenido'].touched)">
-      </div>
-    </div>
-
-
-
-    <button type="submit">Ingresar</button>
-  </form>
-
+  <div class="col-3 border">
+    <app-contactos-chat></app-contactos-chat>
+  </div>
 </div>

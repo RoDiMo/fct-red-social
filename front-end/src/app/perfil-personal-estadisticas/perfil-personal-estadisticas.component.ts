@@ -55,25 +55,31 @@ export class PerfilPersonalEstadisticasComponent {
   }
 
 
-
+  // Obtenemos los posts creados por el usuario
   obtenerPostUsuario(){
     this._postService.obtenerPostsUsuario(this.credenciales.id).subscribe( data => {
       this.postsUsuario = data.results 
 
+      // Obtenemos el numero de posts del usuario
       this.numeroPosts = this.postsUsuario.length
 
+       // Obtenemos las medias de likes y visitas del usuario
       this.obtenerMedia(this.postsUsuario)
 
+       // Obtenemos el maximo de likes y visitas del usuario
       this.maxViews = this.postsUsuario.reduce(this.obtenerMaxViews, this.postsUsuario[0]).num_visitas;
       this.maxLikes = this.postsUsuario.reduce(this.obtenerMaxLikes, this.postsUsuario[0]).num_likes;
       
+      // Obtenemos los post ordenasdos por numero de likes
       this.postMasLikes = this.postsUsuario.sort(this.ordenarPostLikes)
 
+      // Obtenemos los post ordenasdos por numero de visitas
       this.postsMasViews = this.postsUsuario.sort(this.ordenarPostViews)
 
   
     })
   }
+
 
   obtenerMedia(post:any){
     this.sumaViews = post.reduce(this.obtenerSumaViews,0)
@@ -83,27 +89,32 @@ export class PerfilPersonalEstadisticasComponent {
     this.mediaLikes = this.sumaLikes / post.length
   }
 
+  // Suma de las visitas
   obtenerSumaViews(total: any, view: any){
     return total + view.num_visitas
   }
 
-
+  // Suma de los likes
   obtenerSumaLikes(total: any, view: any){
     return total + view.num_likes
   }
 
+  // Maximo numero de visitas
   obtenerMaxViews(total: any, view: any){
     return view.num_visitas > total.num_visitas ? view : total;
   }
 
+   // Maximo numero de likes
   obtenerMaxLikes(total: any, view: any){
     return view.num_likes > total.num_likes ? view : total;
   }
 
+  // Ordenar los post por numero de likes
   ordenarPostLikes(a: any, b: any){
     return b.num_likes - a.num_likes
   }
 
+    // Ordenar los post por visitas
   ordenarPostViews(a: any, b: any){
     return b.num_visitas - a.num_visitas
   }

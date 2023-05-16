@@ -8,7 +8,7 @@ import { ComentariosService } from '../comentarios.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Comentario } from '../comentario/comentario';
 import { PostService } from '../post.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-crear-comentario',
@@ -24,6 +24,11 @@ export class CrearComentarioComponent implements OnInit{
   public idPost: any = {};
   public comentario: any = {};
   public formularioComent!: FormGroup;
+
+  public caracRestantes: number= 1024;
+  public caracSobrantes?: number
+  public quedanCaracteres: boolean = true;
+  public errors : Array<any> = [];
 
 
 
@@ -58,7 +63,7 @@ export class CrearComentarioComponent implements OnInit{
         usuario: this.comentario.usuario,
       });
   
-
+      this.controlarCaracteres(this.comentario.contenido)
       console.log(this.comentario.usuario)
     })
 
@@ -72,11 +77,38 @@ export class CrearComentarioComponent implements OnInit{
       this.idPost = data
       console.log(this.idPost.id)
 
-      this._comentarioService.editarComentario(this.comentario.id, this.formularioComent.value).subscribe();
-      this.router.navigateByUrl(`post/${this.idPost.id}`);
+      this._comentarioService.editarComentario(this.comentario.id, this.formularioComent.value).subscribe(data =>{
+        this.router.navigateByUrl(`post/${this.idPost.id}`);
+      }, err => {
+        if (err instanceof HttpErrorResponse) {
+          const ValidationErrors = err.error;
+          Object.keys(ValidationErrors).forEach(prop => {
+            const formControl = this.formularioComent.get(prop);
+            if (formControl) {
+              formControl.setErrors({
+                serverError: ValidationErrors[prop]
+              })
+            }
+          })
+        }
+        this.errors = err.error.message;
+      }
+      );
+   
     })
 
-   
+  }
 
+  controlarCaracteres(contenido: string){
+    this.caracRestantes = 1024 - contenido.length
+
+    if(this.caracRestantes > 0){
+      this.quedanCaracteres = true
+    }else{
+      this.quedanCaracteres = false
+      this.caracSobrantes = -(1024 - contenido.length)
+      this.caracRestantes = 0
+    }
+   
   }
 }

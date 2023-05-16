@@ -108,9 +108,10 @@ class RegistroUsuario(generics.RetrieveUpdateDestroyAPIView):
 class Posts(viewsets.ModelViewSet):
     queryset = Posts.objects.all()
     serializer_class = PostSerializer
-    filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
-    ordering_fields = ['fecha_publicacion']
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
+    ordering_fields = ['usuario__username']
     filterset_fields = ['usuario']
+    search_fields = ['usuario__username']
 
 
 class Comentarios(viewsets.ModelViewSet):

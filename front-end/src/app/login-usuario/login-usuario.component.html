@@ -37,9 +37,6 @@
         <div class="form-outline mb-3">
           <input class="form-control" type="text" id="username" formControlName="username" required />
           <label class="form-label" for="username">Nombre de usuario</label>
-          <div
-            *ngIf="logInForm.controls['username'].invalid && (logInForm.controls['username'].dirty || logInForm.controls['username'].touched)">
-          </div>
         </div>
 
         <!-- Campo contraseña -->
@@ -49,6 +46,10 @@
           <div
             *ngIf="logInForm.controls['password'].invalid && (logInForm.controls['password'].dirty || logInForm.controls['password'].touched)">
           </div>
+        </div>
+
+        <div *ngIf="httpResponse" class="alert alert-danger text-start" style="font-size: 12px;">
+          <p>{{ httpResponse }}</p>
         </div>
 
         <button type="submit" class="btn btn-primary btn-block mb-4">Iniciar sesion</button>

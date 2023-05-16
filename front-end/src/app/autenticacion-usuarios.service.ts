@@ -13,6 +13,7 @@ export class AutenticacionUsuariosService {
   public urlLogin:string = url()+'api-user-login/';
   public urlRegistro:string = url()+'registro/';
   public urlUsuarios:string = url()+'usuarios/';
+  httpResponse: any;
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -42,17 +43,20 @@ export class AutenticacionUsuariosService {
   }
 
 
-  public logInUser(user: any): void{
-    this.logIn(user.username, user.password).subscribe({
+  public logInUser(user: any): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.logIn(user.username, user.password).subscribe({
         next: (data) => {
           this.setLoggedInUser(data);
           this.router.navigateByUrl(`/`);
+          resolve(data); // Resuelve la promesa con la respuesta del servidor
         },
         error: (error) => {
+          reject(error); // Rechaza la promesa con el error del servidor
           console.log(error);
         }
-      }
-    );
+      });
+    });
   }
 
 

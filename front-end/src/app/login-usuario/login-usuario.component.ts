@@ -13,6 +13,7 @@ import { Router } from "@angular/router";
 })
 export class LoginUsuarioComponent implements OnInit{
   logInForm ;
+  httpResponse: any;
   constructor(private formBuilder: FormBuilder, private loginUsuario: AutenticacionUsuariosService, private router: Router ) {
    this.logInForm = this.formBuilder.group({
      username: ['' as string | null, Validators.required],
@@ -26,11 +27,20 @@ export class LoginUsuarioComponent implements OnInit{
 
   
    // Al rellenar el formulario de inicio de sesion se llama a la funcion logInUser
-   onSubmit(formData:any): void {
+
+   onSubmit(formData: any): void {
     if (this.logInForm.invalid) {
       console.log(this.logInForm.errors);
     } else {
-      this.loginUsuario.logInUser(formData);
+      this.loginUsuario.logInUser(formData)
+        .then((response) => {
+          // La promesa se resolvió correctamente, no hay error del servidor
+        })
+        .catch((error) => {
+          // La promesa se rechazó debido a un error del servidor
+          this.httpResponse = error.error.non_field_errors
+          ; // Asigna la respuesta del servidor a la variable httpResponse
+        });
     }
   }
   

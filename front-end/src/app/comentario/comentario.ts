@@ -9,6 +9,7 @@ export class Comentario{
         public usuario : PerfilUsuario,
         public fecha_creacion : Date,
         public nombre_usuario: string,
+        public foto_perfil: string,
 
     ){}
 }
