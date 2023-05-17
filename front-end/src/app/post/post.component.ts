@@ -19,6 +19,7 @@ import { Likes } from '../home/home';
 })
 export class PostComponent implements OnInit {
   public posts: Array<Post> = [];
+  public post!: Post;
   public postsLikes: Array<Post> = []
   public comentarios: Array<Comentario> = [];
   public usuariosComentarios: any;
@@ -28,6 +29,7 @@ export class PostComponent implements OnInit {
   formularioImagenPost!: FormGroup;
   public formularioPost!: FormGroup;
   public formularioVisitas!: FormGroup;
+  public formularioNumCom!: FormGroup;
   public id: string | null = "";
   public likeDado: boolean = false;
 
@@ -76,6 +78,15 @@ export class PostComponent implements OnInit {
       usuario: ['' as string],
       fecha_publicacion: ['' as any],
       num_visitas: [0 as number],
+
+    });
+
+    this.formularioNumCom = this.visitasFormBuilder.group({
+      titulo: ['' as string | null, Validators.required],
+      contenido: ['' as string | null, Validators.required],
+      usuario: ['' as string],
+      fecha_publicacion: ['' as any],
+      num_comentarios: [0 as number],
 
     });
   }
@@ -232,6 +243,7 @@ export class PostComponent implements OnInit {
     this._comentarioService.obtenerComentariosPost(id).subscribe({
       next: (data) => {
         this.comentarios = data.results
+        this.numComentarios(this.comentarios.length)
 
 
         // Obtenemos los usuarios de cada comentario
@@ -274,6 +286,25 @@ export class PostComponent implements OnInit {
       this.ngOnInit()
     }, 200);
 
+  }
+
+  //Obtenemos el numero de comentarios del post y lo añadimos a su respectivo campo en la base de datos
+  numComentarios(numComentarios:number){
+    console.log(numComentarios)
+    this._postService.obtenerPost(this.id).subscribe(data => {
+      this.post = data
+      
+      this.formularioNumCom.setValue({
+        titulo: this.post.titulo,
+        contenido: this.post.contenido,
+        usuario: this.post.usuario,
+        fecha_publicacion: this.post.fecha_publicacion,
+        num_comentarios: numComentarios,
+      });
+
+      this._postService.modificarPost(this.post.id, this.formularioNumCom.value).subscribe()
+      console.log(this.post.num_comentarios)
+    });
   }
 
 

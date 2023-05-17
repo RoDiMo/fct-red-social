@@ -10,6 +10,7 @@ export class Post{
         public usuario: string,
         public num_likes: Number,
         public num_visitas: number,
+        public num_comentarios: number,
         public fecha_publicacion: Date,
         public likeDado: Boolean,
         public nombre_usuario:string,

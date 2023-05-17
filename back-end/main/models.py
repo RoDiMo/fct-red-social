@@ -46,6 +46,7 @@ class Usuarios(AbstractUser):
     direccion = models.CharField(max_length=250, default='')
     foto_perfil = models.ImageField(upload_to='main/imagenes/usuarios', null=True)
     fecha_alta = models.DateTimeField(default=timezone.now)
+    es_moderador = models.BooleanField(default=False)
 
     @receiver(post_save, sender=settings.AUTH_USER_MODEL)
     def create_auth_token(sender, instance=None, created=False, **kwargs):

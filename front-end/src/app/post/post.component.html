@@ -24,7 +24,7 @@
             <span>{{post.nombre_usuario}}</span>
           </div>
           <div class="col-4  text-end ">
-            <span>{{post.fecha_publicacion}}</span>
+            <span>{{post.fecha_publicacion | date:'dd/MM/yy'}}</span>
           </div>
         </div>
         <!-- Texto del Post -->
@@ -78,7 +78,7 @@
             <!-- Mensajes -->
             <div class="col-1">
               <span class="material-symbols-outlined"> comment </span>
-              <span>0</span>
+              <span>{{post.num_comentarios}}</span>
             </div>
           </div>
         </div>

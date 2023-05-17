@@ -53,6 +53,7 @@ class Usuario(viewsets.ModelViewSet):
         serializer = UsuarioSerializer(instance=mensajes.distinct(), context=serializers_context, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     '''
+
     # permission_classes = [IsAuthenticated]
 
     def update(self, request, *args, **kwargs):
@@ -105,13 +106,40 @@ class RegistroUsuario(generics.RetrieveUpdateDestroyAPIView):
         return Response(data, status=status.HTTP_201_CREATED)
 
 
-class Posts(viewsets.ModelViewSet):
+class Post(viewsets.ModelViewSet):
     queryset = Posts.objects.all()
     serializer_class = PostSerializer
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
-    ordering_fields = ['usuario__username']
+    ordering_fields = ['amigo_receptor__username']  # Ordenar por el username del amigo receptor
     filterset_fields = ['usuario']
     search_fields = ['usuario__username']
+
+    @action(detail=False, methods=['get'])
+    def obtener_post(self, request):
+        user = request.user
+        amigos = Amigos.objects.filter(
+            Q(usuario_solicitante=1)
+        )
+
+        queryset_amigos = self.filter_queryset(
+            self.get_queryset().filter(usuario__in=amigos.values('usuario_receptor')).order_by('-fecha_publicacion'))
+        print(queryset_amigos)
+
+        queryset_no_amigos = self.filter_queryset(
+            self.get_queryset().exclude(
+                Q(usuario__in=amigos.values('usuario_receptor')) | Q(usuario=user)
+            ).order_by('-fecha_publicacion')
+        )
+
+        queryset = list(queryset_amigos) + list(queryset_no_amigos)
+
+        queryset.sort(key=lambda post: (
+            0 if post.usuario in amigos.values('usuario_receptor') else 1,  # Amigos primero
+            post.fecha_publicacion.date()  # Ordenar por día
+        ), reverse=True)
+
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
 
 
 class Comentarios(viewsets.ModelViewSet):
@@ -128,7 +156,7 @@ class Likes(viewsets.ModelViewSet):
     filterset_fields = ['post']
 
 
-class Amigos(viewsets.ModelViewSet):
+class Amigo(viewsets.ModelViewSet):
     queryset = Amigos.objects.all()
     serializer_class = AmigosSerializer
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
