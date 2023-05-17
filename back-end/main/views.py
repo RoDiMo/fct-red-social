@@ -116,9 +116,10 @@ class Post(viewsets.ModelViewSet):
 
     @action(detail=False, methods=['get'])
     def obtener_post(self, request):
-        user = request.user
+        user = request.query_params.get('user')
+        print(user)
         amigos = Amigos.objects.filter(
-            Q(usuario_solicitante=1)
+            Q(usuario_solicitante=user)
         )
 
         queryset_amigos = self.filter_queryset(
@@ -130,7 +131,7 @@ class Post(viewsets.ModelViewSet):
                 Q(usuario__in=amigos.values('usuario_receptor')) | Q(usuario=user)
             ).order_by('-fecha_publicacion')
         )
-
+        print(queryset_no_amigos)
         queryset = list(queryset_amigos) + list(queryset_no_amigos)
 
         queryset.sort(key=lambda post: (

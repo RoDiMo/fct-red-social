@@ -17,4 +17,8 @@ export class PaginaPrincipalService {
     return this.http.get(this.url+"?ordering=fecha_publicacion")
    }
 
+   getPostOrdenados(id:number): Observable<any>{
+    return this.http.get<any>(this.url+`obtener_post/?user=${id}`)
+   }
+
 }

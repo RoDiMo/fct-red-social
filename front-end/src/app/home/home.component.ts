@@ -17,7 +17,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class HomeComponent {
   public posts: Array<Post> = []
   public postsLikes: Array<Post> = []
-  public credencialesUsuario: any;
+  public credencialesUsuario = this._obtenerUsuarioService.obtenerCredenciales();
   public usuarioRegistrado: any = {}
   public likeDado: boolean = false;
   public post: Array<Post> = [];
@@ -39,11 +39,8 @@ export class HomeComponent {
 
 
     // Obtiene los post  
-    this._paginaPrincipalService.getPost().subscribe(data => {
-      this.posts = data.results;
-
-      // Obtenemos las credenciales del usuario logueado
-      this.credencialesUsuario = this._obtenerUsuarioService.obtenerCredenciales()
+    this._paginaPrincipalService.getPostOrdenados(this.credencialesUsuario.id).subscribe(data => {
+      this.posts = data;
 
       // Obtenemos el usuario registrado además de comprobar si le ha dado like a los diferentes posts
       this.gestionarUsuarios();
