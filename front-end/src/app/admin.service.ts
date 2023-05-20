@@ -8,12 +8,17 @@ import { Observable } from 'rxjs';
 })
 export class AdminService {
 
-  private url:string = url()+'posts/'
+  private urlPosts:string = url()+'posts/'
+  private urlUsuarios:string = url()+'usuarios/'
 
   constructor(private http: HttpClient) { }
 
   ordenarPosts(campo:string, valorBusqueda:string): Observable<any>{
-    console.log(this.url+`?ordering=${campo}&search=${valorBusqueda}`)
-    return this.http.get<any>(this.url+`?ordering=${campo}&search=${valorBusqueda}`)
+    return this.http.get<any>(this.urlPosts+`?ordering=${campo}&search=${valorBusqueda}`)
+  }
+
+
+  ordenarUsuarios(campo:string, valorBusqueda:string): Observable<any>{
+    return this.http.get<any>(this.urlUsuarios+`?ordering=${campo}&search=${valorBusqueda}`)
   }
 }

@@ -5,6 +5,8 @@ import { AutenticacionUsuariosService } from '../autenticacion-usuarios.service'
 import { PaginaPrincipalService } from '../pagina-principal.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AdminService } from '../admin.service';
+import { PerfilUsuario } from '../perfil-usuario/perfil-usuario';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-posts',
@@ -14,6 +16,8 @@ import { AdminService } from '../admin.service';
 })
 export class AdminPostsComponent {
   public posts: Array<Post> = [];
+  public usuarios: Array<PerfilUsuario> = []
+  public usuarioRegistrado!: PerfilUsuario;
   public credenciales = this._usuarioService.obtenerCredenciales();
   public postOcultado!: FormGroup;
   public ordenarCampo: boolean = false;
@@ -26,6 +30,7 @@ export class AdminPostsComponent {
     public _usuarioService: AutenticacionUsuariosService,
     public _adminService: AdminService,
     public formBuilder: FormBuilder,
+    private router: Router,
 
   ) {
     this.postOcultado = this.formBuilder.group({
@@ -39,9 +44,20 @@ export class AdminPostsComponent {
 
   ngOnInit(): void {
     this.obtenerPost()
+    this.obtenerUsuarios()
+    this.obtenerUsuarioRegistrado()
   }
 
 
+  obtenerUsuarioRegistrado(){
+    this._usuarioService.getUsuario(this.credenciales.id).subscribe(data => {
+      this.usuarioRegistrado = data
+      console.log(this.usuarioRegistrado)
+      if(!this.usuarioRegistrado.es_moderador && !this.usuarioRegistrado.is_staff){
+        this.router.navigate(['/'])
+      }
+    })
+  }
 
   /**
    * Función que ordena un listado de post en dependencia de un campo en concreto
@@ -82,6 +98,14 @@ export class AdminPostsComponent {
 
     })
   }
+
+    // Obtiene los usuarios ordenados por fecha
+    obtenerUsuarios() {
+      this._adminService.ordenarUsuarios('username',"").subscribe(data => {
+        this.usuarios = data.results
+  
+      })
+    }
 
   /**
    * Función para ocultar los posts

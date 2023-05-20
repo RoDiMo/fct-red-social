@@ -16,49 +16,63 @@ export class CabeceraComponent {
 
   public datosUsuario!: PerfilUsuario;
   public credenciales = this._obtenerUsuarioService.obtenerCredenciales();
-  public tablaAmigos! : Array<Amigo>;
+  public tablaAmigos!: Array<Amigo>;
   public usuariosAmigos: Array<PerfilUsuario> = []
-  public mouseover!:boolean;
+  public mouseover!: boolean;
+  public esAdmin: boolean = false;
 
   constructor(
-     public _obtenerUsuarioService: AutenticacionUsuariosService,
-      private _perfilUsuarioService: PerfilUsuarioService,
-      private _amistadesService: AmigosService,
-      private activatedRoute: ActivatedRoute,
-      private router: Router
-     ) { }
+    public _obtenerUsuarioService: AutenticacionUsuariosService,
+    private _perfilUsuarioService: PerfilUsuarioService,
+    private _amistadesService: AmigosService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router
+  ) { }
 
 
-     ngOnInit(): void {
-      this.obtenerAmistades()
-    }
+  ngOnInit(): void {
+    this.obtenerUsuarioRegistrado()
+  }
 
-     obtenerAmistades(){
-      this._amistadesService.obtenerAmistades(this.credenciales.id).subscribe(data => {
-        this.tablaAmigos = data.results
+  obtenerUsuarioRegistrado() {
+    //Obtenemos los datos del usuario logueado
+    this._obtenerUsuarioService.getUsuario(this.credenciales.id).subscribe(data => {
+      this.datosUsuario = data
+      if (this.datosUsuario.is_staff || this.datosUsuario.es_moderador) {
+        this.esAdmin = true
+      }
 
-        for(let amigo of this.tablaAmigos){
-          
-          this.obtenerUsuariosAmigos(amigo)
-        }
+      console.log(this.esAdmin)
+    })
+  }
 
-      })      
-     }
+  /*
+   obtenerAmistades(){
+    this._amistadesService.obtenerAmistades(this.credenciales.id).subscribe(data => {
+      this.tablaAmigos = data.results
 
-     obtenerUsuariosAmigos(amigo: Amigo){
-      //console.log(amigo.usuario_receptor)
-       this._perfilUsuarioService.getUsuario(amigo.usuario_receptor).subscribe(data => {
+      for(let amigo of this.tablaAmigos){
+        
+        this.obtenerUsuariosAmigos(amigo)
+      }
+
+    })      
+   }
+
+   obtenerUsuariosAmigos(amigo: Amigo){
+    //console.log(amigo.usuario_receptor)
+     this._perfilUsuarioService.getUsuario(amigo.usuario_receptor).subscribe(data => {
 
 
-        this.usuariosAmigos.push(data);
+      this.usuariosAmigos.push(data);
 
-      })
-     }
+    })
+   }
+*/
 
-
-     logout() {
-      localStorage.removeItem("userData");
-      this.router.navigateByUrl(`/login`);
+  logout() {
+    localStorage.removeItem("userData");
+    this.router.navigateByUrl(`/login`);
   }
 
 }

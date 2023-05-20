@@ -12,7 +12,7 @@
                             <div class="row">
                                 <div class="col-3"></div>
                                 <div class="col-6">
-                                    <h4 class="display-5 mb-0 border">Posts</h4>
+                                    <h4 class="display-5 mb-0 ">Posts</h4>
                                 </div>
 
                                 <div class="col-3 ">
@@ -33,7 +33,7 @@
                         <table class="table table-striped">
 
 
-                            <thead class="bg-dark text-white text-center">
+                            <thead class="bg-dark text-white text-center" style="font-size: 12px;">
                                 <tr class="">
                                     <th></th>
 
@@ -126,8 +126,8 @@
                                 </tr>
                             </thead>
 
-                            <tbody class="text-center">
-                                <tr *ngFor="let post of posts " style="height: 75px; ">
+                            <tbody class="text-center" style="font-size: 12px;">
+                                <tr *ngFor="let post of posts " style="height: 50px; ">
                                     <td></td>
                                     <td>{{post.titulo}}</td>
                                     <td>{{post.datos_usuario.username}}</td>
@@ -139,14 +139,14 @@
                                     <td>{{post.fecha_publicacion | date:'dd/MM/yyyy'}}</td>
 
                                     <td class="mb-2">
-                                        <a [routerLink]='["/post/",post.id]' class="btn background-secondary px-5">
+                                        <a [routerLink]='["/post/",post.id]' class="btn background-secondary px-5" style="font-size: 12px;">
                                             <i class="fas fa-angle-double-right"></i> Detalles Post
                                         </a>
 
                                         <button *ngIf="!post.oculto" class="btn btn-secondary"
-                                            (click)="ocultarPost(post.id, post)">Ocultar Post</button>
+                                            (click)="ocultarPost(post.id, post)" style="font-size: 12px;">Ocultar Post</button>
                                         <button *ngIf="post.oculto" class="btn btn-secondary"
-                                            (click)="mostrarPost(post.id, post)">Mostrar Post</button>
+                                            (click)="mostrarPost(post.id, post)" style="font-size: 12px;">Mostrar Post</button>
 
                                     </td>
                                 </tr>
@@ -170,7 +170,7 @@
                         <div class="card-body">
                             <h3>Usuarios</h3>
                             <h4 class="display-4">
-                                <i class="fas fa-users background-light"></i> 4
+                                <i class="fas fa-users background-light"></i>  {{usuarios.length}}
                             </h4>
                             <a class="btn btn-outline-dark btn-sm" [routerLink]="['/admin-usuarios']">Ver</a>
                         </div>

@@ -8,6 +8,7 @@ export class PerfilUsuario{
         public last_name :string,
         public  email :string,
         public  telefono :string,
+        public es_moderador: boolean,
         public  is_staff :boolean,
         public  pais :string,
         public  estado :string,
@@ -16,6 +17,7 @@ export class PerfilUsuario{
         public foto_perfil : any,
         public url: string,
         public amistadPendiente: boolean,
+        public fecha_alta: Date,
      )
         {}
 

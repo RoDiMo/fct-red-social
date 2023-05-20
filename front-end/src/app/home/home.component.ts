@@ -6,6 +6,7 @@ import { GestionLikesService } from '../gestion-likes.service';
 import { AutenticacionUsuariosService } from '../autenticacion-usuarios.service';
 import { PostService } from '../post.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { PerfilUsuario } from '../perfil-usuario/perfil-usuario';
 
 
 @Component({
@@ -18,10 +19,11 @@ export class HomeComponent {
   public posts: Array<Post> = []
   public postsLikes: Array<Post> = []
   public credencialesUsuario = this._obtenerUsuarioService.obtenerCredenciales();
-  public usuarioRegistrado: any = {}
+  public usuarioRegistrado!: PerfilUsuario
   public likeDado: boolean = false;
   public post: Array<Post> = [];
   public formularioPost!: FormGroup;
+  public esAdmin: boolean = false;
 
 
   constructor(
@@ -66,8 +68,13 @@ export class HomeComponent {
   gestionarUsuarios() {
     //Obtenemos los datos del usuario logueado
     this._obtenerUsuarioService.getUsuario(this.credencialesUsuario.id).subscribe(data => {
-      this.usuarioRegistrado = [data]
+      this.usuarioRegistrado = data
+      if (this.usuarioRegistrado.is_staff || this.usuarioRegistrado.es_moderador) {
+        this.esAdmin = true
 
+      }
+
+      console.log(this.usuarioRegistrado)
       // -------- GESTION DE LIKES --------
       // Comprobamos por cada post si hay alguna coincidencia en la tabla like
       for (let p of this.posts) {
@@ -84,24 +91,24 @@ export class HomeComponent {
   }
 
 
-//Obtenemos el usuario que creó el post
-  obtenerUsuarioPost(post:Post){
-        
-        this._obtenerUsuarioService.getUsuarioUrl(post.usuario).subscribe(data =>{
-          post.nombre_usuario = data.username;
-          post.foto_perfil = data.foto_perfil;
+  //Obtenemos el usuario que creó el post
+  obtenerUsuarioPost(post: Post) {
 
-        })
+    this._obtenerUsuarioService.getUsuarioUrl(post.usuario).subscribe(data => {
+      post.nombre_usuario = data.username;
+      post.foto_perfil = data.foto_perfil;
+
+    })
   }
 
 
   // Obtenemos los posts con likes
-  obtenerPostLikes(p:Post){
+  obtenerPostLikes(p: Post) {
     this._gestionLikesService.obtenerPosts(p.id).subscribe(data => {
       this.postsLikes = data.results;
 
       // Buscamos al usuario registrado en los post con likes
-      let likeUsuario = this.postsLikes.find(post => post.usuario == this.usuarioRegistrado[0].url);
+      let likeUsuario = this.postsLikes.find(post => post.usuario == this.usuarioRegistrado.url);
 
       // Si el post no tiene nignuna coincidencia en la tabla like significa que ningún usuario le ha dado like
       if (this.postsLikes.length == 0) {
@@ -129,7 +136,7 @@ export class HomeComponent {
    * 
    * Esta funcion borra todas las ids almacenadas
    * @param id - Id del post
-   */ 
+   */
   removerVisitas(id: any) {
     let postAlmacenado = localStorage.getItem(`post-${id}-visit-updated`);
     if (postAlmacenado) {
@@ -146,7 +153,7 @@ export class HomeComponent {
       this.postsLikes = data.results;
 
       // Comprobamos si el usuario lo ha dado like al post
-      const likeUsuario = this.postsLikes.find(post => post.usuario == this.usuarioRegistrado[0].url);
+      const likeUsuario = this.postsLikes.find(post => post.usuario == this.usuarioRegistrado.url);
 
       let num_likes = 0;
       // Si se al algun usuario significa que ya le ha dado like al Post 
@@ -165,7 +172,7 @@ export class HomeComponent {
 
         // Controlamos el numero de likes
         num_likes = this.postsLikes.length + 1
-        let like = new Likes(this.usuarioRegistrado[0].url, urlPost)
+        let like = new Likes(this.usuarioRegistrado.url, urlPost)
         this._gestionLikesService.guardarLike(like).subscribe();
       }
 

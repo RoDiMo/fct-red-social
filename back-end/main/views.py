@@ -36,8 +36,11 @@ class Ciudades(viewsets.ModelViewSet):
 class Usuario(viewsets.ModelViewSet):
     queryset = Usuarios.objects.all()
     serializer_class = UsuarioSerializer
-    filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['id']
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
+    ordering_fields = ['username', 'first_name', 'last_name',  'email',  'pais', 'estado', 'es_moderador', 'fecha_alta']
+    filterset_fields = ['id', 'username', 'es_moderador']
+    search_fields = ['username', 'first_name', 'last_name', 'email', 'pais', 'estado' ]
+
 
     '''
     @action(detail=False, methods=['get'])

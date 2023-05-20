@@ -37,6 +37,7 @@ class UsuarioSerializer(serializers.HyperlinkedModelSerializer):
                   'last_name',
                   'email',
                   'telefono',
+                  'es_moderador',
                   'is_staff',
                   'pais',
                   'estado',
