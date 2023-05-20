@@ -28,6 +28,8 @@ import { PerfilUsuarioPublicacionesComponent } from './perfil-usuario-publicacio
 import { CabeceraComponent } from './cabecera/cabecera.component';
 import { ContactosChatComponent } from './contactos-chat/contactos-chat.component';
 import { ChatComponent } from './chat/chat.component';
+import { AdminPostsComponent } from './admin-posts/admin-posts.component';
+import { AdminUsuariosComponent } from './admin-usuarios/admin-usuarios.component';
 
 
 
@@ -53,6 +55,8 @@ import { ChatComponent } from './chat/chat.component';
     CabeceraComponent,
     ContactosChatComponent,
     ChatComponent,
+    AdminPostsComponent,
+    AdminUsuariosComponent,
   ],
   imports: [
     BrowserModule,

@@ -83,7 +83,7 @@ class RegistroSerializer(serializers.ModelSerializer):
 
 
 class PostSerializer(serializers.HyperlinkedModelSerializer):
-    #datos_usuario = UsuarioSerializer(source='usuario', read_only=True)
+    datos_usuario = UsuarioSerializer(source='usuario', read_only=True)
     class Meta:
         model = Posts
         fields = ('url',
@@ -97,7 +97,7 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
                   'num_visitas',
                   'num_comentarios',
                   'oculto',
-                  #'datos_usuario'
+                  'datos_usuario'
                   )
 
 class ComentariosSerializer(serializers.HyperlinkedModelSerializer):

@@ -110,13 +110,14 @@ class Post(viewsets.ModelViewSet):
     queryset = Posts.objects.all()
     serializer_class = PostSerializer
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
-    ordering_fields = ['amigo_receptor__username']  # Ordenar por el username del amigo receptor
-    filterset_fields = ['usuario']
-    search_fields = ['usuario__username']
+    ordering_fields = ['titulo', 'usuario__username', 'num_visitas', 'num_likes', 'num_comentarios', 'oculto', 'fecha_publicacion']
+    filterset_fields = ['usuario','oculto']
+    search_fields = ['titulo','usuario__username', 'usuario__first_name', 'usuario__last_name']
 
     @action(detail=False, methods=['get'])
     def obtener_post(self, request):
         user = request.query_params.get('user')
+
         print(user)
         amigos = Amigos.objects.filter(
             Q(usuario_solicitante=user)

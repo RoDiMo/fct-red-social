@@ -13,7 +13,7 @@ export class PostService {
 
   constructor(private http: HttpClient) { 
       this.url = url()+'posts/'
-      //this.url ='http://localhost:8000/posts/'
+ 
   }
 
 

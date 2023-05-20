@@ -16,6 +16,8 @@ export class Post{
         public nombre_usuario:string,
         public foto_perfil:string,
         public creador:boolean,
+        public datos_usuario:PerfilUsuario,
+        public oculto: boolean,
     ){}
 }
 /*

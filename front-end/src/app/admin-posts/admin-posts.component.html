@@ -1,0 +1,184 @@
+<div class="container-fluid mx-0 px-0">
+
+    <!-- CUERPO DEL PROYECTO -->
+
+    <div class="col-md-12 offset-12 mt-5 py-4">
+        <!-- POSTS -->
+        <section id="posts" class="m-5">
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="card">
+                        <div class="card-header text-center ">
+                            <div class="row">
+                                <div class="col-3"></div>
+                                <div class="col-6">
+                                    <h4 class="display-5 mb-0 border">Posts</h4>
+                                </div>
+
+                                <div class="col-3 ">
+
+                                    <div class="input-group">
+                                        <div class="form-outline">
+                                            <input type="search" id="form1" class="form-control" placeholder="Buscar" [(ngModel)]="valorBusqueda" />
+                                         
+                                        </div>
+                                        <button type="button" class="btn btn-dark" (click)="guardarValorBusqueda()">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <table class="table table-striped">
+
+
+                            <thead class="bg-dark text-white text-center">
+                                <tr class="">
+                                    <th></th>
+
+                                    <th (click)="ordenarPosts('titulo')" style="cursor: pointer;">Titulo
+                                        <span *ngIf="ordenarCampo && campoSeleccionado=='titulo'"
+                                            class="material-symbols-outlined">
+                                            keyboard_arrow_down
+                                        </span>
+
+                                        <span *ngIf="!ordenarCampo ||  campoSeleccionado!='titulo'"
+                                            class="material-symbols-outlined">
+                                            keyboard_arrow_up
+                                        </span>
+                                    </th>
+
+                                    <th (click)="ordenarPosts('usuario__username')" style="cursor: pointer;">Autor
+                                        <span *ngIf="ordenarCampo && campoSeleccionado=='usuario__username'"
+                                            class="material-symbols-outlined">
+                                            keyboard_arrow_down
+                                        </span>
+
+                                        <span *ngIf="!ordenarCampo ||  campoSeleccionado!='usuario__username'"
+                                            class="material-symbols-outlined">
+                                            keyboard_arrow_up
+                                        </span>
+                                    </th>
+
+                                    <th (click)="ordenarPosts('num_visitas')" style="cursor: pointer;">Visitas
+                                        <span *ngIf="ordenarCampo && campoSeleccionado=='num_visitas'"
+                                            class="material-symbols-outlined">
+                                            keyboard_arrow_down
+                                        </span>
+
+                                        <span *ngIf="!ordenarCampo ||  campoSeleccionado!='num_visitas'"
+                                            class="material-symbols-outlined">
+                                            keyboard_arrow_up
+                                        </span>
+                                    </th>
+
+                                    <th (click)="ordenarPosts('num_likes')" style="cursor: pointer;">Likes
+                                        <span *ngIf="ordenarCampo && campoSeleccionado=='num_likes'"
+                                            class="material-symbols-outlined">
+                                            keyboard_arrow_down
+                                        </span>
+
+                                        <span *ngIf="!ordenarCampo ||  campoSeleccionado!='num_likes'"
+                                            class="material-symbols-outlined">
+                                            keyboard_arrow_up
+                                        </span>
+                                    </th>
+
+                                    <th (click)="ordenarPosts('num_comentarios')" style="cursor: pointer;">Comentarios
+                                        <span *ngIf="ordenarCampo && campoSeleccionado=='num_comentarios'"
+                                            class="material-symbols-outlined">
+                                            keyboard_arrow_down
+                                        </span>
+
+                                        <span *ngIf="!ordenarCampo ||  campoSeleccionado!='num_comentarios'"
+                                            class="material-symbols-outlined">
+                                            keyboard_arrow_up
+                                        </span>
+                                    </th>
+
+                                    <th (click)="ordenarPosts('oculto')" style="cursor: pointer;">Estado
+                                        <span *ngIf="ordenarCampo && campoSeleccionado=='oculto'"
+                                            class="material-symbols-outlined">
+                                            keyboard_arrow_down
+                                        </span>
+
+                                        <span *ngIf="!ordenarCampo  ||  campoSeleccionado!='oculto'"
+                                            class="material-symbols-outlined">
+                                            keyboard_arrow_up
+                                        </span>
+                                    </th>
+
+                                    <th (click)="ordenarPosts('fecha_publicacion')" style="cursor: pointer;">Fecha
+                                        <span *ngIf="ordenarCampo  && campoSeleccionado=='fecha_publicacion'"
+                                            class="material-symbols-outlined">
+                                            keyboard_arrow_down
+                                        </span>
+
+                                        <span *ngIf="!ordenarCampo ||  campoSeleccionado!='fecha_publicacion'"
+                                            class="material-symbols-outlined">
+                                            keyboard_arrow_up
+                                        </span>
+                                    </th>
+
+                                    <th></th>
+
+                                </tr>
+                            </thead>
+
+                            <tbody class="text-center">
+                                <tr *ngFor="let post of posts " style="height: 75px; ">
+                                    <td></td>
+                                    <td>{{post.titulo}}</td>
+                                    <td>{{post.datos_usuario.username}}</td>
+                                    <td>{{post.num_visitas}}</td>
+                                    <td>{{post.num_likes}} </td>
+                                    <td>{{post.num_comentarios}} </td>
+                                    <td *ngIf="!post.oculto">Visible</td>
+                                    <td *ngIf="post.oculto">Oculto</td>
+                                    <td>{{post.fecha_publicacion | date:'dd/MM/yyyy'}}</td>
+
+                                    <td class="mb-2">
+                                        <a [routerLink]='["/post/",post.id]' class="btn background-secondary px-5">
+                                            <i class="fas fa-angle-double-right"></i> Detalles Post
+                                        </a>
+
+                                        <button *ngIf="!post.oculto" class="btn btn-secondary"
+                                            (click)="ocultarPost(post.id, post)">Ocultar Post</button>
+                                        <button *ngIf="post.oculto" class="btn btn-secondary"
+                                            (click)="mostrarPost(post.id, post)">Mostrar Post</button>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="card text-center background-primary mb-3">
+                        <div class="card-body">
+                            <h3>Posts</h3>
+                            <h4 class="display-4">
+                                <i class="fas fa-pencil-alt"></i>
+                                <span id="postCount">{{posts.length}}</span>
+                            </h4>
+                            <br>
+                        </div>
+
+                    </div>
+                    <div class="card text-center background-light mb-3">
+                        <div class="card-body">
+                            <h3>Usuarios</h3>
+                            <h4 class="display-4">
+                                <i class="fas fa-users background-light"></i> 4
+                            </h4>
+                            <a class="btn btn-outline-dark btn-sm" [routerLink]="['/admin-usuarios']">Ver</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </div>
+</div>

@@ -19,11 +19,17 @@ import { PerfilOtroUsuarioComponent } from './perfil-otro-usuario/perfil-otro-us
 import { PerfilUsuarioPublicacionesComponent } from './perfil-usuario-publicaciones/perfil-usuario-publicaciones.component';
 import { CabeceraComponent } from './cabecera/cabecera.component';
 import { ChatComponent } from './chat/chat.component';
+import { AdminPostsComponent } from './admin-posts/admin-posts.component';
+import { AdminUsuariosComponent } from './admin-usuarios/admin-usuarios.component';
 
 
 
 const routes: Routes = [
   {path: '', component:HomeComponent,canActivate: [AuthGuard]},
+
+  // Administracion
+  {path: 'admin-posts', component: AdminPostsComponent, canActivate: [AuthGuard]},
+  {path: 'admin-usuarios', component: AdminUsuariosComponent, canActivate: [AuthGuard]},
 
   // FORMULARIOS
   {path: 'login', component:LoginUsuarioComponent},
@@ -42,7 +48,11 @@ const routes: Routes = [
   {path: 'amigos', component: AmigosComponent, canActivate: [AuthGuard] },
   {path: 'perfil-usuario/:id', component: PerfilOtroUsuarioComponent, canActivate: [AuthGuard] },
   {path: 'perfil-usuario-publicaciones/:id', component: PerfilUsuarioPublicacionesComponent, canActivate: [AuthGuard] },
+
+  // Notificaciones
   {path: 'notificaciones', component: NotificacionesComponent, canActivate: [AuthGuard] },
+  
+  // Chat
   {path: 'chat/:id', component: ChatComponent, canActivate: [AuthGuard] },
   
   // Detalles post

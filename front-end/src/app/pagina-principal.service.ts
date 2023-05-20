@@ -14,11 +14,11 @@ export class PaginaPrincipalService {
    }
 
    getPost(): Observable<any>{
-    return this.http.get(this.url+"?ordering=fecha_publicacion")
+    return this.http.get(this.url+"?ordering=-fecha_publicacion")
    }
 
    getPostOrdenados(id:number): Observable<any>{
-    return this.http.get<any>(this.url+`obtener_post/?user=${id}`)
+    return this.http.get<any>(this.url+`obtener_post/?user=${id}&oculto=false`)
    }
 
 }

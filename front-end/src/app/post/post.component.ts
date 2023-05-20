@@ -161,7 +161,7 @@ export class PostComponent implements OnInit {
 
   esCreadorPost(campo:any): boolean{
     
-      //console.log(this.usuario)
+      
       if(this.usuario != undefined){
 
         if(this.usuario.is_staff){
@@ -290,7 +290,7 @@ export class PostComponent implements OnInit {
 
   //Obtenemos el numero de comentarios del post y lo añadimos a su respectivo campo en la base de datos
   numComentarios(numComentarios:number){
-    console.log(numComentarios)
+   
     this._postService.obtenerPost(this.id).subscribe(data => {
       this.post = data
       
@@ -303,7 +303,7 @@ export class PostComponent implements OnInit {
       });
 
       this._postService.modificarPost(this.post.id, this.formularioNumCom.value).subscribe()
-      console.log(this.post.num_comentarios)
+     
     });
   }
 
