@@ -41,13 +41,16 @@
 
         <!-- Campo contraseña -->
         <div class="form-outline mb-3">
-          <input class="form-control" type="password" id="password" formControlName="password" required />
+          <input class="form-control" type="{{ mostrarContrasenia ? 'text' : 'password' }}" id="password" formControlName="password" required />
           <label class="form-label" for="password">Password</label>
+          <div>
+            <span style="margin-right: 15px;">Mostrar contrseña</span>  <input type="checkbox" name="mostrarContrasenia" id="mostrarContrasenia" [ngModelOptions]="{standalone: true}" [(ngModel)]="mostrarContrasenia" >
+          </div>
           <div
             *ngIf="logInForm.controls['password'].invalid && (logInForm.controls['password'].dirty || logInForm.controls['password'].touched)">
           </div>
         </div>
-
+        
         <div *ngIf="httpResponse" class="alert alert-danger text-start" style="font-size: 12px;">
           <p>{{ httpResponse }}</p>
         </div>

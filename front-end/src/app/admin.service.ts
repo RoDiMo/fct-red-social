@@ -14,6 +14,7 @@ export class AdminService {
   constructor(private http: HttpClient) { }
 
   ordenarPosts(campo:string, valorBusqueda:string): Observable<any>{
+    console.log(this.urlPosts+`?ordering=${campo}&search=${valorBusqueda}`)
     return this.http.get<any>(this.urlPosts+`?ordering=${campo}&search=${valorBusqueda}`)
   }
 

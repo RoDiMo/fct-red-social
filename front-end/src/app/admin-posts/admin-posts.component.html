@@ -19,8 +19,9 @@
 
                                     <div class="input-group">
                                         <div class="form-outline">
-                                            <input type="search" id="form1" class="form-control" placeholder="Buscar" [(ngModel)]="valorBusqueda" />
-                                         
+                                            <input type="search" id="form1" class="form-control" placeholder="Buscar"
+                                                [(ngModel)]="valorBusqueda" />
+
                                         </div>
                                         <button type="button" class="btn btn-dark" (click)="guardarValorBusqueda()">
                                             <i class="fas fa-search"></i>
@@ -37,6 +38,21 @@
                                 <tr class="">
                                     <th></th>
 
+                                    <ng-container *ngFor="let campo of getUnorderedFields() ">
+                                        <th (click)="ordenarPosts(campo[0])" style="cursor: pointer;">{{campo[1]}}
+                                            <span *ngIf="ordenarCampo && campoSeleccionado==campo[0]"
+                                                class="material-symbols-outlined" style="height: 5px;">
+                                                keyboard_arrow_down
+                                            </span>
+
+                                            <span *ngIf="!ordenarCampo ||  campoSeleccionado!=campo[0]"
+                                                class="material-symbols-outlined">
+                                                keyboard_arrow_up
+                                            </span>
+                                        </th>
+
+                                    </ng-container>
+                                    <!--
                                     <th (click)="ordenarPosts('titulo')" style="cursor: pointer;">Titulo
                                         <span *ngIf="ordenarCampo && campoSeleccionado=='titulo'"
                                             class="material-symbols-outlined">
@@ -120,7 +136,8 @@
                                             keyboard_arrow_up
                                         </span>
                                     </th>
-
+                                    -->
+                                    <th></th>
                                     <th></th>
 
                                 </tr>
@@ -139,14 +156,21 @@
                                     <td>{{post.fecha_publicacion | date:'dd/MM/yyyy'}}</td>
 
                                     <td class="mb-2">
-                                        <a [routerLink]='["/post/",post.id]' class="btn background-secondary px-5" style="font-size: 12px;">
+                                        <a [routerLink]='["/post/",post.id]' class="btn background-secondary px-5"
+                                            style="font-size: 12px;">
                                             <i class="fas fa-angle-double-right"></i> Detalles Post
                                         </a>
 
-                                        <button *ngIf="!post.oculto" class="btn btn-secondary"
-                                            (click)="ocultarPost(post.id, post)" style="font-size: 12px;">Ocultar Post</button>
-                                        <button *ngIf="post.oculto" class="btn btn-secondary"
-                                            (click)="mostrarPost(post.id, post)" style="font-size: 12px;">Mostrar Post</button>
+
+                                    </td>
+
+                                    <td>
+                                        <button *ngIf="!post.oculto && post.datos_usuario.id != credenciales.id "
+                                            class="btn btn-secondary" (click)="ocultarPost(post.id, post)"
+                                            style="font-size: 12px;">Ocultar Post</button>
+                                        <button *ngIf="post.oculto && post.datos_usuario.id != credenciales.id"
+                                            class="btn btn-secondary" (click)="mostrarPost(post.id, post)"
+                                            style="font-size: 12px;">Mostrar Post</button>
 
                                     </td>
                                 </tr>
@@ -170,7 +194,7 @@
                         <div class="card-body">
                             <h3>Usuarios</h3>
                             <h4 class="display-4">
-                                <i class="fas fa-users background-light"></i>  {{usuarios.length}}
+                                <i class="fas fa-users background-light"></i> {{usuarios.length}}
                             </h4>
                             <a class="btn btn-outline-dark btn-sm" [routerLink]="['/admin-usuarios']">Ver</a>
                         </div>

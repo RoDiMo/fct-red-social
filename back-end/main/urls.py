@@ -8,9 +8,9 @@ from rest_framework.routers import DefaultRouter
 from main import views
 
 router = DefaultRouter()
-router.register(r'pais', views.Paises, basename='pais')
-router.register(r'estado', views.Estados, basename='estado')
-router.register(r'ciudad', views.Ciudades, basename='ciudad')
+router.register(r'paises', views.Paises, basename='paises')
+router.register(r'estados', views.Estados, basename='estados')
+router.register(r'ciudades', views.Ciudades, basename='ciudades')
 router.register(r'usuarios', views.Usuario, basename='usuarios')
 router.register(r'posts', views.Post, basename='posts')
 router.register(r'comentarios', views.Comentarios, basename='comentarios')

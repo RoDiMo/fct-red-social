@@ -12,6 +12,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 
 from main.models import *
 from main.models import Chat
+from main.permissions import *
 from main.serializers import *
 
 
@@ -21,26 +22,35 @@ from main.serializers import *
 class Paises(viewsets.ModelViewSet):
     queryset = Paises.objects.all()
     serializer_class = PaisesSerializer
+    permission_classes = [AllowAny]
 
 
 class Estados(viewsets.ModelViewSet):
     queryset = Estados.objects.all()
     serializer_class = EstadoSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['id_pais__nombre_pais']
+    permission_classes = [AllowAny]
 
 
 class Ciudades(viewsets.ModelViewSet):
     queryset = Ciudades.objects.all()
     serializer_class = CiudadesSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['id_estado__nombre_estado']
+    permission_classes = [AllowAny]
 
 
 class Usuario(viewsets.ModelViewSet):
     queryset = Usuarios.objects.all()
     serializer_class = UsuarioSerializer
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
-    ordering_fields = ['username', 'first_name', 'last_name',  'email',  'pais', 'estado', 'es_moderador', 'fecha_alta']
+    ordering_fields = ['username', 'first_name', 'last_name', 'email', 'pais', 'estado', 'es_moderador', 'fecha_alta']
     filterset_fields = ['id', 'username', 'es_moderador']
-    search_fields = ['username', 'first_name', 'last_name', 'email', 'pais', 'estado' ]
+    search_fields = ['username', 'first_name', 'last_name', 'email', 'pais', 'estado']
 
+    def get_permissions(self):
+        return permisos_usuarios(self.action)
 
     '''
     @action(detail=False, methods=['get'])
@@ -113,9 +123,13 @@ class Post(viewsets.ModelViewSet):
     queryset = Posts.objects.all()
     serializer_class = PostSerializer
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
-    ordering_fields = ['titulo', 'usuario__username', 'num_visitas', 'num_likes', 'num_comentarios', 'oculto', 'fecha_publicacion']
-    filterset_fields = ['usuario','oculto']
-    search_fields = ['titulo','usuario__username', 'usuario__first_name', 'usuario__last_name']
+    ordering_fields = ['titulo', 'usuario__username', 'num_visitas', 'num_likes', 'num_comentarios', 'oculto',
+                       'fecha_publicacion']
+    filterset_fields = ['usuario', 'oculto']
+    search_fields = ['titulo', 'usuario__username', 'usuario__first_name', 'usuario__last_name']
+
+    def get_permissions(self):
+        return permisos_posts(self.action)
 
     @action(detail=False, methods=['get'])
     def obtener_post(self, request):

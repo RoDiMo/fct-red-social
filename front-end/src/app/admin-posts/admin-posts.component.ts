@@ -21,8 +21,9 @@ export class AdminPostsComponent {
   public credenciales = this._usuarioService.obtenerCredenciales();
   public postOcultado!: FormGroup;
   public ordenarCampo: boolean = false;
-  public campoSeleccionado: string = "";
+  public campoSeleccionado: string = "-fecha_publicacion";
   public valorBusqueda: string = "";
+  public campos: any = {};
 
   constructor(
     public _postService: PaginaPrincipalService,
@@ -31,6 +32,7 @@ export class AdminPostsComponent {
     public _adminService: AdminService,
     public formBuilder: FormBuilder,
     private router: Router,
+    
 
   ) {
     this.postOcultado = this.formBuilder.group({
@@ -40,6 +42,23 @@ export class AdminPostsComponent {
       fecha_publicacion: ['' as any],
       oculto: [false as boolean]
     })
+
+
+    this.campos = {
+      titulo: 'Titulo',
+      usuario__username: 'Autor',
+      num_visitas: 'Visitas',
+      num_likes: 'Likes',
+      num_comentarios: 'Comentarios',
+      oculto: 'Estado',
+      fecha_publicacion: 'Fecha',
+    }
+
+    this.getUnorderedFields()
+  }
+
+  getUnorderedFields() {
+    return Object.entries(this.campos);
   }
 
   ngOnInit(): void {
@@ -52,7 +71,7 @@ export class AdminPostsComponent {
   obtenerUsuarioRegistrado(){
     this._usuarioService.getUsuario(this.credenciales.id).subscribe(data => {
       this.usuarioRegistrado = data
-      console.log(this.usuarioRegistrado)
+    
       if(!this.usuarioRegistrado.es_moderador && !this.usuarioRegistrado.is_staff){
         this.router.navigate(['/'])
       }
@@ -83,11 +102,16 @@ export class AdminPostsComponent {
 
   guardarValorBusqueda() {
 
+    if (this.ordenarCampo) {
+      this.campoSeleccionado = '-' +  this.campoSeleccionado
+      this.ordenarCampo = !this.ordenarCampo
+      
+    }
+
     // Nos traemos los posts ordenados en función del campo
     this._adminService.ordenarPosts(this.campoSeleccionado, this.valorBusqueda).subscribe(data => {
       this.posts = data.results
     })
-    console.log(this.valorBusqueda); // Imprime el valor del input en la consola (puedes hacer cualquier otra operación con él)
   }
 
 
@@ -123,7 +147,8 @@ export class AdminPostsComponent {
 
     this._actualizarPost.modificarPost(id, this.postOcultado.value).subscribe(data => {
       setTimeout(() => {
-        this.obtenerPost();
+        this.guardarValorBusqueda();
+
       }, 5)
     })
   }
@@ -144,7 +169,8 @@ export class AdminPostsComponent {
 
     this._actualizarPost.modificarPost(id, this.postOcultado.value).subscribe(data => {
       setTimeout(() => {
-        this.obtenerPost();
+        this.guardarValorBusqueda();
+
       }, 5)
     })
   }

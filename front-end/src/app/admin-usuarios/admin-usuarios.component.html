@@ -19,10 +19,11 @@
 
                                     <div class="input-group">
                                         <div class="form-outline">
-                                            <input type="search" id="form1" class="form-control" placeholder="Buscar" [(ngModel)]="valorBusqueda" />
-                                         
+                                            <input type="search" id="form1" class="form-control" placeholder="Buscar"
+                                                [(ngModel)]="valorBusqueda" />
+
                                         </div>
-                                        <button type="button" class="btn btn-dark" (click)="guardarValorBusqueda()">
+                                        <button  type="button" class="btn btn-dark" (click)="guardarValorBusqueda()">
                                             <i class="fas fa-search"></i>
                                         </button>
                                     </div>
@@ -32,13 +33,25 @@
                         </div>
                         <table class="table table-striped">
 
-
                             <thead class="bg-dark text-white text-center" style="font-size: 12px;">
                                 <tr class="">
                                     <th></th>
+                                    <ng-container *ngFor="let campo of getUnorderedFields() ">
+                                        <th (click)="ordenarUsuarios(campo[0])" style="cursor: pointer;">{{campo[1]}}
+                                            <span  *ngIf="ordenarCampo && campoSeleccionado==campo[0]"
+                                            class="material-symbols-outlined" style="height: 5px;">
+                                            keyboard_arrow_down
+                                        </span>
 
-                                    <th (click)="ordenarUsuarios('username')" style="cursor: pointer;">Usuario
-                                        <span *ngIf="ordenarCampo && campoSeleccionado=='username'"
+                                        <span *ngIf="!ordenarCampo ||  campoSeleccionado!=campo[0]"
+                                            class="material-symbols-outlined">
+                                            keyboard_arrow_up
+                                        </span>
+                                        </th>
+                                    </ng-container>
+                                <!--
+                                    <th  (click)="ordenarUsuarios('username')" style="cursor: pointer;">Usuario
+                                        <span  *ngIf="ordenarCampo && campoSeleccionado=='username'"
                                             class="material-symbols-outlined" style="height: 5px;">
                                             keyboard_arrow_down
                                         </span>
@@ -84,7 +97,7 @@
                                             keyboard_arrow_up
                                         </span>
                                     </th>
-                                    
+
 
                                     <th (click)="ordenarUsuarios('estado')" style="cursor: pointer;">Estado
                                         <span *ngIf="ordenarCampo && campoSeleccionado=='estado'"
@@ -98,7 +111,8 @@
                                         </span>
                                     </th>
 
-                                    <th (click)="ordenarUsuarios('es_moderador')" style="cursor: pointer;">Tipo de usuario
+                                    <th (click)="ordenarUsuarios('es_moderador')" style="cursor: pointer;">Tipo de
+                                        usuario
                                         <span *ngIf="ordenarCampo && campoSeleccionado=='es_moderador'"
                                             class="material-symbols-outlined">
                                             keyboard_arrow_down
@@ -121,9 +135,9 @@
                                             keyboard_arrow_up
                                         </span>
                                     </th>
-
+-->
                                     <th></th>
-
+                                    <th></th>
                                 </tr>
                             </thead>
 
@@ -142,15 +156,18 @@
                                     <td>{{usuario.fecha_alta | date:'dd/MM/yyyy'}}</td>
 
                                     <td class="mb-2">
-                                        <a [routerLink]='["/perfil-usuario/",usuario.id]' class="btn background-secondary px-5" style="font-size: 12px;">
-                                            <i class="fas fa-angle-double-right" ></i> Detalles  
+                                        <a [routerLink]='["/perfil-usuario/",usuario.id]'
+                                            class="btn background-secondary px-5" style="font-size: 12px;">
+                                            <i class="fas fa-angle-double-right"></i> Detalles
                                         </a>
-
-                                        <button *ngIf="!usuario.es_moderador" class="btn btn-secondary"
-                                            (click)="agregarModerador(usuario.id, usuario)" style="font-size: 10px;">Hacer moderador</button>
-                                        <button *ngIf="usuario.es_moderador" class="btn btn-secondary"
-                                            (click)="quitarModerador(usuario.id, usuario)" style="font-size: 10px;">Quitar moderador</button>
-
+                                    </td>
+                                    <td>
+                                        <button *ngIf="!usuario.es_moderador && usuario.id != credenciales.id && !usuario.is_staff" class="btn btn-secondary"
+                                            (click)="agregarModerador(usuario.id, usuario)"
+                                            style="font-size: 10px;">Hacer moderador</button>
+                                        <button *ngIf="usuario.es_moderador && usuario.id != credenciales.id && !usuario.is_staff" class="btn btn-secondary"
+                                            (click)="quitarModerador(usuario.id, usuario)"
+                                            style="font-size: 10px;">Quitar moderador</button>
                                     </td>
                                 </tr>
                             </tbody>
