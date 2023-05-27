@@ -8,60 +8,75 @@
 <div class="container-fluid d-flex mx-0 px-0">
 
     <!-- CABECERA DEL PROYECTO -->
-    <div class="container col-3  mx-0 ">
+    <header class="container col-3  mx-0 ">
         <app-cabecera></app-cabecera>
-    </div>
+    </header>
 
 
     <!-- CUERPO DEL PROYECTO -->
-    <div class="col-6 border bg-image" style="background-image: url('../../assets/FondoChat.jpg');
-             background-repeat: repeat; background-attachment: fixed;">
+    <div class="col-6 border bg-image pb-5 h-100 min-vh-100" style="background-image: url('../../assets/FondoChat.jpg');
+             background-repeat: repeat; background-attachment: fixed; margin-bottom: 200px;" >
 
 
         <!-- Cuerpo -->
-        <div>
 
-            <div class="row m-5">
 
-                <div *ngFor="let mensaje of mensajes">
-                    <div *ngIf="usuario_logeado.url == mensaje.emisor" class="row d-flex mx-0 px-0 justify-content-end mb-4">
-                        <div class=" col-6 border  bg-white border-black rounded-3 text-wrap pt-3 px-3">
-                            <div class="text-start">
+        <div class="row p-5">
+
+            <div *ngFor="let mensaje of mensajes">
+                <div *ngIf="usuario_logeado.url == mensaje.emisor"
+                    class="row d-flex mx-0 px-0 justify-content-end mb-4">
+                    <div class=" col-6 border  bg-white border-black rounded-3 text-wrap pt-3 px-3 pb-1">
+                        <div class="row text-start">
+                            <div class="col-10">
                                 <p>{{mensaje.mensaje}}</p>
                             </div>
-                            <div class="row  text-end">
+                            <div class="col-2">
                                 <p>20:34</p>
                             </div>
                         </div>
-                    </div>
+                        <div class="row  text-end">
+                            <span *ngIf="!mensaje.leido" class="material-symbols-outlined">
+                                done
+                            </span>
 
-                    <div *ngIf="usuario_logeado.url == mensaje.receptor" class="row mb-4">
-                        <div class=" col-6 border  bg-white border-black rounded-3 text-wrap pt-3 px-3">
-                            <div class="text-start">
-                                <p>{{mensaje.mensaje}}</p>
-                            </div>
-                            <div class="row  text-end">
-                                <p>20:34</p>
-                            </div>
+                            <span *ngIf="mensaje.leido" class="material-symbols-outlined">
+                                done_all
+                            </span>
                         </div>
                     </div>
-
                 </div>
 
+                <div *ngIf="usuario_logeado.url == mensaje.receptor" class="row mb-4">
+                    <div class=" col-6 border  bg-white border-black rounded-3 text-wrap pt-3 px-3">
+                        <div class="row text-start">
+                            <div class="col-10">
+                                <p>{{mensaje.mensaje}}</p>
+                            </div>
+                            <div class="col-2">
+                                <p>20:34</p>
+                            </div>
+                        </div>
 
-                <form [formGroup]="formularioChat" (ngSubmit)="nuevoMensaje()">
-                    <div class="mb-3">
-
-                      <textarea class="form-control" rows=8 formControlName="mensaje" required
-                        placeholder="Introduce tu mensaje" [defaultValue]=""></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary" >Enviar</button>
-                  </form>
+                </div>
 
             </div>
+        </div>
 
+
+        <div class="row  fixed-bottom w-50 p-5 bg-light" style="margin: auto;">
+            <form [formGroup]="formularioChat" (ngSubmit)="nuevoMensaje()">
+                <div class="mb-3">
+
+                    <textarea class="form-control" rows=4 formControlName="mensaje" required
+                        placeholder="Introduce tu mensaje" [defaultValue]=""></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Enviar</button>
+            </form>
         </div>
     </div>
+
     <div class="container col-3 border">
 
         <app-contactos-chat></app-contactos-chat>

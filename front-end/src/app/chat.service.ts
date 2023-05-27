@@ -19,6 +19,16 @@ export class ChatService {
     return this.http.get<any>(this.url+`mensajes_chat/?emisor=${idEmisor}&receptor=${idReceptor}`)
   }
 
+  obtenerMensajesNoLeidos(idEmisor:any, idReceptor:any ):  Observable<any>{
+
+    return this.http.get<any>(this.url+`mensajes_no_leidos/?emisor=${idEmisor}&receptor=${idReceptor}`)
+  }
+
+  actualizarMensaje(idMensaje:string ,mensaje: any):  Observable<any>{
+
+    return this.http.put<any>(this.url+`${idMensaje}/`, mensaje)
+  }
+
   nuevoMensaje(mensaje:any):  Observable<any>{
     return this.http.post<any>(this.url, mensaje)
   }

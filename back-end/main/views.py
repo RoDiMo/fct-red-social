@@ -199,7 +199,7 @@ class Chats(viewsets.ModelViewSet):
     queryset = Chat.objects.all()
     serializer_class = ChatSerializer
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['emisor', 'receptor']
+    filterset_fields = ['emisor', 'receptor','leido']
 
     @action(detail=False, methods=['get'])
     def mensajes_chat(self, request):
@@ -212,4 +212,20 @@ class Chats(viewsets.ModelViewSet):
         )
         serializers_context = self.get_serializer_context()
         serializer = ChatSerializer(instance=mensajes.distinct(), context=serializers_context, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @action(detail=False, methods=['get'])
+    def mensajes_no_leidos(self, request):
+        emisor = request.query_params.get('emisor')
+        receptor = request.query_params.get('receptor')
+
+        mensajes = Chat.objects.filter(
+            (Q(emisor=emisor) & Q(receptor=receptor)) |
+            (Q(emisor=receptor) & Q(receptor=emisor))
+        )
+
+        mensajes_no_leidos = mensajes.filter(leido=False, receptor=emisor)
+
+        serializers_context = self.get_serializer_context()
+        serializer = ChatSerializer(instance=mensajes_no_leidos, context=serializers_context, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)

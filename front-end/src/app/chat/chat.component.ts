@@ -15,12 +15,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class ChatComponent {
 
-  public mensajes :Array<any> = []
+  public mensajes :Array<any> = [];
+  public mensajesNoLeidos : Array<any> = []
   public id = this._obtenerUsuarioService.obtenerCredenciales().id;
   public idAmigo = this.activatedRoute.snapshot.paramMap.get('id');
   public usuario_logeado!: PerfilUsuario;
   public usuario_amigo!: PerfilUsuario;
   public formularioChat!: FormGroup;
+ 
 
 
   constructor(
@@ -41,13 +43,14 @@ export class ChatComponent {
 
   ngOnInit(): void {
   
-      console.log(this.idAmigo)
       this.obtenerParUsuarios() 
 
       // Comprueba cada segundo que no haya nuevos mensajes
-      // ESTO ES PROVICIONAL HASTA QUE ENCUENTRE UNA MEJOR FORMA DE HACERLO
+  
       setInterval(() => {
+        this.obtenerMensajesNoLeidos()
         this.obtenerMensajes()
+   
       }, 1000);
   }
 
@@ -67,8 +70,28 @@ export class ChatComponent {
   obtenerMensajes(){
     this._chatService.obtenerMensajesChat(this.id, this.idAmigo).subscribe(data => {
       this.mensajes = data
+   
 
     })
+  }
+
+  obtenerMensajesNoLeidos(){
+    this._chatService.obtenerMensajesNoLeidos(this.id,this.idAmigo).subscribe(data =>{
+      this.mensajesNoLeidos = data
+  
+      this.actualizarVisto(this.mensajesNoLeidos)
+    })
+  }
+
+  actualizarVisto(mensajes: any){
+      for(let i = 0; i < mensajes.length; i++){
+        const mensaje = mensajes[i]
+
+        mensaje.leido = true;
+        this._chatService.actualizarMensaje(mensaje.id, mensaje).subscribe()
+
+      }
+     
   }
 
 
