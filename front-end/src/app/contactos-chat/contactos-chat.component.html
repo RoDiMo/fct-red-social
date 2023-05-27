@@ -10,10 +10,10 @@
 <div *ngFor="let amigo of amigos" class="row ms-3" >
 
        <div class="col-3" (click)="redirigirChat(amigo.id)" style="cursor: pointer;">
-              <img *ngIf="amigo.foto_perfil" class="img-fluid border border-black rounded-circle w-75" style="height: 60px;"
+              <img *ngIf="amigo.foto_perfil" class=" border border-black rounded-circle w-75" style="width: 50px; height: 60px;"
                      src={{amigo.foto_perfil}}>
 
-              <img *ngIf="!amigo.foto_perfil" class="img-fluid border border-black rounded-circle w-75" style="height: 60px;"
+              <img *ngIf="!amigo.foto_perfil" class=" border border-black rounded-circle w-75" style="width: 50px;"
               src="https://bootdey.com/img/Content/avatar/avatar7.png">
        </div>
 

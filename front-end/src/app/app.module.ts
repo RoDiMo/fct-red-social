@@ -33,6 +33,7 @@ import { AdminUsuariosComponent } from './admin-usuarios/admin-usuarios.componen
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,6 +58,7 @@ import { AdminUsuariosComponent } from './admin-usuarios/admin-usuarios.componen
     ChatComponent,
     AdminPostsComponent,
     AdminUsuariosComponent,
+ 
   ],
   imports: [
     BrowserModule,

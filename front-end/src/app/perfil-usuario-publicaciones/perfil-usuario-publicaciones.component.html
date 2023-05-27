@@ -4,9 +4,9 @@
     <div class="row mx-0 border">
 
         <div class="col-3 mx-0 border">
-        
+
             <app-cabecera></app-cabecera>
-        
+
         </div>
 
         <div class="col-6">
@@ -14,37 +14,28 @@
 
             <div class="row  text-center border-bottom" style="height: 75px;">
 
-                <div class="col-6 pt-3 border-start"  routerLink="/perfil-usuario/{{id}}">
+                <div *ngIf="id != credenciales.id" class="col pt-3 border-start" routerLink="/perfil-usuario/{{id}}">
                     <h2>Datos personales</h2>
                 </div>
 
-                <div class="col-6 pt-3  border-end border-start" routerLink="/perfil-usuario-publicaciones/{{id}}">
+                <div class="col pt-3  border-end border-start" routerLink="/perfil-usuario-publicaciones/{{id}}">
                     <h2>Publicaciones</h2>
                 </div>
             </div>
 
-
             <!-- Contenido -->
-            <div class="col-12 px-3">
-
-                <!-- Posts -->
-                <!-- Aquí va el For -->
-                <div *ngFor="let post of postsUsuario" class="row border mx-0 px-0 m-5 border-black rounded-4">
-
-                    <!-- Imagen -->
-                    <div class="col-4  my-3">
-                        <img class="img-fluid" src={{post.imagen}} style="width: 250px; height: 140px;">
-                    </div>
-
-                    <!-- Contenido -->
-                    <div class="col-8 mt-3">
-
-                        <div class="row">
-                            <p> {{post.contenido}} <p>
+            <div *ngFor="let post of postsUsuario" class="row  m-5">
+                <div class="col">
+                    <div class="card">
+                        <img src="{{post.imagen}}" class="card-img-top" alt="Hollywood Sign on The Hill" />
+                        <div class="card-body">
+                            <h5 class="card-title">{{post.titulo}}</h5>
+                            <p class="card-text">
+                                {{post.contenido}}
+                            </p>
                         </div>
-
-                        <!-- Iconos -->
-                        <div class="row m   mb-3">
+                        <hr>
+                        <div class="row m mb-3 me-3">
 
                             <div class="d-flex  justify-content-end">
                                 <!-- Visitas -->
@@ -54,7 +45,7 @@
                                 </div>
                                 <!-- Likes -->
                                 <div class="mx-2">
-                                    <span class="material-symbols-outlined"> favorite   </span>
+                                    <span class="material-symbols-outlined"> favorite </span>
                                     <span>{{post.num_likes}}</span>
                                 </div>
 
@@ -68,10 +59,12 @@
                         </div>
                     </div>
                 </div>
+
             </div>
+
         </div>
 
-        <div class="col-3 border"> 
+        <div class="col-3 border">
             <app-contactos-chat></app-contactos-chat>
         </div>
 

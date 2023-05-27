@@ -14,6 +14,7 @@ import { Post } from '../post/post';
 export class PerfilUsuarioPublicacionesComponent {
   public id = this.activatedRoute.snapshot.paramMap.get('id');
   public postsUsuario!: Array<Post>;
+  public credenciales = this._obtenerUsuarioService.obtenerCredenciales()
 
 
   constructor(
@@ -24,6 +25,7 @@ export class PerfilUsuarioPublicacionesComponent {
 
   
   ngOnInit() : void{
+    console.log(this.id)
     this._postService.obtenerPostsUsuario(this.id!).subscribe( data => {
       this.postsUsuario = data.results   
     })

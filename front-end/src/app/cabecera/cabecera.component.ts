@@ -1,10 +1,11 @@
 import { Component, HostListener } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { AutenticacionUsuariosService } from '../autenticacion-usuarios.service';
 import { PerfilUsuarioService } from '../perfil-usuario.service';
 import { PerfilUsuario } from '../perfil-usuario/perfil-usuario';
 import { AmigosService } from '../amigos.service';
 import { Amigo } from '../amigos/amigo';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-cabecera',
@@ -26,7 +27,8 @@ export class CabeceraComponent {
     private _perfilUsuarioService: PerfilUsuarioService,
     private _amistadesService: AmigosService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private location: Location
   ) { }
 
 
@@ -41,34 +43,14 @@ export class CabeceraComponent {
       if (this.datosUsuario.is_staff || this.datosUsuario.es_moderador) {
         this.esAdmin = true
       }
-
-      console.log(this.esAdmin)
     })
   }
 
-  /*
-   obtenerAmistades(){
-    this._amistadesService.obtenerAmistades(this.credenciales.id).subscribe(data => {
-      this.tablaAmigos = data.results
+  enlacePublicaciones() {
 
-      for(let amigo of this.tablaAmigos){
-        
-        this.obtenerUsuariosAmigos(amigo)
-      }
-
-    })      
-   }
-
-   obtenerUsuariosAmigos(amigo: Amigo){
-    //console.log(amigo.usuario_receptor)
-     this._perfilUsuarioService.getUsuario(amigo.usuario_receptor).subscribe(data => {
-
-
-      this.usuariosAmigos.push(data);
-
-    })
-   }
-*/
+    this.location.replaceState(`/perfil-usuario-publicaciones/${this.credenciales.id}`);
+    location.reload();
+  }
 
   logout() {
     localStorage.removeItem("userData");

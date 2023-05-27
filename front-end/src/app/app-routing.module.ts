@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, Routes } from '@angular/router';
+import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { LoginUsuarioComponent } from './login-usuario/login-usuario.component';
 import { PerfilUsuarioComponent } from './perfil-usuario/perfil-usuario.component';
@@ -24,8 +24,12 @@ import { AdminUsuariosComponent } from './admin-usuarios/admin-usuarios.componen
 
 
 
+
 const routes: Routes = [
+
+  // PÁGINA PRINCIPAL 
   {path: '', component:HomeComponent,canActivate: [AuthGuard]},
+
 
   // Administracion
   {path: 'admin-posts', component: AdminPostsComponent, canActivate: [AuthGuard]},
@@ -63,9 +67,13 @@ const routes: Routes = [
 
 ]
 
+const routerOptions: ExtraOptions = {
+  onSameUrlNavigation: 'reload'
+};
+
 @NgModule({
   declarations: [],
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, routerOptions)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

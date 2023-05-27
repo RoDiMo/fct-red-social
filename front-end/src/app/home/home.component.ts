@@ -7,6 +7,7 @@ import { AutenticacionUsuariosService } from '../autenticacion-usuarios.service'
 import { PostService } from '../post.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PerfilUsuario } from '../perfil-usuario/perfil-usuario';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -24,6 +25,7 @@ export class HomeComponent {
   public post: Array<Post> = [];
   public formularioPost!: FormGroup;
   public esAdmin: boolean = false;
+  public misPost: boolean = false;
 
 
   constructor(
@@ -32,6 +34,7 @@ export class HomeComponent {
     private _obtenerUsuarioService: AutenticacionUsuariosService,
     private _postService: PostService,
     public formBuilder: FormBuilder,
+    public router: Router,
   ) {
 
   }
@@ -41,14 +44,7 @@ export class HomeComponent {
 
 
     // Obtiene los post  
-    this._paginaPrincipalService.getPostOrdenados(this.credencialesUsuario.id).subscribe(data => {
-      this.posts = data;
-
-      // Obtenemos el usuario registrado además de comprobar si le ha dado like a los diferentes posts
-      this.gestionarUsuarios();
-
-
-    })
+    this.obtenerPosts()
 
     this.formularioPost = this.formBuilder.group({
       titulo: ['' as string | null, Validators.required],
@@ -60,6 +56,33 @@ export class HomeComponent {
     });
   }
 
+
+  enlacePost(id:String){
+    this.router.navigateByUrl(`/post/${id}`)
+  }
+
+  obtenerPosts(){
+    this._paginaPrincipalService.getPostOrdenados(this.credencialesUsuario.id).subscribe(data => {
+      this.posts = data;
+      this.misPost = false;
+
+      // Obtenemos el usuario registrado además de comprobar si le ha dado like a los diferentes posts
+      this.gestionarUsuarios();
+
+
+    })
+  }
+
+
+  obtenerMisPost(){
+    this._postService.obtenerPostsUsuario(this.credencialesUsuario.id).subscribe(data =>{
+      this.posts = data.results;
+      this.misPost = true;
+
+      // Obtenemos el usuario registrado además de comprobar si le ha dado like a los diferentes posts
+      this.gestionarUsuarios();
+    })
+  }
 
   // -------- GESTION DE USUARIOS --------
 
@@ -74,7 +97,6 @@ export class HomeComponent {
 
       }
 
-      console.log(this.usuarioRegistrado)
       // -------- GESTION DE LIKES --------
       // Comprobamos por cada post si hay alguna coincidencia en la tabla like
       for (let p of this.posts) {
@@ -200,7 +222,12 @@ export class HomeComponent {
       this._postService.modificarPost(this.post[0].id, this.formularioPost.value).subscribe(data => {
 
         setTimeout(() => {
-          this.ngOnInit()
+          if(!this.misPost){
+            this.obtenerPosts()
+          }else{
+            this.obtenerMisPost()
+          }
+          //this.ngOnInit()
         }, 5)
 
       })
