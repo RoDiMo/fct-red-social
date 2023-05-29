@@ -43,7 +43,8 @@ export class AdminPostsComponent {
       oculto: [false as boolean]
     })
 
-
+    // Campos de la tabla de los posts. 
+    // La clave del diccionario es el valor de búsqueda del elemento del post
     this.campos = {
       titulo: 'Titulo',
       usuario__username: 'Autor',
@@ -54,10 +55,11 @@ export class AdminPostsComponent {
       fecha_publicacion: 'Fecha',
     }
 
-    this.getUnorderedFields()
+    this.camposNoOrdenados()
   }
 
-  getUnorderedFields() {
+  // Funcion que evita que los campos del diccionario se ordenen al ser llamados desde el template
+  camposNoOrdenados() {
     return Object.entries(this.campos);
   }
 
@@ -68,10 +70,12 @@ export class AdminPostsComponent {
   }
 
 
+  // Obtenemos los valores del usuario registrado
   obtenerUsuarioRegistrado(){
     this._usuarioService.getUsuario(this.credenciales.id).subscribe(data => {
       this.usuarioRegistrado = data
     
+      // Si el usuario no tiene privilgios de administracion se le redirigirá a la página de inicio
       if(!this.usuarioRegistrado.es_moderador && !this.usuarioRegistrado.is_staff){
         this.router.navigate(['/'])
       }
@@ -100,6 +104,9 @@ export class AdminPostsComponent {
   }
 
 
+  // Ordenamos ascendente o descendentemente los valores de búsqueda en dependencia del valor de ordenarCampo
+  // True : Se ordenan los campos descendentemente
+  // False : Se ordenan los campos ascendentemente
   guardarValorBusqueda() {
 
     if (this.ordenarCampo) {

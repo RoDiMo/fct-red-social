@@ -129,7 +129,7 @@ class Post(viewsets.ModelViewSet):
     search_fields = ['titulo', 'usuario__username', 'usuario__first_name', 'usuario__last_name']
 
     #def get_permissions(self):
-    #    return permisos_posts(self.action)
+    #    return permisos_modelos(self.action)
 
     @action(detail=False, methods=['get'])
     def obtener_post(self, request):
@@ -166,6 +166,9 @@ class Comentarios(viewsets.ModelViewSet):
     serializer_class = ComentariosSerializer
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['post']
+
+    def get_permissions(self):
+        return permisos_modelos(self.action)
 
 
 class Likes(viewsets.ModelViewSet):

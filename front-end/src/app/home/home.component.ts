@@ -56,11 +56,12 @@ export class HomeComponent {
     });
   }
 
-
+  // Enlace al post seleccionadp
   enlacePost(id:String){
     this.router.navigateByUrl(`/post/${id}`)
   }
 
+  // Funcion para obtener los todos  posts de los usuarios obviando los mios
   obtenerPosts(){
     this._paginaPrincipalService.getPostOrdenados(this.credencialesUsuario.id).subscribe(data => {
       this.posts = data;
@@ -73,7 +74,7 @@ export class HomeComponent {
     })
   }
 
-
+  // Funcion para obtener solo mis posts
   obtenerMisPost(){
     this._postService.obtenerPostsUsuario(this.credencialesUsuario.id).subscribe(data =>{
       this.posts = data.results;

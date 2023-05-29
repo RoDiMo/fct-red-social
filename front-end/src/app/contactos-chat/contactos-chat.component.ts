@@ -82,7 +82,7 @@ export class ContactosChatComponent {
       }
     }
 
-
+    // Redirigimos a la id del usuario con el que queremos chatear
     redirigirChat(idAmigo: string) {
       this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
         this.router.navigate([`/chat/${idAmigo}`]);

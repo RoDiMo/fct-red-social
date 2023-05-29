@@ -93,7 +93,7 @@ export class AmigosComponent {
   }
 
 
-  // -------- GESTION DE AMISTADES
+  // -------- GESTION DE AMISTADES --------
 
   /**
    * Función encargada de obtener las amistades del usuario registrado

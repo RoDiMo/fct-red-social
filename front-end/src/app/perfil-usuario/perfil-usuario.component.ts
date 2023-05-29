@@ -22,9 +22,6 @@ export class PerfilUsuarioComponent implements OnInit{
      ) { }
 
   ngOnInit(): void {
-    // Id del usuario que ha iniciado sesion
-    //const id = this.activatedRoute.snapshot.paramMap.get('id');
-
     // Obtiene los datos del usuario registrado en la sesion
     this._perfilUsuarioService.getPerfilUsuario(this.id).subscribe(data => {
           this.datosUsuario = data;

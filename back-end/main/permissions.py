@@ -48,7 +48,7 @@ def permisos_usuarios(action):
 
 
 
-def permisos_posts(action):
+def permisos_modelos(action):
     permission_classes = [permissions.IsAuthenticated]
     if action in ['create', 'update', 'partial_update', 'destroy']:
         permission_classes = [permissions.IsAuthenticated, EsAdminPermission]

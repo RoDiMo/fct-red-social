@@ -52,8 +52,13 @@ export class CrearComentarioComponent implements OnInit{
             }
   ngOnInit(): void {
 
-    const id = this.activatedRoute.snapshot.paramMap.get('id');
+    const id = this.activatedRoute.snapshot.paramMap.get('id'); 
+    this.obtenerValoresComentarios(id)
+  }
 
+
+  // Obtenemos los valores previos del comentario
+  obtenerValoresComentarios(id:string | null){
     this._comentarioService.obtenerComentario(id).subscribe(data=>{
       this.comentario = data
 
@@ -62,20 +67,19 @@ export class CrearComentarioComponent implements OnInit{
         post: this.comentario.post,
         usuario: this.comentario.usuario,
       });
-  
+      
+      // Controlamos el número de caracteres restantes del comentario
       this.controlarCaracteres(this.comentario.contenido)
-      console.log(this.comentario.usuario)
     })
-
-
   }
 
+  // Editamos y guardamos los valores del formulario
   editarComentario(){
-    console.log(this.comentario.post)
+
 
     this.http.get<any>(this.comentario.post).subscribe(data => {
       this.idPost = data
-      console.log(this.idPost.id)
+   
 
       this._comentarioService.editarComentario(this.comentario.id, this.formularioComent.value).subscribe(data =>{
         this.router.navigateByUrl(`post/${this.idPost.id}`);
@@ -99,6 +103,7 @@ export class CrearComentarioComponent implements OnInit{
 
   }
 
+  // Funcion para controlar que el número de caracteres no sobrepase la capacidad permitida
   controlarCaracteres(contenido: string){
     this.caracRestantes = 1024 - contenido.length
 

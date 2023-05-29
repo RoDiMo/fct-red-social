@@ -73,6 +73,7 @@ export class EditarDatosPersonalesComponent {
    })
   } 
 
+    // Obtenemos el valor del país del usuario 
     obtenerPais(){
    
     this._obtenerDireccionService.obtenerPaises().subscribe(paises => {
@@ -86,6 +87,7 @@ export class EditarDatosPersonalesComponent {
     })
   }
 
+  // Obtenemos el valor del estado del usuario 
   obtenerEstado(){
     this.ciudades = []
     console.log(this.ciudades)
@@ -101,6 +103,7 @@ export class EditarDatosPersonalesComponent {
   }
 
 
+  // Obtenemos el valor de la ciudad del usuario 
   obtenerCiudad(){
 
 
@@ -115,7 +118,7 @@ export class EditarDatosPersonalesComponent {
 
   }
 
-
+  // Guarda los datos de los selects con la direccion en el formulario
   guardarDireccionFormulario(){
     this.formularioDatosUsuario.patchValue({
       pais: this.pais,
@@ -125,6 +128,7 @@ export class EditarDatosPersonalesComponent {
   }
 
 
+  // Editamos y guardamos los datos del usuario
   editarDatosUsuario(){
     this._perfilUsuarioService.editarDatosPerfil(this.credenciales.id, this.formularioDatosUsuario.value).subscribe(data =>{
       this.router.navigateByUrl('perfil-personal');

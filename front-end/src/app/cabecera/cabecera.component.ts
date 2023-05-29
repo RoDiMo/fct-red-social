@@ -33,8 +33,9 @@ export class CabeceraComponent {
     this.obtenerUsuarioRegistrado()
   }
 
+  //Obtenemos los datos del usuario logueado
   obtenerUsuarioRegistrado() {
-    //Obtenemos los datos del usuario logueado
+
     this._obtenerUsuarioService.getUsuario(this.credenciales.id).subscribe(data => {
       this.datosUsuario = data
       if (this.datosUsuario.is_staff || this.datosUsuario.es_moderador) {
@@ -43,12 +44,51 @@ export class CabeceraComponent {
     })
   }
 
+  // -------- ENLACES DE LA CABECERA --------
+
+  enlaceInicio() {
+
+    this.location.replaceState(`/`);
+    location.reload();
+  }
+
+  enlaceNotificaciones() {
+
+    this.location.replaceState(`/notificaciones`);
+    location.reload();
+  }
+
+  enlacePerfil() {
+    this.location.replaceState(`/perfil-personal`);
+    location.reload();
+  }
+
+  enlaceAmigos() {
+
+    this.location.replaceState(`/amigos`);
+    location.reload();
+  }
+
   enlacePublicaciones() {
 
     this.location.replaceState(`/perfil-usuario-publicaciones/${this.credenciales.id}`);
     location.reload();
   }
 
+  enlaceAdministracion() {
+
+    this.location.replaceState(`/admin-posts`);
+    location.reload();
+  }
+
+  enlaceFormularioPost() {
+
+    this.location.replaceState(`/formulario-post`);
+    location.reload();
+
+  }
+
+  // Removemos los datos usuario del LocalStorage y lo redirigimos a la página de login
   logout() {
     localStorage.removeItem("userData");
     this.router.navigateByUrl(`/login`);

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AutenticacionUsuariosService } from '../autenticacion-usuarios.service';
 import { PerfilUsuarioService } from '../perfil-usuario.service';
 import { PostService } from '../post.service';
@@ -21,6 +21,7 @@ export class PerfilUsuarioPublicacionesComponent {
     public _obtenerUsuarioService: AutenticacionUsuariosService,
     private _postService: PostService,
     private activatedRoute: ActivatedRoute,
+    public router: Router,
   ) { }
 
   
@@ -29,6 +30,11 @@ export class PerfilUsuarioPublicacionesComponent {
     this._postService.obtenerPostsUsuario(this.id!).subscribe( data => {
       this.postsUsuario = data.results   
     })
+  }
+
+   // Enlace al post seleccionadp
+   enlacePost(id:String){
+    this.router.navigateByUrl(`/post/${id}`)
   }
 
 }

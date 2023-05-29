@@ -396,6 +396,7 @@ export class PostComponent implements OnInit {
     }
   }
 
+
   actualizarNumVisitas(id: any) {
 
     // Obtenemos los datos del post
@@ -411,6 +412,7 @@ export class PostComponent implements OnInit {
         num_visitas: this.posts[0].num_visitas + 1,
       });
 
+      // Modificamnos el post con el número de visitas y nos traemos los datos actualizados
       this._postService.modificarPost(this.posts[0].id, this.formularioVisitas.value).subscribe(data => {
 
         setTimeout(() => {
@@ -425,6 +427,7 @@ export class PostComponent implements OnInit {
   }
 
 
+  // Funcion para controlar que el número de caracteres no sobrepase la capacidad permitida
   controlarCaracteres(contenido: string){
     this.caracRestantes = 1024 - contenido.length
 

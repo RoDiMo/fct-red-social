@@ -28,10 +28,10 @@ export class CambiarContraseniaComponent {
     })
   }
 
+  // Editamos los datos de la contraseña y redirigimos a la página de login
   editarDatosUsuario(){
     this._perfilUsuarioService.editarDatosPerfil(this.credenciales.id, this.formularioDatosUsuario.value).subscribe();
    
-
     localStorage.removeItem("userData");
     this.router.navigateByUrl(`/login`);
   }

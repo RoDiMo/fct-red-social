@@ -3,82 +3,93 @@
     <app-cabecera></app-cabecera>
   </div>
 
-  <div *ngFor="let post of posts" class="col-6 border container-fluid d-flex pt-5 mx-0 px-1">
+  <div class="col-6 border container-fluid">
+    <div *ngFor="let post of posts" class=" pt-5 mx-0 px-1">
 
 
 
-    <!-- Cuerpo -->
-    <div>
+      <!-- Cuerpo -->
+
       <div class="container px-5 py-4">
 
-        <!--Cabecera-->
-        <div class="row  py-2">
-          <div *ngIf="post.foto_perfil" class="col-1 text-center ">
-            <img style="width: 50px" src={{post.foto_perfil}} alt="Image Description">
-          </div>
+        <div class="col my-5">
+          <div class="card">
+            <img src="{{post.imagen}}" class="card-img-top" alt="" style="cursor: pointer;" />
 
-          <div *ngIf="!post.foto_perfil" class="col-1 text-center ">
-            <img style="width: 50px" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Image Description">
-          </div>
-          <div class="col-7 position-relative top-0 start-0 ">
-            <span>{{post.nombre_usuario}}</span>
-          </div>
-          <div class="col-4  text-end ">
-            <span>{{post.fecha_publicacion | date:'dd/MM/yy'}}</span>
-          </div>
-        </div>
-        <!-- Texto del Post -->
-        <div class="row py-2">
-          <h3 class="py-3">{{post.titulo}}</h3>
+            <div class="card-body" style="cursor: pointer;">
+              <div class="row mb-3">
+                <div *ngIf="post.foto_perfil" class="col-1 text-center me-4" style="width: 50px;">
+                  <img style="width: 50px; height: 50px;" class="border border-black rounded-circle"
+                    src={{post.foto_perfil}} alt="Image Description">
+                </div>
 
-          <p>{{post.contenido}}</p>
-        </div>
+                <div *ngIf="!post.foto_perfil" class="col-1 text-center " style="width: 50px; ">
+                  <img style="width: 50px; height: 50px;" src="https://bootdey.com/img/Content/avatar/avatar7.png"
+                    alt="Image Description">
+                </div>
 
-        <!-- Imagen del Post -->
-        <div *ngIf="post.imagen != null" class="row py-2">
-          <img class="img-fluid px-5" src={{post.imagen}}>
-        </div>
+                <div class="col-6 position-relative top-0 start-0 ">
+                  <span>{{post.nombre_usuario}}</span>
+                </div>
+                <div class="col-4  text-end ">
+                  <span>{{post.fecha_publicacion | date:'dd/MM/yy'}}</span>
+                </div>
+              </div>
 
-        <!-- Iconos -->
-        <div class="row py-3 mx-4 ">
+              <hr>
 
-          <div class="col-7">
-            <button *ngIf="esCreadorPost(post)" class="btn btn-primary me-2"
-              (click)="modificarPost()">Editar Post</button>
-            <button *ngIf="esCreadorPost(post)" type="submit" class="btn btn-danger me-2"
-              (click)="eliminarPost()">Eliminar Post</button>
-
-
-            <input *ngIf="esCreadorPost(post)" type="file" id="imagen" name="imagen" required
-              (change)="onFileSelected($event)">
-            <div
-              *ngIf="formularioImagenPost.controls['imagen'].invalid && (formularioImagenPost.controls['imagen'].dirty || formularioImagenPost.controls['imagen'].touched)">
-
+              <h5 class="card-title">{{post.titulo}}</h5>
+              <p class="card-text">
+                {{post.contenido}}
+              </p>
             </div>
-          </div>
+            <hr>
+            <div class="row m mb-3 me-3">
 
-          <div class="col-12 d-flex justify-content-end">
 
-            <!-- Visitas -->
-            <div class="col-1">
-              <span class="material-symbols-outlined"> visibility </span>
-              <span>{{post.num_visitas}}</span>
-            </div>
-            <!-- Likes -->
-            <div *ngIf="!post.likeDado" class="col-1">
-              <span (click)="gestionLikes(post.id, post.url)" class="material-symbols-outlined"> favorite </span>
-              <span> {{post.num_likes}}</span>
-            </div>
+              <div class="row py-3 mx-4 ">
 
-            <div *ngIf="post.likeDado" class="col-1">
-              <span (click)="gestionLikes(post.id, post.url)" class="material-symbols-outlined"> heart_check </span>
-              <span> {{post.num_likes}}</span>
-            </div>
+                <div class="col-7">
+                  <button *ngIf="esCreadorPost(post)" class="btn btn-primary me-2" (click)="modificarPost()">Editar
+                    Post</button>
+                  <button *ngIf="esCreadorPost(post)" type="submit" class="btn btn-danger me-2"
+                    (click)="eliminarPost()">Eliminar Post</button>
 
-            <!-- Mensajes -->
-            <div class="col-1">
-              <span class="material-symbols-outlined"> comment </span>
-              <span>{{post.num_comentarios}}</span>
+
+                  <input *ngIf="esCreadorPost(post)" type="file" id="imagen" name="imagen" required
+                    (change)="onFileSelected($event)">
+                  <div
+                    *ngIf="formularioImagenPost.controls['imagen'].invalid && (formularioImagenPost.controls['imagen'].dirty || formularioImagenPost.controls['imagen'].touched)">
+
+                  </div>
+                </div>
+
+                <div class="col-12 d-flex justify-content-end">
+
+                  <!-- Visitas -->
+                  <div class="col-1">
+                    <span class="material-symbols-outlined"> visibility </span>
+                    <span>{{post.num_visitas}}</span>
+                  </div>
+                  <!-- Likes -->
+                  <div *ngIf="!post.likeDado" class="col-1">
+                    <span (click)="gestionLikes(post.id, post.url)" class="material-symbols-outlined cursor"> favorite </span>
+                    <span> {{post.num_likes}}</span>
+                  </div>
+
+                  <div *ngIf="post.likeDado" class="col-1">
+                    <span (click)="gestionLikes(post.id, post.url)" class="material-symbols-outlined cursor"> heart_check
+                    </span>
+                    <span> {{post.num_likes}}</span>
+                  </div>
+
+                  <!-- Mensajes -->
+                  <div class="col-1">
+                    <span class="material-symbols-outlined"> comment </span>
+                    <span>{{post.num_comentarios}}</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -124,12 +135,12 @@
                 <p *ngIf="primera" class="fw-light mb-5 pb-2">Ultimos comentarios de los usuarios</p>
                 <div class="d-flex flex-start">
                   <ng-container *ngIf="!comentario.foto_perfil">
-                    <img class="img-fluid border border-black rounded-circle me-3" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="avatar"
-                      width="15%" height="10px"/>
+                    <img class="img-fluid border border-black rounded-circle me-3"
+                      src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="avatar" width="15%" height="10px" />
                   </ng-container>
-                  <ng-container *ngIf="comentario.foto_perfil"> 
-                    <img class="img-fluid border border-black rounded-circle me-3" src={{comentario.foto_perfil}} alt="avatar"
-                      width="15%" height="10px"/>
+                  <ng-container *ngIf="comentario.foto_perfil">
+                    <img class="img-fluid border border-black rounded-circle me-3" src={{comentario.foto_perfil}}
+                      alt="avatar" width="15%" height="10px" />
                   </ng-container>
                   <div>
                     <h6 class="fw-bold mb-1">{{comentario.nombre_usuario}}</h6>

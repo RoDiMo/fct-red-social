@@ -38,7 +38,7 @@
                                 <tr class="">
                                     <th></th>
 
-                                    <ng-container *ngFor="let campo of getUnorderedFields() ">
+                                    <ng-container *ngFor="let campo of camposNoOrdenados() ">
                                         <th (click)="ordenarPosts(campo[0])" style="cursor: pointer;">{{campo[1]}}
                                             <span *ngIf="ordenarCampo && campoSeleccionado==campo[0]"
                                                 class="material-symbols-outlined" style="height: 5px;">

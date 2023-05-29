@@ -1,7 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
 
 
+/* GENERALES */
 
+.cursor{
+    cursor: pointer;
+}
+
+/* COMPONENTE AMIGOS */
 
 .card_amigos {
 
@@ -36,22 +42,3 @@
         inset -20px -20px 60px #ffffff;
 }
 
-.fa-facebook {
-    color: #3b5998
-}
-
-.fa-linkedin {
-    color: #0077b5
-}
-
-.fa-google {
-    color: #dc4e41
-}
-
-.fa-youtube {
-    color: #cd201f
-}
-
-.fa-twitter {
-    color: #55acee
-}

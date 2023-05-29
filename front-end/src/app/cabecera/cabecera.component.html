@@ -33,7 +33,7 @@
     </div>
 
     <div class="col-9 ">
-      <h3 style="cursor: pointer;" routerLink="/">Inicio</h3>
+      <h3 class="cursor" (click)="enlaceInicio()">Inicio</h3>
     </div>
   </div>
 
@@ -43,7 +43,7 @@
     </div>
 
     <div class="col-9 ">
-      <h3 style="cursor: pointer;" routerLink="/notificaciones">Notificaciones</h3>
+      <h3 class="cursor" (click)="enlaceNotificaciones()">Notificaciones</h3>
     </div>
   </div>
 
@@ -54,7 +54,7 @@
     </div>
 
     <div class="col-9 ">
-      <h3 style="cursor: pointer;" routerLink="/perfil-personal">Perfil</h3>
+      <h3 class="cursor" (click)="enlacePerfil()">Perfil</h3>
     </div>
   </div>
 
@@ -64,7 +64,7 @@
     </div>
 
     <div class="col-9 ">
-      <h3 style="cursor: pointer;" routerLink="/amigos">Amigos</h3>
+      <h3 class="cursor" (click)="enlaceAmigos()">Amigos</h3>
     </div>
   </div>
 
@@ -75,7 +75,7 @@
     </div>
 
     <div class="col-9 ">
-      <h3 style="cursor: pointer;" (click)="enlacePublicaciones()">Mis publicaciones</h3>
+      <h3 class="cursor" (click)="enlacePublicaciones()">Mis publicaciones</h3>
     </div>
   </div>
 
@@ -85,7 +85,7 @@
     </div>
 
     <div class="col-9 ">
-      <h3 style="cursor: pointer;" routerLink="/admin-posts">Administracion</h3>
+      <h3 class="cursor" (click)="enlaceAdministracion()">Administracion</h3>
     </div>
   </div>
 
@@ -93,7 +93,7 @@
   <div class="row mt-5 mb-5">
 
     <div class="col-9 d-flex justify-content-center">
-      <h3 style="cursor: pointer;" routerLink="/formulario-post">Nueva publicacion</h3>
+      <h3 class="cursor" (click)="enlaceFormularioPost() ">Nueva publicacion</h3>
     </div>
 
     <div class="col-3  d-flex align-items-center ">

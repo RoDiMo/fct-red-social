@@ -183,7 +183,7 @@ export class CrearPostComponent implements OnInit {
   }
 
 
-
+  // Funcion para controlar que el número de caracteres no sobrepase la capacidad permitida
   controlarCaracteres(contenido: string){
     this.caracRestantes = 1024 - contenido.length
 

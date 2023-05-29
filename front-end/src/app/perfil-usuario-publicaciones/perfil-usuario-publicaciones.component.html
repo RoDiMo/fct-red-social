@@ -24,7 +24,7 @@
             </div>
 
             <!-- Contenido -->
-            <div *ngFor="let post of postsUsuario" class="row  m-5">
+            <div *ngFor="let post of postsUsuario" class="row m-5 cursor" (click)="enlacePost(post.id)">
                 <div class="col">
                     <div class="card">
                         <img src="{{post.imagen}}" class="card-img-top" alt="Hollywood Sign on The Hill" />
@@ -52,7 +52,7 @@
                                 <!-- Mensajes -->
                                 <div class="mx-2">
                                     <span class="material-symbols-outlined"> comment </span>
-                                    <span>4</span>
+                                    <span>{{post.num_comentarios}}</span>
                                 </div>
 
                             </div>
