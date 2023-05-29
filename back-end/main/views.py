@@ -128,8 +128,8 @@ class Post(viewsets.ModelViewSet):
     filterset_fields = ['usuario', 'oculto']
     search_fields = ['titulo', 'usuario__username', 'usuario__first_name', 'usuario__last_name']
 
-    def get_permissions(self):
-        return permisos_posts(self.action)
+    #def get_permissions(self):
+    #    return permisos_posts(self.action)
 
     @action(detail=False, methods=['get'])
     def obtener_post(self, request):

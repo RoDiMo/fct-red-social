@@ -4,6 +4,8 @@ import { PerfilUsuario } from '../perfil-usuario/perfil-usuario';
 import { PerfilUsuarioService } from '../perfil-usuario.service';
 import { AutenticacionUsuariosService } from '../autenticacion-usuarios.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ObtenerDireccionService } from '../obtener-direccion.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-editar-datos-personales',
@@ -17,10 +19,20 @@ export class EditarDatosPersonalesComponent {
   public credenciales = this._obtenerUsuario.obtenerCredenciales();
   public formularioDatosUsuario! : FormGroup; 
 
+  public paises: Array<any> = []
+  public estados: Array<any> = []
+  public ciudades: Array<any> = []
+  public errors : Array<any> = [];
+
+  public pais!: string
+  public estado!: string
+  public ciudad!: string
+
 
   constructor(
     public _perfilUsuarioService: PerfilUsuarioService,
     public _obtenerUsuario : AutenticacionUsuariosService,
+    public _obtenerDireccionService: ObtenerDireccionService,
     public router: Router,
     public formBuilder: FormBuilder,
   ){
@@ -40,7 +52,9 @@ export class EditarDatosPersonalesComponent {
   ngOnInit(): void {
    this._obtenerUsuario.getUsuario(this.credenciales.id).subscribe( data => {
     this.datosUsuario = data
-
+    this.pais = this.datosUsuario.pais
+    this.estado = this.datosUsuario.estado
+    this.ciudad = this.datosUsuario.ciudad
 
     this.formularioDatosUsuario.patchValue({
       email: this.datosUsuario.email!,
@@ -52,13 +66,86 @@ export class EditarDatosPersonalesComponent {
       ciudad: this.datosUsuario.ciudad!,
       direccion: this.datosUsuario.direccion!,
     })
+
+    this.obtenerPais();
+    this.obtenerEstado();
+    this.obtenerCiudad();
    })
   } 
 
+    obtenerPais(){
+   
+    this._obtenerDireccionService.obtenerPaises().subscribe(paises => {
+      this.paises = paises.results
+      
+      this.formularioDatosUsuario.patchValue({
+        pais: this.pais
+      })
+
+   
+    })
+  }
+
+  obtenerEstado(){
+    this.ciudades = []
+    console.log(this.ciudades)
+    this.formularioDatosUsuario.patchValue({
+      pais: this.pais
+    })
+   
+    this._obtenerDireccionService.obtenerEstados(this.pais).subscribe(estados => {
+      this.estados = estados.results
+    
+    })
+
+  }
+
+
+  obtenerCiudad(){
+
+
+    this.formularioDatosUsuario.patchValue({
+      estado: this.estado
+    })
+
+    this._obtenerDireccionService.obtenerCiudades(this.estado).subscribe(ciudades => {
+      this.ciudades = ciudades.results
+   
+    })
+
+  }
+
+
+  guardarDireccionFormulario(){
+    this.formularioDatosUsuario.patchValue({
+      pais: this.pais,
+      estado: this.estado,
+      ciudad: this.ciudad,
+    })
+  }
+
 
   editarDatosUsuario(){
-    this._perfilUsuarioService.editarDatosPerfil(this.credenciales.id, this.formularioDatosUsuario.value).subscribe();
-    this.router.navigateByUrl('perfil-personal');
+    this._perfilUsuarioService.editarDatosPerfil(this.credenciales.id, this.formularioDatosUsuario.value).subscribe(data =>{
+      this.router.navigateByUrl('perfil-personal');
+    }, err => {
+      if (err instanceof HttpErrorResponse) {
+        const ValidationErrors = err.error;
+        Object.keys(ValidationErrors).forEach(prop => {
+          const formControl = this.formularioDatosUsuario.get(prop);
+          if (formControl) {
+            formControl.setErrors({
+              serverError: ValidationErrors[prop]
+            })
+          }
+        })
+      }
+      this.errors = err.error.message;
+    });
+    
   }
+  
+
+  protected readonly Object = Object;
 
 }

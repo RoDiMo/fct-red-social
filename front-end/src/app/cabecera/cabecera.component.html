@@ -1,102 +1,109 @@
+<div class="sticky-top mb-5">
 
-    <div  class="sticky-top mb-5" >
+  <div class="row d-flex" style="height: 75px; ">
+    <img class="ms-5" src="../../assets/logo.png" alt="" style="width: 160px; height: 90px;">
+  </div>
 
-      <div class="row d-flex" style="height: 75px; ">
-        <img class="ms-5" src="../../assets/logo.png" alt="" style="width: 160px; height: 90px;">
+  <hr>
+
+  <div class="row  m-5">
+
+    <div *ngIf="datosUsuario != undefined" class="col-3  d-flex justify-content-end">
+      <div *ngIf="datosUsuario.foto_perfil" class=" text-center">
+        <img style="width: 75px; height: 75px;" class="border border-black rounded-circle"
+          src={{datosUsuario.foto_perfil}} alt="Image Description">
       </div>
 
-      <hr>
-
-      <div class="row  m-5">
-        <div class="col-3  d-flex justify-content-end">
-          <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="" style="width: 70px;">
-        </div>
-
-        <div class="col-9 ">
-          <p>{{credenciales.username}}</p>
-          <button class="btn btn-secondary" (click)="logout()"> Cerrar sesion</button>
-        </div>
+      <div *ngIf="!datosUsuario.foto_perfil" class=" text-center ">
+        <img style="width: 75px; height: 75px;" src="https://bootdey.com/img/Content/avatar/avatar7.png"
+          alt="Image Description" class="border border-black rounded-circle">
       </div>
-
-
-      <div class="row  mt-5">
-        <div class="col-3  d-flex align-items-center justify-content-end text-danger">
-          <span class="material-symbols-outlined" style="font-size: 40px;"> home </span>
-        </div>
-
-        <div class="col-9 ">
-          <h3 style="cursor: pointer;"  routerLink="/">Inicio</h3>
-        </div>
-      </div>
-
-      <div class="row  mt-4">
-        <div class="col-3  d-flex align-items-center justify-content-end">
-          <span class="material-symbols-outlined" style="font-size: 40px;"> notifications </span>
-        </div>
-
-        <div class="col-9 ">
-          <h3  style="cursor: pointer;"  routerLink="/notificaciones" >Notificaciones</h3>
-        </div>
-      </div>
-
-
-      <div class="row  mt-4">
-        <div class="col-3  d-flex align-items-center justify-content-end">
-          <span class="material-symbols-outlined" style="font-size: 40px;"> account_circle </span>
-        </div>
-
-        <div class="col-9 ">
-          <h3 style="cursor: pointer;"  routerLink="/perfil-personal">Perfil</h3>
-        </div>
-      </div>
-
-      <div class="row  mt-4">
-        <div class="col-3  d-flex align-items-center justify-content-end">
-          <span class="material-symbols-outlined" style="font-size: 40px;"> diversity_3 </span>
-        </div>
-
-        <div class="col-9 ">
-          <h3 style="cursor: pointer;"  routerLink="/amigos">Amigos</h3>
-        </div>
-      </div>
-
-
-      <div class="row mt-4">
-        <div class="col-3  d-flex align-items-center justify-content-end ">
-          <span class="material-symbols-outlined" style="font-size: 40px;"> post_add </span>
-        </div>
-
-        <div class="col-9 ">
-          <h3 style="cursor: pointer;" (click)="enlacePublicaciones()">Mis publicaciones</h3>
-        </div>
-      </div>
-
-      <div *ngIf="esAdmin" class="row mt-4">
-        <div class="col-3  d-flex align-items-center justify-content-end ">
-          <span class="material-symbols-outlined" style="font-size: 40px;"> shield_person </span>
-        </div>
-
-        <div  class="col-9 ">
-          <h3 style="cursor: pointer;"  routerLink="/admin-posts">Administracion</h3>
-        </div>
-      </div>
-
-
-      <div class="row mt-5 mb-5">
-
-        <div class="col-9 d-flex justify-content-center">
-          <h3 style="cursor: pointer;"  routerLink="/formulario-post">Nueva publicacion</h3>
-        </div>
-
-        <div class="col-3  d-flex align-items-center ">
-          <span class="material-symbols-outlined" style="font-size: 40px;"> send </span>
-        </div>
-      </div>
-
-      <div class="row d-flex justify-content-center">
-        <hr class="w-75">
-      </div>
-
-
     </div>
 
+    <div class="col-9 ">
+      <p>{{credenciales.username}}</p>
+      <button class="btn btn-secondary" (click)="logout()"> Cerrar sesion</button>
+    </div>
+  </div>
+
+
+  <div class="row  mt-5">
+    <div class="col-3  d-flex align-items-center justify-content-end text-danger">
+      <span class="material-symbols-outlined" style="font-size: 40px;"> home </span>
+    </div>
+
+    <div class="col-9 ">
+      <h3 style="cursor: pointer;" routerLink="/">Inicio</h3>
+    </div>
+  </div>
+
+  <div class="row  mt-4">
+    <div class="col-3  d-flex align-items-center justify-content-end">
+      <span class="material-symbols-outlined" style="font-size: 40px;"> notifications </span>
+    </div>
+
+    <div class="col-9 ">
+      <h3 style="cursor: pointer;" routerLink="/notificaciones">Notificaciones</h3>
+    </div>
+  </div>
+
+
+  <div class="row  mt-4">
+    <div class="col-3  d-flex align-items-center justify-content-end">
+      <span class="material-symbols-outlined" style="font-size: 40px;"> account_circle </span>
+    </div>
+
+    <div class="col-9 ">
+      <h3 style="cursor: pointer;" routerLink="/perfil-personal">Perfil</h3>
+    </div>
+  </div>
+
+  <div class="row  mt-4">
+    <div class="col-3  d-flex align-items-center justify-content-end">
+      <span class="material-symbols-outlined" style="font-size: 40px;"> diversity_3 </span>
+    </div>
+
+    <div class="col-9 ">
+      <h3 style="cursor: pointer;" routerLink="/amigos">Amigos</h3>
+    </div>
+  </div>
+
+
+  <div class="row mt-4">
+    <div class="col-3  d-flex align-items-center justify-content-end ">
+      <span class="material-symbols-outlined" style="font-size: 40px;"> post_add </span>
+    </div>
+
+    <div class="col-9 ">
+      <h3 style="cursor: pointer;" (click)="enlacePublicaciones()">Mis publicaciones</h3>
+    </div>
+  </div>
+
+  <div *ngIf="esAdmin" class="row mt-4">
+    <div class="col-3  d-flex align-items-center justify-content-end ">
+      <span class="material-symbols-outlined" style="font-size: 40px;"> shield_person </span>
+    </div>
+
+    <div class="col-9 ">
+      <h3 style="cursor: pointer;" routerLink="/admin-posts">Administracion</h3>
+    </div>
+  </div>
+
+
+  <div class="row mt-5 mb-5">
+
+    <div class="col-9 d-flex justify-content-center">
+      <h3 style="cursor: pointer;" routerLink="/formulario-post">Nueva publicacion</h3>
+    </div>
+
+    <div class="col-3  d-flex align-items-center ">
+      <span class="material-symbols-outlined" style="font-size: 40px;"> send </span>
+    </div>
+  </div>
+
+  <div class="row d-flex justify-content-center">
+    <hr class="w-75">
+  </div>
+
+
+</div>

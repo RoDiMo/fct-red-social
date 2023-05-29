@@ -14,11 +14,11 @@
 
             <div class="row  text-center border-bottom" style="height: 75px;">
 
-                <div *ngIf="id != credenciales.id" class="col pt-3 border-start" routerLink="/perfil-usuario/{{id}}">
+                <div *ngIf="id != credenciales.id" class="col pt-3 border-start" routerLink="/perfil-usuario/{{id}}"  style="cursor: pointer;">
                     <h2>Datos personales</h2>
                 </div>
 
-                <div class="col pt-3  border-end border-start" routerLink="/perfil-usuario-publicaciones/{{id}}">
+                <div class="col pt-3  border-end border-start" routerLink="/perfil-usuario-publicaciones/{{id}}" style="cursor: pointer;">
                     <h2>Publicaciones</h2>
                 </div>
             </div>

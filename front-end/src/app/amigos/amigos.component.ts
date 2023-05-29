@@ -168,11 +168,17 @@ export class AmigosComponent {
 
     let notificacion = new Notificacion(null,this.usuarioRegistrado[0].url, amigoUrl,"Pendiente", this.fecha, false, null)
 
-    this._notificacionesService.nuevaNotificacion(notificacion).subscribe();
+    this._notificacionesService.nuevaNotificacion(notificacion).subscribe(notificacion =>{
+      console.log(notificacion.status)
+      if(notificacion.status == 201){
+        window.location.reload();
+      }
+      /*setTimeout(() => {
+        window.location.reload();
+      }, 500)*/
+    });
 
-    setTimeout(() => {
-      window.location.reload();
-    }, 50)
+
 
   }
 
@@ -198,11 +204,19 @@ export class AmigosComponent {
       this._amigosService.nuevaCancelacion(amistadCancelada).subscribe()
 
       // Eliminamos la amistad de la base de datos
-      this._amigosService.eliminarAmigo(this.idAmistad[0].url).subscribe()
+      this._amigosService.eliminarAmigo(this.idAmistad[0].url).subscribe(eliminacion => {
+        console.log(eliminacion.status)
+        if(eliminacion.status == 204){
+          
+          window.location.reload();
+        }
+      })
 
+      /*
       setTimeout(() => {
         window.location.reload();
-      }, 50)
+      }, 500)
+      */
     })
 
     // Obtiene la amistad de la base de datos perteneciente al amigo del usuario registrado

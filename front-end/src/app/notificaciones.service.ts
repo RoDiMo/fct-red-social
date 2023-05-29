@@ -14,7 +14,7 @@ export class NotificacionesService {
 
 
   nuevaNotificacion(notificacion: any): Observable<any> {
-    return this.http.post<any>(this.url, notificacion);
+    return this.http.post<any>(this.url, notificacion, { observe: 'response' });
   }
 
   obtenerNotificacionesUsuarioDestino(idUsuario: any): Observable<any> {

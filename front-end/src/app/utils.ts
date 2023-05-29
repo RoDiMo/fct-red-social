@@ -5,18 +5,3 @@ export function url(): string {
     let DESP = "http://34.195.27.120:9001/"
     return LOC;
 }
-
-export function camposUsuarios(): any {
-    const campos = {
-        'username': 'Usuario',
-        'first_name': 'Nombre Completo',
-        'email': 'Email',
-        'pais': 'Pais',
-        'estado': 'Estado',
-        'es_moderador': 'Nombre Completo',
-        'fecha_alta': 'Fecha de Alta',
-
-    }
-
-    return campos
-}

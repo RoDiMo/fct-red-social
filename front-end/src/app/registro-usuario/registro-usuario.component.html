@@ -113,10 +113,7 @@
                     <option *ngFor="let pais of paises" [value]="pais.nombre_pais">{{pais.nombre_pais}}</option>
                   </select>
                   <label for="">Pais</label>
-                  <!--
-                  <input class="form-control" id="pais" formControlName="pais" type="text" />
-                  <label class="form-label" for="form6paisExample1">Pais</label>
-                  -->
+             
                   <mat-error *ngIf="formulario.get('pais')?.errors?.['serverError']">
                     {{formulario.get('pais')?.errors?.['serverError']}}</mat-error>
                 </div>
@@ -129,10 +126,7 @@
                   </select>
                   <label for="">Estados</label>
                
-                  <!--
-                  <input class="form-control" id="estado" formControlName="estado" type="text" />
-                  <label class="form-label" for="form6Example2">Estado</label>
-                  -->
+               
                   <mat-error *ngIf="formulario.get('first_name')?.errors?.['serverError']">
                     {{formulario.get('first_name')?.errors?.['serverError']}}</mat-error>
                 </div>
@@ -145,10 +139,6 @@
                   </select> 
                   <label for="">Ciudades</label>
 
-                  <!--
-                  <input class="form-control" id="ciudad" formControlName="ciudad" type="text" />
-                  <label class="form-label" for="ciudad">Ciudad</label>
-                  -->
                   <mat-error *ngIf="formulario.get('ciudad')?.errors?.['serverError']">
                     {{formulario.get('ciudad')?.errors?.['serverError']}}</mat-error>
                 </div>

@@ -29,7 +29,7 @@ export class AmigosService {
   }
 
   eliminarAmigo(url: string): Observable<any>{
-    return this.http.delete<any>(url)
+    return this.http.delete<any>(url,{observe:  'response'})
   }
 
   // -------- GESTIÓN DE CANCELACION DE AMISTADES

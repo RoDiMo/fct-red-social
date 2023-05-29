@@ -34,17 +34,17 @@
       <form [formGroup]="logInForm" (ngSubmit)="onSubmit(logInForm?.value)">
 
         <!-- Campo nombre -->
-        <div class="form-outline mb-3">
+        <div class="form-outline form-floating mb-3">
           <input class="form-control" type="text" id="username" formControlName="username" required />
           <label class="form-label" for="username">Nombre de usuario</label>
         </div>
 
         <!-- Campo contraseña -->
-        <div class="form-outline mb-3">
+        <div class="form-outline form-floating mb-3">
           <input class="form-control" type="{{ mostrarContrasenia ? 'text' : 'password' }}" id="password" formControlName="password" required />
           <label class="form-label" for="password">Password</label>
           <div>
-            <span style="margin-right: 15px;">Mostrar contrseña</span>  <input type="checkbox" name="mostrarContrasenia" id="mostrarContrasenia" [ngModelOptions]="{standalone: true}" [(ngModel)]="mostrarContrasenia" >
+            <span style="margin-right: 15px;">Mostrar contraseña</span>  <input type="checkbox" name="mostrarContrasenia" id="mostrarContrasenia" [ngModelOptions]="{standalone: true}" [(ngModel)]="mostrarContrasenia" >
           </div>
           <div
             *ngIf="logInForm.controls['password'].invalid && (logInForm.controls['password'].dirty || logInForm.controls['password'].touched)">

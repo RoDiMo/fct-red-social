@@ -24,9 +24,6 @@ export class CabeceraComponent {
 
   constructor(
     public _obtenerUsuarioService: AutenticacionUsuariosService,
-    private _perfilUsuarioService: PerfilUsuarioService,
-    private _amistadesService: AmigosService,
-    private activatedRoute: ActivatedRoute,
     private router: Router,
     private location: Location
   ) { }
