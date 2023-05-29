@@ -49,6 +49,29 @@ class Usuario(viewsets.ModelViewSet):
     filterset_fields = ['id', 'username', 'es_moderador']
     search_fields = ['username', 'first_name', 'last_name', 'email', 'pais', 'estado']
 
+    @action(detail=False, methods=['get'])
+    def obtener_amigos(self, request):
+        usuario_actual = request.user
+        amigos = Amigos.objects.filter(Q(usuario_solicitante=usuario_actual) | Q(usuario_receptor=usuario_actual))
+        usuarios_amigos = []
+
+        for amigo in amigos:
+            if amigo.usuario_solicitante == usuario_actual:
+                usuarios_amigos.append(amigo.usuario_receptor)
+
+        serializer = UsuarioSerializer(usuarios_amigos, many=True, context={'request': request})
+        return Response(serializer.data)
+
+    @action(detail=False, methods=['get'])
+    def no_amigos(self, request):
+        usuario_actual = request.user
+        amigos = Amigos.objects.filter(Q(usuario_solicitante=usuario_actual) | Q(usuario_receptor=usuario_actual))
+        usuarios_amigos = [amigo.usuario_solicitante for amigo in amigos] + [amigo.usuario_receptor for amigo in amigos]
+        usuarios_no_amigos = Usuarios.objects.exclude(id__in=[usuario.id for usuario in usuarios_amigos])
+
+        serializer = UsuarioSerializer(usuarios_no_amigos, many=True, context={'request': request})
+        return Response(serializer.data)
+
     def get_permissions(self):
         return permisos_usuarios(self.action)
 
@@ -128,7 +151,7 @@ class Post(viewsets.ModelViewSet):
     filterset_fields = ['usuario', 'oculto']
     search_fields = ['titulo', 'usuario__username', 'usuario__first_name', 'usuario__last_name']
 
-    #def get_permissions(self):
+    # def get_permissions(self):
     #    return permisos_modelos(self.action)
 
     @action(detail=False, methods=['get'])
@@ -202,7 +225,7 @@ class Chats(viewsets.ModelViewSet):
     queryset = Chat.objects.all()
     serializer_class = ChatSerializer
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['emisor', 'receptor','leido']
+    filterset_fields = ['emisor', 'receptor', 'leido']
 
     @action(detail=False, methods=['get'])
     def mensajes_chat(self, request):

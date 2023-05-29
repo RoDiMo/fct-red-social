@@ -36,9 +36,9 @@ def permisos_usuarios(action):
 
     if action in ['create', 'update', 'partial_update', 'destroy']:
         permission_classes = [permissions.IsAuthenticated, EsAdminPermission]
-    if action in ['create','update', 'destroy']:
+    if action in ['create', 'update', 'destroy']:
         permission_classes = [EsPropietarioPermission | EsAdminPermission]
-    if action in ['create','update']:
+    if action in ['create', 'update']:
         permission_classes = [EsModeradorPermission | EsPropietarioPermission | EsAdminPermission]
     if action == 'create':
         permission_classes = [permissions.AllowAny]
@@ -46,21 +46,15 @@ def permisos_usuarios(action):
     return [permission() for permission in permission_classes]
 
 
-
-
 def permisos_modelos(action):
     permission_classes = [permissions.IsAuthenticated]
     if action in ['create', 'update', 'partial_update', 'destroy']:
         permission_classes = [permissions.IsAuthenticated, EsAdminPermission]
-    if action in ['create','update', 'destroy']:
+    if action in ['create', 'update', 'destroy']:
         permission_classes = [IsOwnerOrReadOnly | EsAdminPermission]
-    if action in ['create','update']:
+    if action in ['create', 'update']:
         permission_classes = [EsModeradorPermission | IsOwnerOrReadOnly | EsAdminPermission]
     if action == 'create':
         permission_classes = [permissions.AllowAny]
 
     return [permission() for permission in permission_classes]
-
-
-
-
