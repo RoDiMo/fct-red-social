@@ -30,18 +30,18 @@
             </div>
 
             <!-- Recomendaciones amistad -->
-            <div class="row border-top">
+            <div class="row border-top  d-flex  {{ usuarios.length <=3 ? 'justify-content-center' : 'justify-content-start' }}">
                 <div class="row text-center col-12 p-3">
                     <h1>Recomendaciones de amistad</h1>
                 </div>
 
                 <hr>
 
-                <div *ngFor=" let amigo of usuarios" class="col-4 text-center  mb-4 pb-4" >
+                <div *ngFor=" let amigo of usuarios" class="col-4 mt-5 mb-3 pb-4" >
 
                     <div class="container d-flex justify-content-center">
 
-                        <div class="card card_amigos  py-4">
+                        <div class="card card_amigos py-4">
 
                             <div class="text-center">
 
@@ -81,7 +81,7 @@
 
 
 
-                <div class="row my-4  container mx-0">
+                <div class="row my-4 d-flex {{ amigos.length <=3 ? 'justify-content-center' : 'justify-content-start' }} container mx-0">
                     <div *ngFor=" let amigo of amigos" class="col-4 text-center   my-5">
 
                         <div class="container d-flex justify-content-center">
