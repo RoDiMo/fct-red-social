@@ -9,10 +9,21 @@ import { url } from './utils';
 export class AmigosService {
   private urlAmistades: string = url()+"amigos/"
   private urlCancelaciones: string = url()+"amistadescanceladas/"
+  private urlUsuarios : string = url() + "usuarios/"
 
   constructor(private http: HttpClient) { }
 
   // -------- GESTION DE AMISTADES --------
+
+  obtenerAmigos(): Observable<any>{
+    return this.http.get<any>(this.urlUsuarios+`obtener_amigos/`)
+  }
+
+  noAmigos(): Observable<any>{
+    return this.http.get<any>(this.urlUsuarios+`no_amigos/`)
+  }
+
+
 
   obtenerAmistad(idUS: string, idUR: string): Observable<any>{
     //console.log(this.url+`?usuario_solicitante=${idUS}&usuario_receptor=${idUR}`)

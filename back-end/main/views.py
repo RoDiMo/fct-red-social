@@ -66,8 +66,12 @@ class Usuario(viewsets.ModelViewSet):
     def no_amigos(self, request):
         usuario_actual = request.user
         amigos = Amigos.objects.filter(Q(usuario_solicitante=usuario_actual) | Q(usuario_receptor=usuario_actual))
-        usuarios_amigos = [amigo.usuario_solicitante for amigo in amigos] + [amigo.usuario_receptor for amigo in amigos]
-        usuarios_no_amigos = Usuarios.objects.exclude(id__in=[usuario.id for usuario in usuarios_amigos])
+        if not amigos:
+            usuarios_no_amigos = Usuarios.objects.exclude(id=usuario_actual.id)[:9]
+        else:
+            usuarios_amigos = [amigo.usuario_solicitante for amigo in amigos] + [amigo.usuario_receptor for amigo in
+                                                                                 amigos]
+            usuarios_no_amigos = Usuarios.objects.exclude(id__in=[usuario.id for usuario in usuarios_amigos])[:3]
 
         serializer = UsuarioSerializer(usuarios_no_amigos, many=True, context={'request': request})
         return Response(serializer.data)
