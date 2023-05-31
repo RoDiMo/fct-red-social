@@ -79,22 +79,6 @@ class Usuario(viewsets.ModelViewSet):
     def get_permissions(self):
         return permisos_usuarios(self.action)
 
-    '''
-    @action(detail=False, methods=['get'])
-    def obtener_pareja_usuarios(self, request):
-        usuario_logeado = request.query_params.get('id')
-        usuario_amigo = request.query_params.get('id')
-
-        mensajes = Usuarios.objects.all().filter(
-            Q(pk=usuario_logeado) | Q(pk=usuario_amigo)
-        )
-
-        serializers_context = self.get_serializer_context()
-        serializer = UsuarioSerializer(instance=mensajes.distinct(), context=serializers_context, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-    '''
-
-    # permission_classes = [IsAuthenticated]
 
     def update(self, request, *args, **kwargs):
         # Obtener el usuario que se va a actualizar
