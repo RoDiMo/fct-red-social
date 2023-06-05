@@ -1,4 +1,5 @@
-<div class="sticky-top mb-5">
+<!--
+  <div class="sticky-top mb-5">
 
   <div class="row d-flex" style="height: 75px; ">
     <img class="ms-5" src="../../assets/logo.png" alt="" style="width: 160px; height: 90px;">
@@ -105,5 +106,106 @@
     <hr class="w-75">
   </div>
 
+
+</div>
+-->
+<div
+  class="d-flex flex-column align-items-center justify-content-center align-items-sm-start px-3 pt-2 min-vh-100 sticky-top">
+
+
+
+  <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+
+    <li class="nav-item enlace-cabecera" (click)="enlaceInicio()">
+
+      <!--<img class="ms-5" src="../../assets/logo.png" alt="" style="width: 160px; height: 90px;">-->
+
+    </li>
+
+    <li *ngIf="datosUsuario != undefined" class="nav-item logout mx-0 " (click)="enlaceInicio()">
+
+      <img *ngIf="datosUsuario.foto_perfil" style="width: 75px; height: 75px;"
+        class="border border-black rounded-circle me-5 ms-2 d-none d-xl-inline texto-cabecera cursor"
+        src={{datosUsuario.foto_perfil}} alt="Image Description">
+
+      <img *ngIf="!datosUsuario.foto_perfil" style="width: 75px; height: 75px;"
+        src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Image Description"
+        class="border border-black  me-3 rounded-circle ms-2 d-none d-xl-inline texto-cabecera cursor">
+
+      <div class="text-center m-0 p-0 logout-datos">
+        <span class="col-auto col-xl-2 icono-cabecera ">{{credenciales.username}}</span>
+
+        <span class=" col-auto d-inline d-xl-none col-xl-2 material-symbols-outlined icono-cabecera cursor"
+          (click)="logout()" style=" font-size: 35px;"> cancel
+        </span>
+        <button class="btn btn-secondary  d-none d-xl-inline texto-cabecera cursor" (click)="logout()"> Cerrar
+          sesion</button>
+      </div>
+
+    </li>
+
+
+    <hr>
+
+
+    <li class="nav-item {{pagina == 'inicio' ? 'enlace-cabecera-seleccionado'  : 'enlace-cabecera'}} "
+      (click)="enlaceInicio()">
+
+      <span class="material-symbols-outlined icono-cabecera cursor" style=" font-size: 35px;"> home </span>
+      <h3 class="ms-2 d-none d-xl-inline texto-cabecera cursor">Inicio</h3>
+
+    </li>
+
+    <li class="nav-item  {{pagina == 'notificaciones' ? 'enlace-cabecera-seleccionado'  : 'enlace-cabecera'}}"
+      (click)="enlaceNotificaciones()">
+
+      <span class="material-symbols-outlined icono-cabecera cursor" style=" font-size: 35px;"> notifications </span>
+      <h3 class="ms-2 d-none d-xl-inline texto-cabecera cursor">Notificaciones</h3>
+
+    </li>
+
+    <li class="nav-item {{pagina == 'perfil-personal' ? 'enlace-cabecera-seleccionado'  : 'enlace-cabecera'}}"
+      (click)="enlacePerfil()">
+
+      <span class="material-symbols-outlined icono-cabecera cursor" style=" font-size: 35px;"> account_circle </span>
+      <h3 class="ms-2 d-none d-xl-inline texto-cabecera cursor">Perfil</h3>
+
+    </li>
+
+    <li class="nav-item {{pagina == 'amigos' ? 'enlace-cabecera-seleccionado'  : 'enlace-cabecera'}}"
+      (click)="enlaceAmigos()">
+
+      <span class="material-symbols-outlined icono-cabecera cursor" style=" font-size: 35px;"> diversity_3 </span>
+      <h3 class="ms-2 d-none d-xl-inline texto-cabecera cursor">Amigos</h3>
+
+    </li>
+
+    <li
+      class="nav-item {{pagina == 'perfil-usuario-publicaciones' ? 'enlace-cabecera-seleccionado'  : 'enlace-cabecera'}}"
+      (click)="enlacePublicaciones()">
+
+      <span class="material-symbols-outlined icono-cabecera cursor" style=" font-size: 35px;"> post_add </span>
+      <h3 class="ms-2 d-none d-xl-inline texto-cabecera cursor">Mis publicaciones</h3>
+
+    </li>
+
+    <li *ngIf="esAdmin" class="nav-item enlace-cabecera" (click)="enlaceAdministracion()">
+
+      <span class="material-symbols-outlined icono-cabecera cursor" style=" font-size: 35px;"> shield_person </span>
+      <h3 class="ms-2 d-none d-xl-inline texto-cabecera cursor">Administracion</h3>
+
+    </li>
+
+    <hr class="mt-0">
+
+    <li class="nav-item {{pagina == 'formulario-post' ? 'enlace-cabecera-seleccionado'  : 'enlace-cabecera'}} "
+      (click)="enlaceFormularioPost()">
+
+
+      <h3 class=" d-none d-xl-inline texto-cabecera cursor nueva-publicacion">Nueva publicacion</h3>
+      <span class="material-symbols-outlined icono-cabecera cursor" style=" font-size: 35px;"> send </span>
+
+    </li>
+  </ul>
 
 </div>

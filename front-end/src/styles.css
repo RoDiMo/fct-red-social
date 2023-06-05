@@ -7,6 +7,7 @@
     cursor: pointer;
 }
 
+
 /* COMPONENTE AMIGOS */
 
 .card_amigos {
@@ -161,6 +162,72 @@
 }
 
 
+/* CABECERA */
+.icono-cabecera {
+ 
+ 
+}
+
+.enlace-cabecera{
+  color: black;
+  margin-bottom: 30px;
+  margin-left: 10px;
+  justify-content: center;
+  display: flex;
+}
+
+
+.enlace-cabecera-seleccionado{
+  color: red;
+  margin-bottom: 30px;
+  margin-left: 10px;
+  justify-content: center;
+  display: flex;
+}
+
+.texto-cabecera{
+ 
+  font-size: 26px;
+}
+
+.nueva-publicacion{
+  margin-right: 20px;
+  display: flex;
+
+}
+
+.logout{
+  color: black;
+  margin-left: 10px;
+  justify-content: center;
+  display: flex;
+}
+
+.logout-datos{
+  display: flex;
+  flex-direction: column;
+  
+  margin-left: 10px;
+  text-align: center;
+}
+
+
+.logout-datos *{
+  margin-bottom: 10px;
+}
+
+hr{
+  color: black;
+  border: solid;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+#menu{
+
+}
+
 /* PAGINA PRINCIPAL */
 
 /* Post */
@@ -175,7 +242,40 @@
 .Post :hover {
   background-color: rgb(245, 245, 245);
   transition-duration: 0.5s;
+}
 
+#enlaces{
+  height: 100px;
+}
+
+#enlace_izquierdo{
+  padding-top: 15px;
+  border-right:solid rgb(185, 185, 185);
+  border-bottom: solid;
 
 }
+
+#enlace_izquierdo_marcado{
+  padding-top: 15px;
+  border-right:solid rgb(185, 185, 185);
+  -webkit-box-shadow: 0px 5px 0px 0px rgba(247,5,69,1);
+  -moz-box-shadow: 0px 5px 0px 0px rgba(247,5,69,1);
+  box-shadow: 0px 5px 0px 0px rgba(247,5,69,1);
+}
+
+#enlace_derecho{
+  padding-top: 15px;
+  border-bottom: solid;
+}
+
+#enlace_derecho_marcado{
+  padding-top: 15px;
+  border-bottom: solid;
+  -webkit-box-shadow: 0px 5px 0px 0px rgba(247,5,69,1);
+  -moz-box-shadow: 0px 5px 0px 0px rgba(247,5,69,1);
+  box-shadow: 0px 5px 0px 0px rgba(247,5,69,1);
+}
+
+
+/* DETALLES POST */
 

@@ -1,37 +1,46 @@
-<div class="row">
-  <div class="container col-3 border">
+<div class="container-fluid d-flex mx-0 px-0">
+  <div class="col-auto col-xl-3  px-0 bg-light">
     <app-cabecera></app-cabecera>
   </div>
 
 
   <div *ngIf="!contenidoCargado" class="animacion col-6 border container-fluid">
     <div class="lds-roller">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
     </div>
     <span class="animacion_texto">Cargando</span>
-</div>
+  </div>
 
-  <div  *ngIf="contenidoCargado" class="col-6 border container-fluid fadeIn">
-    <div *ngFor="let post of posts" class=" pt-5 mx-0 px-1">
+  <div *ngIf="contenidoCargado" class="col-12 pe-5 pe-xl-0 col-xl-7 border fadeIn">
+
+    
+    <div class=" d-flex " id="enlaces">
+      <div class="col-12 d-flex justify-content-center" id="enlace_derecho">
+        <h1 style="cursor: pointer;">{{post.titulo}}</h1>
+      </div>
+
+    </div>
+    <div *ngFor="let post of posts" class=" pt-5 mx-0 px-1 px-lg-5">
 
 
 
       <!-- Cuerpo -->
 
-      <div class="container px-5 ">
+
+      <div class="container px-3 ">
 
         <div class="col my-5">
           <div class="card">
             <img src="{{post.imagen}}" class="card-img-top" alt="" />
 
-            <div class="card-body" >
+            <div class="card-body">
               <div class="row mb-3">
                 <div *ngIf="post.foto_perfil" class="col-1 text-center me-4" style="width: 50px;">
                   <img style="width: 50px; height: 50px;" class="border border-black rounded-circle"
@@ -88,12 +97,14 @@
                   </div>
                   <!-- Likes -->
                   <div *ngIf="!post.likeDado" class="col-1">
-                    <span (click)="gestionLikes(post.id, post.url)" class="material-symbols-outlined cursor"> favorite </span>
+                    <span (click)="gestionLikes(post.id, post.url)" class="material-symbols-outlined cursor"> favorite
+                    </span>
                     <span> {{post.num_likes}}</span>
                   </div>
 
                   <div *ngIf="post.likeDado" class="col-1">
-                    <span (click)="gestionLikes(post.id, post.url)" class="material-symbols-outlined cursor"> heart_check
+                    <span (click)="gestionLikes(post.id, post.url)" class="material-symbols-outlined cursor">
+                      heart_check
                     </span>
                     <span> {{post.num_likes}}</span>
                   </div>
@@ -113,13 +124,13 @@
       <hr class="w-75 mx-auto">
 
       <!-- Comentarios -->
-      <div class="container p-5">
+      <div class="container p-md-5 p-2">
         <div class="row p-3 text-center">
           <h1>Comentarios</h1>
         </div>
 
         <!-- Formulario -->
-        <div class="row col-12  py-2 px-5">
+        <div class="row col-12  py-2 ">
           <form [formGroup]="formularioComent" (ngSubmit)="nuevoComentario()">
             <div class="mb-3">
               <label for="contenido" class="form-label">Nuevo Comentario</label>
@@ -142,25 +153,29 @@
           </form>
         </div>
 
-        <div class="row d-flex my-5">
-          <div *ngFor="let comentario of comentarios;  first as primera" class="col-md-12 col-lg-12">
+        <div class="row d-flex my-2">
+          <div *ngFor="let comentario of comentarios;  first as primera" class=" col-lg-12">
             <div class="card text-dark">
-              <div class="card-body p-5">
+              <div class="card-body mt-1 p-1 p-lg-5">
                 <h4 *ngIf="primera" class="m-0">Comentarios recientes</h4>
-                <p *ngIf="primera" class="fw-light mb-5 pb-2">Ultimos comentarios de los usuarios</p>
-                <div class="d-flex flex-start">
+                <p *ngIf="primera" class="fw-light pb-2">Ultimos comentarios de los usuarios</p>
+                
+                <hr *ngIf="primera" class="pb-5">
+
+                <div class="d-flex flex-start"  >
                   <ng-container *ngIf="!comentario.foto_perfil">
-                    <img class="img-fluid border border-black rounded-circle me-3"
-                      src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="avatar" width="15%" height="10px" />
+                    <img style="width: 50px; height: 50px;" class="border border-black rounded-circle" src="https://bootdey.com/img/Content/avatar/avatar7.png"
+                    alt="Image Description">
                   </ng-container>
                   <ng-container *ngIf="comentario.foto_perfil">
-                    <img class="img-fluid border border-black rounded-circle me-3" src={{comentario.foto_perfil}}
-                      alt="avatar" width="15%" height="10px" />
+                    <img style="width: 50px; height: 50px;" class="border border-black rounded-circle"
+                    src={{post.foto_perfil}} alt="Image Description">
                   </ng-container>
                   <div>
                     <h6 class="fw-bold mb-1">{{comentario.nombre_usuario}}</h6>
-                    <div *ngIf="esCreadorPost(comentario)" class="d-flex align-items-center mb-3">
-                      <p class="mb-0">{{comentario.fecha_creacion}}</p>
+              
+                    <div *ngIf="esCreadorPost(comentario)" class=" mb-1">
+                      <span class="mb-0">{{comentario.fecha_creacion |  date:'dd/MM/yy'}} </span>
                       <a class="link-muted ms-3">
                         <span class="material-symbols-outlined" (click)="modificaComentario(comentario.id)"
                           style="cursor: pointer;">edit</span>
@@ -182,7 +197,7 @@
       </div>
     </div>
   </div>
-  <div class="col-3 border">
+  <div class="border  col-xl-2 d-none d-xl-block">
     <app-contactos-chat></app-contactos-chat>
   </div>
 

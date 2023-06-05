@@ -21,6 +21,7 @@ export class CabeceraComponent {
   public usuariosAmigos: Array<PerfilUsuario> = []
   public mouseover!: boolean;
   public esAdmin: boolean = false;
+  public pagina = localStorage.getItem(`enlace-cabecera`);
 
   constructor(
     public _obtenerUsuarioService: AutenticacionUsuariosService,
@@ -31,6 +32,8 @@ export class CabeceraComponent {
 
   ngOnInit(): void {
     this.obtenerUsuarioRegistrado()
+
+    console.log(this.pagina)
   }
 
   //Obtenemos los datos del usuario logueado
@@ -49,41 +52,55 @@ export class CabeceraComponent {
   enlaceInicio() {
 
     this.location.replaceState(`/`);
+    localStorage.removeItem(`enlace-cabecera`)
+    localStorage.setItem(`enlace-cabecera`, 'inicio');
     location.reload();
   }
 
   enlaceNotificaciones() {
 
     this.location.replaceState(`/notificaciones`);
+    localStorage.removeItem(`enlace-cabecera`)
+    localStorage.setItem(`enlace-cabecera`, 'notificaciones');
     location.reload();
   }
 
   enlacePerfil() {
     this.location.replaceState(`/perfil-personal`);
+    localStorage.removeItem(`enlace-cabecera`)
+    localStorage.setItem(`enlace-cabecera`, 'perfil-personal');
     location.reload();
   }
 
   enlaceAmigos() {
 
     this.location.replaceState(`/amigos`);
+    localStorage.removeItem(`enlace-cabecera`)
+    localStorage.setItem(`enlace-cabecera`, 'amigos');
     location.reload();
   }
 
   enlacePublicaciones() {
 
     this.location.replaceState(`/perfil-usuario-publicaciones/${this.credenciales.id}`);
+    localStorage.removeItem(`enlace-cabecera`)
+    localStorage.setItem(`enlace-cabecera`, 'perfil-usuario-publicaciones');
     location.reload();
   }
 
   enlaceAdministracion() {
 
     this.location.replaceState(`/admin-posts`);
+    localStorage.removeItem(`enlace-cabecera`)
+  
     location.reload();
   }
 
   enlaceFormularioPost() {
 
     this.location.replaceState(`/formulario-post`);
+    localStorage.removeItem(`enlace-cabecera`)
+    localStorage.setItem(`enlace-cabecera`, 'formulario-post');
     location.reload();
 
   }
@@ -91,6 +108,7 @@ export class CabeceraComponent {
   // Removemos los datos usuario del LocalStorage y lo redirigimos a la página de login
   logout() {
     localStorage.removeItem("userData");
+    localStorage.removeItem(`enlace-cabecera`)
     this.router.navigateByUrl(`/login`);
   }
 
