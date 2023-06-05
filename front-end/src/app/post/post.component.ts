@@ -38,6 +38,8 @@ export class PostComponent implements OnInit {
   public quedanCaracteres: boolean = true;
   public errors : Array<any> = [];
 
+  public contenidoCargado: boolean = false;
+
   constructor(private _postService: PostService,
     public obtenerUsuario: PerfilUsuarioService,
     public obtenerCredenciales: AutenticacionUsuariosService,
@@ -110,6 +112,11 @@ export class PostComponent implements OnInit {
 
     // Agregamos todas la id del Post al Local Storage
     this.agregarVisitas(this.id);
+
+    setTimeout(() => {
+      this.contenidoCargado = true;
+  
+    }, 500)
 
   }
 

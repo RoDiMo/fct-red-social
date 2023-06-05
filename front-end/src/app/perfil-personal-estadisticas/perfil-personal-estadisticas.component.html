@@ -1,7 +1,7 @@
 <div class="container-fluid mx-0 px-0 border">
 
     <!-- Cabecera -->
-    <div class="row  mx-3 border">
+    <div class="row border">
 
         <div class="col-3">
             
@@ -9,7 +9,21 @@
         
         </div>
 
-        <div class="col-6 border">
+        <div *ngIf="!contenidoCargado" class="animacion col-6 border">
+            <div class="lds-roller">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <span class="animacion_texto">Cargando</span>
+        </div>
+
+        <div *ngIf="contenidoCargado" class="col-6 border fadeIn">
 
             <!-- Cabecera -->
             <div class="row border" style="height: 75px;"></div>

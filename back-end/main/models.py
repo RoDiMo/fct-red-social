@@ -39,7 +39,7 @@ class Ciudades(models.Model):
 
 
 class Usuarios(AbstractUser):
-    telefono = models.CharField(max_length=50, default='', unique=True)
+    telefono = models.CharField(max_length=50, unique=True, null=False)
     pais = models.CharField(max_length=250, default='')
     estado = models.CharField(max_length=250, default='')
     ciudad = models.CharField(max_length=250, default='')

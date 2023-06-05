@@ -26,6 +26,7 @@ export class HomeComponent {
   public formularioPost!: FormGroup;
   public esAdmin: boolean = false;
   public misPost: boolean = false;
+  public contenidoCargado: boolean = false;
 
 
   constructor(
@@ -42,7 +43,6 @@ export class HomeComponent {
   // Codigo que se ejecuta al cargar la pagina
   ngOnInit() {
 
-
     // Obtiene los post  
     this.obtenerPosts()
 
@@ -54,6 +54,12 @@ export class HomeComponent {
       num_likes: [0 as number],
 
     });
+
+
+    setTimeout(() => {
+      this.contenidoCargado = true;
+  
+    }, 500);
   }
 
   // Enlace al post seleccionadp
@@ -63,19 +69,28 @@ export class HomeComponent {
 
   // Funcion para obtener los todos  posts de los usuarios obviando los mios
   obtenerPosts(){
+
+    //this.contenidoCargado = false;
     this._paginaPrincipalService.getPostOrdenados(this.credencialesUsuario.id).subscribe(data => {
       this.posts = data;
       this.misPost = false;
-
+  
       // Obtenemos el usuario registrado además de comprobar si le ha dado like a los diferentes posts
       this.gestionarUsuarios();
-
-
     })
+
+    /*
+    setTimeout(() => {
+      this.contenidoCargado = true;
+  
+    }, 500);
+    */
   }
 
   // Funcion para obtener solo mis posts
   obtenerMisPost(){
+    //this.contenidoCargado = false;
+
     this._postService.obtenerPostsUsuario(this.credencialesUsuario.id).subscribe(data =>{
       this.posts = data.results;
       this.misPost = true;
@@ -83,6 +98,11 @@ export class HomeComponent {
       // Obtenemos el usuario registrado además de comprobar si le ha dado like a los diferentes posts
       this.gestionarUsuarios();
     })
+
+   /* setTimeout(() => {
+      this.contenidoCargado = true;
+  
+    }, 500);*/
   }
 
   // -------- GESTION DE USUARIOS --------

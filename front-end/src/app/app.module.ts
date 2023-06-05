@@ -6,9 +6,6 @@ import { HomeComponent } from './home/home.component';
 import { HTTP_INTERCEPTORS,HttpClientModule } from '@angular/common/http';
 import { FormsModule , ReactiveFormsModule,  } from '@angular/forms';
 import { LoginUsuarioComponent } from './login-usuario/login-usuario.component';
-import { MatToolbarModule } from "@angular/material/toolbar";
-import { MatInputModule } from "@angular/material/input";
-import { MatButtonModule } from "@angular/material/button";
 import { PerfilUsuarioComponent } from './perfil-usuario/perfil-usuario.component';
 import { TokenInterceptor } from "./token.interceptor";
 import { RegistroUsuarioComponent } from './registro-usuario/registro-usuario.component';
@@ -30,6 +27,7 @@ import { ContactosChatComponent } from './contactos-chat/contactos-chat.componen
 import { ChatComponent } from './chat/chat.component';
 import { AdminPostsComponent } from './admin-posts/admin-posts.component';
 import { AdminUsuariosComponent } from './admin-usuarios/admin-usuarios.component';
+
 
 
 
@@ -65,11 +63,8 @@ import { AdminUsuariosComponent } from './admin-usuarios/admin-usuarios.componen
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    MatToolbarModule,
-    MatInputModule,
-    MatButtonModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
     
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },],

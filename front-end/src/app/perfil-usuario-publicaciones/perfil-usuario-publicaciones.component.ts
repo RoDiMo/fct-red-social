@@ -14,7 +14,8 @@ import { Post } from '../post/post';
 export class PerfilUsuarioPublicacionesComponent {
   public id = this.activatedRoute.snapshot.paramMap.get('id');
   public postsUsuario!: Array<Post>;
-  public credenciales = this._obtenerUsuarioService.obtenerCredenciales()
+  public credenciales = this._obtenerUsuarioService.obtenerCredenciales();
+  public contenidoCargado: boolean = false;
 
 
   constructor(
@@ -29,7 +30,12 @@ export class PerfilUsuarioPublicacionesComponent {
     console.log(this.id)
     this._postService.obtenerPostsUsuario(this.id!).subscribe( data => {
       this.postsUsuario = data.results   
-    })
+    });
+
+    setTimeout(() => {
+      this.contenidoCargado = true;
+  
+    }, 500);
   }
 
    // Enlace al post seleccionadp

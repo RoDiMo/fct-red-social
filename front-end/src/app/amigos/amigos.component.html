@@ -3,7 +3,7 @@
 
 
     <!-- Cabecera -->
-    <div class="row  mx-3 border">
+    <div class="row  border">
 
         <div class="col-3 border">
 
@@ -11,9 +11,23 @@
 
         </div>
 
-        <div class="col-6">
+        <div *ngIf="!contenidoCargado" class="animacion col-6">
+            <div class="lds-roller">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <span class="animacion_texto">Cargando</span>
+        </div>
 
 
+        <div  *ngIf="contenidoCargado" class="col-6 slides">
+            
             <div class="row border" style="height: 75px;"></div>
 
             <div class="row  text-center" style="height: 75px;">

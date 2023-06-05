@@ -1,14 +1,30 @@
 <div class="container-fluid d-flex mx-0 px-0">
 
-    <div class="container col-3 border">
+    <div class="container  col-lg-3 d-none d-lg-block">
         <app-cabecera></app-cabecera>
     </div>
 
-    <div class="col-6 border">
+
+    <div *ngIf="!contenidoCargado" class="animacion col-12 col-lg-6 ">
+        <div class="lds-roller">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <span class="animacion_texto">Cargando</span>
+    </div>
+
+    <div *ngIf="contenidoCargado" class="col-12 col-lg-6 border fadeIn">
+
         <div style="height: 50px;"> </div>
         <!-- Cabecera -->
         <div class=" d-flex " style="height: 70px;">
-            <div class="col-6 d-flex justify-content-center border">
+            <div class="col-6 d-flex justify-content-center border " >
                 <h1 style="cursor: pointer;" (click)="obtenerPosts()">Página principal</h1>
             </div>
             <div class="col-6 d-flex justify-content-center border">
@@ -16,23 +32,31 @@
             </div>
         </div>
 
+
+
+
         <!-- Cuerpo -->
-        <div class="px-4">
-            <div *ngFor="let post of posts" class="container px-4">
+        <div class="px-4 ">
+            <div *ngFor="let post of posts" class="container px-4  ">
 
 
-                <div class="col my-5">
-                    <div class="card" >
-                        <img src="{{post.imagen}}" class="card-img-top" alt=""  style="cursor: pointer;" (click)="enlacePost(post.id)"/>
+
+
+                <div class="col my-5 Post">
+                    <div class="card">
+                        <img src="{{post.imagen}}" class="card-img-top" alt="" style="cursor: pointer;"
+                            (click)="enlacePost(post.id)" />
 
                         <div class="card-body" style="cursor: pointer;" (click)="enlacePost(post.id)">
                             <div class="row mb-3">
                                 <div *ngIf="post.foto_perfil" class="col-1 text-center me-4" style="width: 50px;">
-                                    <img style="width: 50px; height: 50px;" class="border border-black rounded-circle" src={{post.foto_perfil}} alt="Image Description">
+                                    <img style="width: 50px; height: 50px;" class="border border-black rounded-circle"
+                                        src={{post.foto_perfil}} alt="Image Description">
                                 </div>
 
                                 <div *ngIf="!post.foto_perfil" class="col-1 text-center " style="width: 50px; ">
-                                    <img style="width: 50px; height: 50px;" src="https://bootdey.com/img/Content/avatar/avatar7.png"
+                                    <img style="width: 50px; height: 50px;"
+                                        src="https://bootdey.com/img/Content/avatar/avatar7.png"
                                         alt="Image Description">
                                 </div>
 
@@ -52,23 +76,23 @@
                             </p>
                         </div>
                         <hr>
-                        <div class="row m mb-3 me-3">
+                        <div class="row  mb-3 ms-0 container">
 
                             <div class="d-flex  justify-content-end">
                                 <!-- Visitas -->
-                                <div class="col-1">
+                                <div class="col-3 col-lg-1">
                                     <span class="material-symbols-outlined"> visibility </span>
                                     <span>{{post.num_visitas}}</span>
                                 </div>
                                 <!-- Likes -->
-                                <div *ngIf="!post.likeDado" class="col-1">
+                                <div *ngIf="!post.likeDado" class="col-3 col-lg-1">
                                     <span (click)="gestionLikes(post.id, post.url)" class="material-symbols-outlined"
                                         style="cursor: pointer;"> favorite
                                     </span>
                                     <span> {{post.num_likes}}</span>
                                 </div>
 
-                                <div *ngIf="post.likeDado" class="col-1">
+                                <div *ngIf="post.likeDado" class="col-3 col-lg-1">
                                     <span (click)="gestionLikes(post.id, post.url)" class="material-symbols-outlined"
                                         style="cursor: pointer;">
                                         heart_check </span>
@@ -76,8 +100,8 @@
                                 </div>
 
                                 <!-- Mensajes -->
-                                <div class="col-1">
-                                    <span class="material-symbols-outlined"> comment </span>
+                                <div class="col-1 col-3 col-lg-1">
+                                    <span class="material-symbols-outlined "> comment </span>
                                     <span>{{post.num_comentarios}}</span>
                                 </div>
 
@@ -86,12 +110,12 @@
                     </div>
                 </div>
 
-                
+
             </div>
         </div>
     </div>
 
-    <div class="col-3 border">
+    <div class="border  col-lg-3 d-none d-lg-block">
         <app-contactos-chat></app-contactos-chat>
     </div>
 </div>

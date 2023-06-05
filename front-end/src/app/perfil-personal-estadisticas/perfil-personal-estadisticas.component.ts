@@ -35,6 +35,9 @@ export class PerfilPersonalEstadisticasComponent {
   public sumaComentarios: number = 0;
   public mediaComentarios: number = 0;
 
+  public contenidoCargado: boolean = false;
+
+
 
 
 
@@ -52,9 +55,12 @@ export class PerfilPersonalEstadisticasComponent {
       this.datosUsuario = data
 
       this.obtenerPostUsuario()
-
-
     });
+
+    setTimeout(() => {
+      this.contenidoCargado = true;
+  
+    }, 500)
   }
 
 

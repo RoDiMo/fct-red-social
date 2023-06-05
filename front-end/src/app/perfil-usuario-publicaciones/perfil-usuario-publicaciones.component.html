@@ -4,12 +4,24 @@
     <div class="row mx-0 border">
 
         <div class="col-3 mx-0 border">
-
             <app-cabecera></app-cabecera>
-
         </div>
 
-        <div class="col-6">
+        <div *ngIf="!contenidoCargado" class="animacion col-6 border">
+            <div class="lds-roller">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <span class="animacion_texto">Cargando</span>
+        </div>
+
+        <div *ngIf="contenidoCargado" class="col-6 fadeIn">
             <div class="row border" style="height: 75px;"></div>
 
             <div class="row  text-center border-bottom" style="height: 75px;">

@@ -27,6 +27,7 @@ export class AdminUsuariosComponent {
   public valorBusqueda: string = "";
   public orden: string = ""
   public campos: any = {};
+  public contenidoCargado: boolean = false;
 
   constructor(
     public _postService: PaginaPrincipalService,
@@ -69,7 +70,16 @@ export class AdminUsuariosComponent {
     this.obtenerUsuarios()
     this.obtenerPost()
     this.obtenerUsuarioRegistrado()
+
+    setTimeout(() => {
+      this.contenidoCargado = true;
+  
+    }, 500)
     
+  }
+
+  enlaceAplicacion(){
+    this.router.navigate(['/'])
   }
 
    // Obtenemos los valores del usuario registrado

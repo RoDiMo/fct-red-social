@@ -14,6 +14,7 @@ export class PerfilOtroUsuarioComponent {
 
   public datosUsuario!: PerfilUsuario;
   public id = this.activatedRoute.snapshot.paramMap.get('id');
+  public contenidoCargado: boolean = false;
 
   constructor(
     public _obtenerUsuarioService: AutenticacionUsuariosService,
@@ -26,7 +27,11 @@ export class PerfilOtroUsuarioComponent {
     // Obtiene los datos del usuario registrado en la sesion
     this._perfilUsuarioService.getPerfilUsuario(this.id).subscribe(data => {
       this.datosUsuario = data;
-
     });
+
+    setTimeout(() => {
+      this.contenidoCargado = true;
+  
+    }, 500)
   }
 }

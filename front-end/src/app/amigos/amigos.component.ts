@@ -25,6 +25,7 @@ export class AmigosComponent {
   public credencialesUsuario: any;
   public idAmistad: any = {};
   public fecha = new Date();
+  public contenidoCargado: boolean = false;
 
   constructor(
     public _obtenerUsuarioService: AutenticacionUsuariosService,
@@ -40,6 +41,11 @@ export class AmigosComponent {
 
     this.obtenerAmigos()
     this.obtenerNoAmigos()
+
+    setTimeout(() => {
+      this.contenidoCargado = true;
+  
+    }, 500)
 
 
   }

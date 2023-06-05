@@ -24,6 +24,7 @@ export class AdminPostsComponent {
   public campoSeleccionado: string = "-fecha_publicacion";
   public valorBusqueda: string = "";
   public campos: any = {};
+  public contenidoCargado: boolean = false;
 
   constructor(
     public _postService: PaginaPrincipalService,
@@ -32,6 +33,7 @@ export class AdminPostsComponent {
     public _adminService: AdminService,
     public formBuilder: FormBuilder,
     private router: Router,
+    
     
 
   ) {
@@ -67,6 +69,13 @@ export class AdminPostsComponent {
     this.obtenerPost()
     this.obtenerUsuarios()
     this.obtenerUsuarioRegistrado()
+
+    setTimeout(() => {
+      this.contenidoCargado = true;
+  
+    }, 500)
+
+
   }
 
 
@@ -80,6 +89,10 @@ export class AdminPostsComponent {
         this.router.navigate(['/'])
       }
     })
+  }
+
+  enlaceAplicacion(){
+    this.router.navigate(['/'])
   }
 
   /**

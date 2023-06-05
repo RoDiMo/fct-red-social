@@ -10,24 +10,30 @@ import { AutenticacionUsuariosService } from '../autenticacion-usuarios.service'
   styles: [
   ]
 })
-export class PerfilUsuarioComponent implements OnInit{
+export class PerfilUsuarioComponent implements OnInit {
   public datosUsuario!: PerfilUsuario;
-  public id = this._obtenerUsuarioService.obtenerCredenciales().id
+  public id = this._obtenerUsuarioService.obtenerCredenciales().id;
+  public contenidoCargado: boolean = false;
 
   constructor(
-     public _obtenerUsuarioService: AutenticacionUsuariosService,
-      private _perfilUsuarioService: PerfilUsuarioService,
-      private activatedRoute: ActivatedRoute,
-      private router: Router
-     ) { }
+    public _obtenerUsuarioService: AutenticacionUsuariosService,
+    private _perfilUsuarioService: PerfilUsuarioService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     // Obtiene los datos del usuario registrado en la sesion
     this._perfilUsuarioService.getPerfilUsuario(this.id).subscribe(data => {
-          this.datosUsuario = data;
-      
-        });
+      this.datosUsuario = data;
+    });
+
+    setTimeout(() => {
+      this.contenidoCargado = true;
+
+    }, 500);
   }
+
 
 
 
@@ -35,5 +41,5 @@ export class PerfilUsuarioComponent implements OnInit{
   logout() {
     localStorage.removeItem("userData");
     this.router.navigateByUrl(`/login`);
-}
+  }
 }
