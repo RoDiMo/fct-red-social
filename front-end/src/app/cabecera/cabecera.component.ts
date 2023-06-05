@@ -6,6 +6,7 @@ import { PerfilUsuario } from '../perfil-usuario/perfil-usuario';
 import { AmigosService } from '../amigos.service';
 import { Amigo } from '../amigos/amigo';
 import { Location } from '@angular/common';
+import { NotificacionesService } from '../notificaciones.service';
 
 @Component({
   selector: 'app-cabecera',
@@ -21,10 +22,12 @@ export class CabeceraComponent {
   public usuariosAmigos: Array<PerfilUsuario> = []
   public mouseover!: boolean;
   public esAdmin: boolean = false;
+  public numNotificaciones: string = ""; 
   public pagina = localStorage.getItem(`enlace-cabecera`);
 
   constructor(
     public _obtenerUsuarioService: AutenticacionUsuariosService,
+    public _notificacionesService: NotificacionesService,
     private router: Router,
     private location: Location
   ) { }
@@ -32,8 +35,14 @@ export class CabeceraComponent {
 
   ngOnInit(): void {
     this.obtenerUsuarioRegistrado()
+    this.obtenerNumNotificaciones()
 
-    console.log(this.pagina)
+  }
+
+  obtenerNumNotificaciones(){
+    this._notificacionesService.obtenerNotificacionesUsuarioDestino(this.credenciales.id).subscribe(notificaciones =>{
+      this.numNotificaciones = notificaciones.count
+    })
   }
 
   //Obtenemos los datos del usuario logueado
@@ -89,7 +98,7 @@ export class CabeceraComponent {
   }
 
   enlaceAdministracion() {
-
+    
     this.location.replaceState(`/admin-posts`);
     localStorage.removeItem(`enlace-cabecera`)
   

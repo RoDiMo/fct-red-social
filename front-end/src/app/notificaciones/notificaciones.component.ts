@@ -74,7 +74,7 @@ export class NotificacionesComponent {
 
 
       setTimeout(() => {
-        this.ngOnInit()
+        window.location.reload()
       }, 50)
 
     })
@@ -95,8 +95,9 @@ export class NotificacionesComponent {
 
 
       setTimeout(() => {
-        this.ngOnInit()
+        window.location.reload()
       }, 50)
+
 
     })
   }

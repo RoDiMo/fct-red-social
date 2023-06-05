@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class ChatService {
   private url:string; 
+  
 
   constructor(private http: HttpClient) { 
       this.url = url()+'chat/'
