@@ -10,10 +10,10 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from main.models import *
-from main.models import Chat
+from main import filtros
 from main.permissions import *
 from main.serializers import *
+from main.filtros import *
 
 
 # Create your views here.
@@ -44,7 +44,7 @@ class Ciudades(viewsets.ModelViewSet):
 class Usuario(viewsets.ModelViewSet):
     queryset = Usuarios.objects.all()
     serializer_class = UsuarioSerializer
-    filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter, filtros.FechaAltaFilterBackend]
     ordering_fields = ['username', 'first_name', 'last_name', 'email', 'pais', 'estado', 'es_moderador', 'fecha_alta']
     filterset_fields = ['id', 'username', 'es_moderador']
     search_fields = ['username', 'first_name', 'last_name', 'email', 'pais', 'estado']
@@ -133,11 +133,11 @@ class RegistroUsuario(generics.RetrieveUpdateDestroyAPIView):
 class Post(viewsets.ModelViewSet):
     queryset = Posts.objects.all()
     serializer_class = PostSerializer
-    filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter]
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter, filtros.FechaPublicacionFilterBackend]
     ordering_fields = ['titulo', 'usuario__username', 'num_visitas', 'num_likes', 'num_comentarios', 'oculto',
                        'fecha_publicacion']
     filterset_fields = ['usuario', 'oculto']
-    search_fields = ['titulo', 'usuario__username', 'usuario__first_name', 'usuario__last_name']
+    search_fields = ['titulo', 'usuario__username']
 
     # def get_permissions(self):
     #    return permisos_modelos(self.action)
@@ -212,8 +212,9 @@ class AmistadesCanceladas(viewsets.ModelViewSet):
 class Chats(viewsets.ModelViewSet):
     queryset = Chat.objects.all()
     serializer_class = ChatSerializer
-    filter_backends = [DjangoFilterBackend]
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
     filterset_fields = ['emisor', 'receptor', 'leido']
+
 
     @action(detail=False, methods=['get'])
     def mensajes_chat(self, request):
@@ -223,7 +224,7 @@ class Chats(viewsets.ModelViewSet):
         mensajes = Chat.objects.all().filter(
             (Q(emisor=emisor) & Q(receptor=receptor)) |
             (Q(emisor=receptor) & Q(receptor=emisor))
-        )
+        ).order_by('fecha_mensaje')
         serializers_context = self.get_serializer_context()
         serializer = ChatSerializer(instance=mensajes.distinct(), context=serializers_context, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -236,7 +237,7 @@ class Chats(viewsets.ModelViewSet):
         mensajes = Chat.objects.filter(
             (Q(emisor=emisor) & Q(receptor=receptor)) |
             (Q(emisor=receptor) & Q(receptor=emisor))
-        )
+        ).order_by('fecha_mensaje')
 
         mensajes_no_leidos = mensajes.filter(leido=False, receptor=emisor)
 

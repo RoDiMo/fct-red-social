@@ -1,44 +1,45 @@
 <div class="container-fluid d-flex mx-0 px-0">
 
 
-  <div class="container col-3 border">
+  <div class="col-auto col-xl-3  px-0 bg-light">
     <app-cabecera></app-cabecera>
   </div>
 
-  <div class="col-6 p-5">
+  <div class="col-12 pe-xl-0 col-xl-7 p-5 ps-4 fadeIn">
 
-    <div class="row">
-    <form [formGroup]="formularioComent" (ngSubmit)="editarComentario()">
+    <div class="row  p-0 pe-5 p-xl-5">
+      <form [formGroup]="formularioComent" (ngSubmit)="editarComentario()">
 
-      <div class="row mb-3">
-        <textarea rows="20" cols="120" id="contenido" formControlName="contenido" [value]="comentario.contenido"
-            (keydown)="controlarCaracteres(formularioComent.value.contenido)" placeholder="Introduzca su comentario aqui"></textarea>
-            <div *ngIf="formularioComent.get('contenido')?.errors?.['serverError']" class="text-start mt-2">
-              <ul>
-                <li> {{formularioComent.get('contenido')?.errors?.['serverError']}}</li>
-              </ul>
-            </div>
-      </div>
-
-
-      <div class="row mb-3">
-        <div class="col-6">
-          <button class="btn btn-primary btn-block mb-4" type="submit">Ingresar</button>
-        </div>
-        <div class="col-6 text-end">
-          <p>Caracteres restantes: {{caracRestantes}} </p>
-
-          <div class="row">
-            <p *ngIf="!quedanCaracteres">Excedida la capacidad de caracterres por {{caracSobrantes}} </p>
+        <div class="row mb-3">
+          <textarea rows="20" cols="120" id="contenido" formControlName="contenido" [value]="comentario.contenido"
+            (keydown)="controlarCaracteres(formularioComent.value.contenido)"
+            placeholder="Introduzca su comentario aqui"></textarea>
+          <div *ngIf="formularioComent.get('contenido')?.errors?.['serverError']" class="text-start mt-2">
+            <ul>
+              <li> {{formularioComent.get('contenido')?.errors?.['serverError']}}</li>
+            </ul>
           </div>
         </div>
-      </div>
-    </form>
-  </div>
+
+
+        <div class="row mb-3">
+          <div class="col-6">
+            <button class="btn btn-primary btn-block mb-4" type="submit">Ingresar</button>
+          </div>
+          <div class="col-6 text-end">
+            <p>Caracteres restantes: {{caracRestantes}} </p>
+
+            <div class="row">
+              <p *ngIf="!quedanCaracteres">Excedida la capacidad de caracterres por {{caracSobrantes}} </p>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
 
   </div>
 
-  <div class="col-3 border">
+  <div class="border  col-xl-2 d-none d-xl-block">
     <app-contactos-chat></app-contactos-chat>
   </div>
 </div>

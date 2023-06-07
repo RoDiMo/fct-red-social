@@ -37,11 +37,6 @@ export class PerfilPersonalEstadisticasComponent {
 
   public contenidoCargado: boolean = false;
 
-
-
-
-
-
   constructor(
     private _perfilUsuarioService: PerfilUsuarioService,
     public _obtenerUsuario: AutenticacionUsuariosService,

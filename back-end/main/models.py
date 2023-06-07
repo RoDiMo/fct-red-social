@@ -129,3 +129,6 @@ class Chat(models.Model):
     leido = models.BooleanField(default=False)
     mensaje = models.CharField(max_length=250)
 
+    def __str__(self):
+        return "Emisor: {} - Receptor:{}".format(self.emisor, self.receptor)
+

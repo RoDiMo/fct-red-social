@@ -27,11 +27,21 @@
                                 <div class="col-3 d-flex align-self-center cursor" (click)="enlaceAplicacion()">
                                     <span class="material-symbols-outlined me-2">
                                         keyboard_backspace
-                                        </span> 
-                                        <span  class="mb-0 ">Regresar a la aplicación</span>
+                                    </span>
+                                    <span class="mb-0 ">Regresar a la aplicación</span>
                                 </div>
-                                <div class="col-6">
-                                    <h4 class="display-5 mb-0 ">Usuarios</h4>
+
+                                <div class="col-6 form-floating  d-flex">
+                                    <div class="text-start  col-4">
+                                        <span>fecha inicio</span>
+                                        <input class="me-5" type="date" [(ngModel)]="fecha_inicio"
+                                            [ngModelOptions]="{standalone: true}" (change)="guardarValorBusqueda()">
+                                    </div>
+                                    <div class="text-start  col-4">
+                                        <span>fecha fin</span>
+                                        <input class="me-5" type="date" [(ngModel)]="fecha_fin"
+                                            [ngModelOptions]="{standalone: true}" (change)="guardarValorBusqueda()">
+                                    </div>
                                 </div>
 
                                 <div class="col-3 ">

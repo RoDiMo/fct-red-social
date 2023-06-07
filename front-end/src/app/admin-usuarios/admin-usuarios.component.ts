@@ -28,6 +28,8 @@ export class AdminUsuariosComponent {
   public orden: string = ""
   public campos: any = {};
   public contenidoCargado: boolean = false;
+  public fecha_inicio: string = ""
+  public fecha_fin: string = "";
 
   constructor(
     public _postService: PaginaPrincipalService,
@@ -111,7 +113,7 @@ export class AdminUsuariosComponent {
     }
 
     // Nos traemos los posts ordenados en función del campo
-    this._adminService.ordenarUsuarios(campo, this.valorBusqueda).subscribe(data => {
+    this._adminService.ordenarUsuarios(campo, this.valorBusqueda, this.fecha_inicio, this.fecha_fin).subscribe(data => {
       this.usuarios = data.results
     })
   }
@@ -127,7 +129,7 @@ export class AdminUsuariosComponent {
 
     }
     // Nos traemos los posts ordenados en función del campo
-    this._adminService.ordenarUsuarios(this.campoSeleccionado, this.valorBusqueda).subscribe(data => {
+    this._adminService.ordenarUsuarios(this.campoSeleccionado, this.valorBusqueda, this.fecha_inicio, this.fecha_fin).subscribe(data => {
       this.usuarios = data.results
     })
   }
@@ -135,7 +137,7 @@ export class AdminUsuariosComponent {
 
   // Obtiene los usuarios ordenados por fecha
   obtenerUsuarios() {
-    this._adminService.ordenarUsuarios('username', "").subscribe(data => {
+    this._adminService.ordenarUsuarios('username', "", this.fecha_inicio, this.fecha_fin).subscribe(data => {
       this.usuarios = data.results
 
     })

@@ -1,7 +1,6 @@
 <div class="container-fluid d-flex mx-0 px-0">
 
-    <div class="col-auto col-xl-3  px-0 bg-light">
-
+    <div class="col-auto col-xl-3 px-0 bg-light">
         <app-cabecera></app-cabecera>
     </div>
 
@@ -22,13 +21,14 @@
 
     <div *ngIf="contenidoCargado" class="col-12 pe-5 pe-xl-0 col-xl-7 border fadeIn">
 
-    
+
         <!-- Cabecera -->
-        <div class=" d-flex " id="enlaces">
-            <div class="col-6 d-flex justify-content-center" id="{{!misPost ? 'enlace_izquierdo_marcado' : 'enlace_izquierdo' }}" >
+        <div class=" d-flex enlaces">
+            <div
+                class="col-6 d-flex justify-content-center {{!misPost ? 'enlace_izquierdo_marcado' : 'enlace_izquierdo' }}">
                 <h1 style="cursor: pointer;" (click)="obtenerPosts()">Página principal</h1>
             </div>
-            <div class="col-6 d-flex justify-content-center" id="{{misPost ? 'enlace_derecho_marcado' : 'enlace_derecho' }}">
+            <div class="col-6 d-flex justify-content-center {{misPost ? 'enlace_derecho_marcado' : 'enlace_derecho' }}">
                 <h1 style="cursor: pointer;" (click)="obtenerMisPost()">Mis publicaciones</h1>
             </div>
         </div>
@@ -64,7 +64,7 @@
                                 <div class="col-6 position-relative top-0 start-0 ">
                                     <span>{{post.nombre_usuario}}</span>
                                 </div>
-                                <div class="col-4  text-end ">
+                                <div class="col-12 col-lg-4  text-end ">
                                     <span>{{post.fecha_publicacion | date:'dd/MM/yy'}}</span>
                                 </div>
                             </div>
@@ -81,19 +81,19 @@
 
                             <div class="d-flex  justify-content-end">
                                 <!-- Visitas -->
-                                <div class="col-3 col-lg-1">
+                                <div class="col-4 col-lg-1">
                                     <span class="material-symbols-outlined"> visibility </span>
                                     <span>{{post.num_visitas}}</span>
                                 </div>
                                 <!-- Likes -->
-                                <div *ngIf="!post.likeDado" class="col-3 col-lg-1">
+                                <div *ngIf="!post.likeDado" class="col-4 col-lg-1">
                                     <span (click)="gestionLikes(post.id, post.url)" class="material-symbols-outlined"
                                         style="cursor: pointer;"> favorite
                                     </span>
                                     <span> {{post.num_likes}}</span>
                                 </div>
 
-                                <div *ngIf="post.likeDado" class="col-3 col-lg-1">
+                                <div *ngIf="post.likeDado" class="col-4 col-lg-1">
                                     <span (click)="gestionLikes(post.id, post.url)" class="material-symbols-outlined"
                                         style="cursor: pointer;">
                                         heart_check </span>

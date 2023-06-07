@@ -20,10 +20,10 @@
 
   <div *ngIf="contenidoCargado" class="col-12 pe-5 pe-xl-0 col-xl-7 border fadeIn">
 
-    
-    <div class=" d-flex " id="enlaces">
-      <div class="col-12 d-flex justify-content-center" id="enlace_derecho">
-        <h1 style="cursor: pointer;">{{post.titulo}}</h1>
+
+    <div class=" d-flex my-3">
+      <div class="col-12 d-flex justify-content-center enlace_derecho">
+        <h1>{{post.titulo}}</h1>
       </div>
 
     </div>
@@ -55,7 +55,7 @@
                 <div class="col-6 position-relative top-0 start-0 ">
                   <span>{{post.nombre_usuario}}</span>
                 </div>
-                <div class="col-4  text-end ">
+                <div class="col-12 col-lg-4  text-end ">
                   <span>{{post.fecha_publicacion | date:'dd/MM/yy'}}</span>
                 </div>
               </div>
@@ -73,15 +73,16 @@
 
               <div class="row py-3 mx-4 ">
 
-                <div class="col-7">
-                  <button *ngIf="esCreadorPost(post)" class="btn btn-primary me-2" (click)="modificarPost()">Editar
+                <div class="col-12 col-lg-7 ">
+                  <button *ngIf="esCreadorPost(post)" class="btn btn-primary me-2 mb-3 mb-lg-0"
+                    (click)="modificarPost()">Editar
                     Post</button>
-                  <button *ngIf="esCreadorPost(post)" type="submit" class="btn btn-danger me-2"
+                  <button *ngIf="esCreadorPost(post)" type="submit" class="btn btn-danger me-2 mb-3 mb-lg-0"
                     (click)="eliminarPost()">Eliminar Post</button>
 
 
                   <input *ngIf="esCreadorPost(post)" type="file" id="imagen" name="imagen" required
-                    (change)="onFileSelected($event)">
+                    (change)="onFileSelected($event)" class="mb-3 mb-lg-0">
                   <div
                     *ngIf="formularioImagenPost.controls['imagen'].invalid && (formularioImagenPost.controls['imagen'].dirty || formularioImagenPost.controls['imagen'].touched)">
 
@@ -91,18 +92,18 @@
                 <div class="col-12 d-flex justify-content-end">
 
                   <!-- Visitas -->
-                  <div class="col-1">
+                  <div class="col-4 col-lg-1">
                     <span class="material-symbols-outlined"> visibility </span>
                     <span>{{post.num_visitas}}</span>
                   </div>
                   <!-- Likes -->
-                  <div *ngIf="!post.likeDado" class="col-1">
+                  <div *ngIf="!post.likeDado" class="col-4 col-lg-1">
                     <span (click)="gestionLikes(post.id, post.url)" class="material-symbols-outlined cursor"> favorite
                     </span>
                     <span> {{post.num_likes}}</span>
                   </div>
 
-                  <div *ngIf="post.likeDado" class="col-1">
+                  <div *ngIf="post.likeDado" class="col-4 col-lg-1">
                     <span (click)="gestionLikes(post.id, post.url)" class="material-symbols-outlined cursor">
                       heart_check
                     </span>
@@ -110,7 +111,7 @@
                   </div>
 
                   <!-- Mensajes -->
-                  <div class="col-1">
+                  <div class="col-4 col-lg-1">
                     <span class="material-symbols-outlined"> comment </span>
                     <span>{{post.num_comentarios}}</span>
                   </div>
@@ -133,7 +134,7 @@
         <div class="row col-12  py-2 ">
           <form [formGroup]="formularioComent" (ngSubmit)="nuevoComentario()">
             <div class="mb-3">
-              <label for="contenido" class="form-label">Nuevo Comentario</label>
+              <label class="form-label">Nuevo Comentario</label>
               <textarea class="form-control" rows=8 formControlName="contenido" required
                 placeholder="Introduce tu comentario" [defaultValue]=""
                 (keydown)="controlarCaracteres(formularioComent.value.contenido!)"></textarea>
@@ -159,23 +160,32 @@
               <div class="card-body mt-1 p-1 p-lg-5">
                 <h4 *ngIf="primera" class="m-0">Comentarios recientes</h4>
                 <p *ngIf="primera" class="fw-light pb-2">Ultimos comentarios de los usuarios</p>
-                
+
                 <hr *ngIf="primera" class="pb-5">
 
-                <div class="d-flex flex-start"  >
+                <div class="d-flex flex-start">
                   <ng-container *ngIf="!comentario.foto_perfil">
-                    <img style="width: 50px; height: 50px;" class="border border-black rounded-circle" src="https://bootdey.com/img/Content/avatar/avatar7.png"
-                    alt="Image Description">
+                    <img style="width: 50px; height: 50px;" class="border border-black rounded-circle"
+                      src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Image Description">
                   </ng-container>
                   <ng-container *ngIf="comentario.foto_perfil">
                     <img style="width: 50px; height: 50px;" class="border border-black rounded-circle"
-                    src={{post.foto_perfil}} alt="Image Description">
+                      src={{post.foto_perfil}} alt="Image Description">
                   </ng-container>
-                  <div>
+                  <div class=" col-6 ">
                     <h6 class="fw-bold mb-1">{{comentario.nombre_usuario}}</h6>
-              
-                    <div *ngIf="esCreadorPost(comentario)" class=" mb-1">
-                      <span class="mb-0">{{comentario.fecha_creacion |  date:'dd/MM/yy'}} </span>
+
+                    <p class="mb-0">{{comentario.contenido}}</p>
+                  </div>
+
+                  <div class="col-6  d-flex justify-content-end pe-5">
+
+                    <div class="">
+                      <span class="mb-0">{{comentario.fecha_creacion | date:'dd/MM/yy'}} </span>
+                    </div>
+
+                    <div *ngIf="esCreadorPost(comentario)" class=" mb-1 col-lg-auto col-12">
+
                       <a class="link-muted ms-3">
                         <span class="material-symbols-outlined" (click)="modificaComentario(comentario.id)"
                           style="cursor: pointer;">edit</span>
@@ -186,8 +196,10 @@
                         </span>
                       </a>
                     </div>
-                    <p class="mb-0">{{comentario.contenido}}</p>
                   </div>
+
+
+
                 </div>
               </div>
 

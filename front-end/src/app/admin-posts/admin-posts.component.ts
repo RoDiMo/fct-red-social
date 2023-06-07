@@ -25,6 +25,8 @@ export class AdminPostsComponent {
   public valorBusqueda: string = "";
   public campos: any = {};
   public contenidoCargado: boolean = false;
+  public fecha_inicio: string = ""
+  public fecha_fin: string = "";
 
   constructor(
     public _postService: PaginaPrincipalService,
@@ -33,9 +35,6 @@ export class AdminPostsComponent {
     public _adminService: AdminService,
     public formBuilder: FormBuilder,
     private router: Router,
-    
-    
-
   ) {
     this.postOcultado = this.formBuilder.group({
       titulo: ['' as string | null, Validators.required],
@@ -58,6 +57,9 @@ export class AdminPostsComponent {
     }
 
     this.camposNoOrdenados()
+
+    //const fechaFin = new Date(new Date().getFullYear() + 1, new Date().getMonth(), new Date().getDate());
+    //this.fecha_fin = this.obtenerFechaFormateada(fechaFin);
   }
 
   // Funcion que evita que los campos del diccionario se ordenen al ser llamados desde el template
@@ -72,26 +74,27 @@ export class AdminPostsComponent {
 
     setTimeout(() => {
       this.contenidoCargado = true;
-  
+
     }, 500)
 
 
   }
 
 
+
   // Obtenemos los valores del usuario registrado
-  obtenerUsuarioRegistrado(){
+  obtenerUsuarioRegistrado() {
     this._usuarioService.getUsuario(this.credenciales.id).subscribe(data => {
       this.usuarioRegistrado = data
-    
+
       // Si el usuario no tiene privilgios de administracion se le redirigirá a la página de inicio
-      if(!this.usuarioRegistrado.es_moderador && !this.usuarioRegistrado.is_staff){
+      if (!this.usuarioRegistrado.es_moderador && !this.usuarioRegistrado.is_staff) {
         this.router.navigate(['/'])
       }
     })
   }
 
-  enlaceAplicacion(){
+  enlaceAplicacion() {
     this.router.navigate(['/'])
   }
 
@@ -111,7 +114,7 @@ export class AdminPostsComponent {
     }
 
     // Nos traemos los posts ordenados en función del campo
-    this._adminService.ordenarPosts(campo, this.valorBusqueda).subscribe(data => {
+    this._adminService.ordenarPosts(campo, this.valorBusqueda, this.fecha_inicio, this.fecha_fin).subscribe(data => {
       this.posts = data.results
     })
   }
@@ -123,13 +126,13 @@ export class AdminPostsComponent {
   guardarValorBusqueda() {
 
     if (this.ordenarCampo) {
-      this.campoSeleccionado = '-' +  this.campoSeleccionado
+      this.campoSeleccionado = '-' + this.campoSeleccionado
       this.ordenarCampo = !this.ordenarCampo
-      
-    }
 
+    }
+    console.log(this.fecha_inicio, this.fecha_fin)
     // Nos traemos los posts ordenados en función del campo
-    this._adminService.ordenarPosts(this.campoSeleccionado, this.valorBusqueda).subscribe(data => {
+    this._adminService.ordenarPosts(this.campoSeleccionado, this.valorBusqueda, this.fecha_inicio, this.fecha_fin).subscribe(data => {
       this.posts = data.results
     })
   }
@@ -143,13 +146,13 @@ export class AdminPostsComponent {
     })
   }
 
-    // Obtiene los usuarios ordenados por fecha
-    obtenerUsuarios() {
-      this._adminService.ordenarUsuarios('username',"").subscribe(data => {
-        this.usuarios = data.results
-  
-      })
-    }
+  // Obtiene los usuarios ordenados por fecha
+  obtenerUsuarios() {
+    this._adminService.ordenarUsuarios('username', "", this.fecha_inicio, this.fecha_fin).subscribe(data => {
+      this.usuarios = data.results
+
+    })
+  }
 
   /**
    * Función para ocultar los posts

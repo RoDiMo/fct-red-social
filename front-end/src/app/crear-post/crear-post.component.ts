@@ -3,7 +3,7 @@ import { PerfilUsuario } from '../perfil-usuario/perfil-usuario';
 import { PerfilUsuarioService } from '../perfil-usuario.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AutenticacionUsuariosService } from '../autenticacion-usuarios.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { PostService } from '../post.service';
 import { HttpErrorResponse } from '@angular/common/http';
 @Component({
@@ -18,11 +18,11 @@ export class CrearPostComponent implements OnInit {
   formularioPost!: FormGroup;
   public post: any = {};
   public modoEdicion: boolean = false;
-  public formData : FormData = new FormData();
-  public caracRestantes: number= 1024;
+  public formData: FormData = new FormData();
+  public caracRestantes: number = 1024;
   public caracSobrantes?: number
   public quedanCaracteres: boolean = true;
-  public errors : Array<any> = [];
+  public errors: Array<any> = [];
 
   constructor(
     public obtenerUsuario: PerfilUsuarioService,
@@ -30,12 +30,18 @@ export class CrearPostComponent implements OnInit {
     public formBuilder: FormBuilder,
     public _postService: PostService,
     public activatedRoute: ActivatedRoute,
-    public router: Router,   
+    public router: Router,
   ) {
+    this.formularioPost = this.formBuilder.group({
+      titulo: new FormControl(''), //['' as string | null, Validators.required],
+      contenido: new FormControl(''), //['' as string | null, Validators.required],
+      usuario: new FormControl(''), //['' as string],
 
+    });
   }
 
   ngOnInit(): void {
+
 
     // Comprobamos si el formulario recibe una id o no
     // 1. Si se recibe una id, significa que se debe modificar un post ya existente
@@ -44,15 +50,10 @@ export class CrearPostComponent implements OnInit {
     const id = this.activatedRoute.snapshot.paramMap.get('id');
 
     // -------> MODO EDICION <-------
-    if (id) { 
+    if (id) {
 
       // En la modificacion solo trabajaremos con los valores de titulo, contenido e usuario (La imagen se modifica aparte)
-      this.formularioPost = this.formBuilder.group({
-        titulo: ['' as string | null, Validators.required],
-        contenido: ['' as string | null, Validators.required],
-        usuario: ['' as string],
 
-      });
       // Variable que determina si estamos editando o creando un post
       // Esta variable se envia al template, haciendo que muestre unos valores u otros
       this.modoEdicion = true;
@@ -68,11 +69,15 @@ export class CrearPostComponent implements OnInit {
           usuario: this.post.usuario,
 
         });
+        console.log(this.formularioPost.get('contenido')?.value)
 
         this.controlarCaracteres(this.post.contenido)
+        this.formularioPost.valueChanges.subscribe(data => {
+          this.controlarCaracteres(data.contenido)
+        })
+
+        //
       })
-
-
 
     } else {// -------> MODO CREACION <-------
 
@@ -83,6 +88,10 @@ export class CrearPostComponent implements OnInit {
         usuario: ['' as string],
         imagen: null,
       });
+
+      this.formularioPost.valueChanges.subscribe(data => {
+        this.controlarCaracteres(data.contenido)
+      })
 
       // Obtengo las credenciales del usuario que hay en sesion
       this.credenciales = this.obtenerCredenciales.obtenerCredenciales();
@@ -114,7 +123,7 @@ export class CrearPostComponent implements OnInit {
   onFileSelected(event: any) {
 
     const file = event.target.files[0];
-      if (file != null) {
+    if (file != null) {
       this.formData.append('imagen', file);
 
 
@@ -126,17 +135,17 @@ export class CrearPostComponent implements OnInit {
   enviaPost() {
 
     // FormData para enviar los valores del formulario al servidor como datos (Necesario para guardar la imagen)
-    
-   
+
+
     this.formData.append('titulo', this.formularioPost.get('titulo')?.value);
     this.formData.append('contenido', this.formularioPost.get('contenido')?.value);
     this.formData.append('usuario', this.formularioPost.get('usuario')?.value);
- 
+
 
     // Si no estamos editando, creamos un nuevo post, de lo contrario modificamos los valores de uno ya existente
     if (!this.modoEdicion) {
       this._postService.nuevoPost(this.formData).subscribe(data => {
-        
+
         setTimeout(() => {
           this.router.navigateByUrl(`/`);
         }, 50)
@@ -155,10 +164,10 @@ export class CrearPostComponent implements OnInit {
         this.errors = err.error.message;
       });
 
-    
-     
+
+
     } else {
-      this._postService.modificarPost(this.post.id, this.formularioPost.value).subscribe(data =>{
+      this._postService.modificarPost(this.post.id, this.formularioPost.value).subscribe(data => {
 
         this.router.navigateByUrl(`post/${this.post.id}`);
       }, err => {
@@ -176,25 +185,25 @@ export class CrearPostComponent implements OnInit {
         this.errors = err.error.message;
       }
       );
-   
+
     }
 
-   
+
   }
 
 
   // Funcion para controlar que el número de caracteres no sobrepase la capacidad permitida
-  controlarCaracteres(contenido: string){
+  controlarCaracteres(contenido: string) {
     this.caracRestantes = 1024 - contenido.length
 
-    if(this.caracRestantes > 0){
+    if (this.caracRestantes > 0) {
       this.quedanCaracteres = true
-    }else{
+    } else {
       this.quedanCaracteres = false
-      this.caracSobrantes = -(1024 - contenido.length)
+      this.caracSobrantes = - (1024 - contenido.length)
       this.caracRestantes = 0
     }
-   
+
   }
 
 }
