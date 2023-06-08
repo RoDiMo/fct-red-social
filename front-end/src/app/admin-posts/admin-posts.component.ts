@@ -130,7 +130,7 @@ export class AdminPostsComponent {
       this.ordenarCampo = !this.ordenarCampo
 
     }
-    console.log(this.fecha_inicio, this.fecha_fin)
+
     // Nos traemos los posts ordenados en función del campo
     this._adminService.ordenarPosts(this.campoSeleccionado, this.valorBusqueda, this.fecha_inicio, this.fecha_fin).subscribe(data => {
       this.posts = data.results
@@ -169,10 +169,17 @@ export class AdminPostsComponent {
     })
 
     this._actualizarPost.modificarPost(id, this.postOcultado.value).subscribe(data => {
+
+      if (data.status == 200) {
+        this.guardarValorBusqueda();
+      }
+
+      /*
       setTimeout(() => {
         this.guardarValorBusqueda();
 
       }, 5)
+      */
     })
   }
 
@@ -191,10 +198,17 @@ export class AdminPostsComponent {
     })
 
     this._actualizarPost.modificarPost(id, this.postOcultado.value).subscribe(data => {
+
+      if (data.status == 200) {
+        this.guardarValorBusqueda();
+      }
+
+      /*
       setTimeout(() => {
         this.guardarValorBusqueda();
 
       }, 5)
+      */
     })
   }
 

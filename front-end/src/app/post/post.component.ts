@@ -134,10 +134,17 @@ export class PostComponent implements OnInit {
       formData.append('imagen', file);
 
       this._postService.modificarPost(this.posts[0].id, formData).subscribe(data => {
-        setTimeout(() => {
+        console.log(data.status)
+
+        if (data.status == 200) {
           this.obtenerPost();
           this.gestionarUsuarios();
-        }, 5)
+        }
+
+        /*setTimeout(() => {
+          this.obtenerPost();
+          this.gestionarUsuarios();
+        }, 5)*/
       })
     }
   }
@@ -272,13 +279,20 @@ export class PostComponent implements OnInit {
   // Crea un nuevo comentario con los valores introducidos al fomrulario
   nuevoComentario() {
 
-    this._comentarioService.nuevoComentario(this.formularioComent.value).subscribe();
-    //const id = this.activatedRoute.snapshot.paramMap.get('id');
+    this._comentarioService.nuevoComentario(this.formularioComent.value).subscribe(comentario => {
+     console.log(comentario.status)
+      if (comentario.status == 201) {
+        this.ngOnInit()
+        this.formularioComent.reset(); 
+      }
+    });
+
+    /*
     setTimeout(() => {
       this.ngOnInit()
       this.formularioComent.reset();
     }, 200);
-
+    */
   }
 
 
@@ -287,12 +301,19 @@ export class PostComponent implements OnInit {
   }
 
   eliminarComentario(id:string){
-    this._comentarioService.eliminarComentario(id).subscribe();
+    this._comentarioService.eliminarComentario(id).subscribe(comentario => {
 
+      console.log(comentario.status)
+      if (comentario.status == 204) {
+        this.ngOnInit()
+      }
+    });
+
+    /*
     setTimeout(() => {
       this.ngOnInit()
     }, 200);
-
+    */
   }
 
   //Obtenemos el numero de comentarios del post y lo añadimos a su respectivo campo en la base de datos
@@ -369,11 +390,16 @@ export class PostComponent implements OnInit {
 
       this._postService.modificarPost(this.posts[0].id, this.formularioPost.value).subscribe(data => {
 
+        if (data.status == 200) {
+          this.obtenerPost();
+          this.gestionarUsuarios();
+        }
+        /*
         setTimeout(() => {
           this.obtenerPost();
           this.gestionarUsuarios();
         }, 5)
-
+        */
       })
     })
   }
@@ -422,10 +448,16 @@ export class PostComponent implements OnInit {
       // Modificamnos el post con el número de visitas y nos traemos los datos actualizados
       this._postService.modificarPost(this.posts[0].id, this.formularioVisitas.value).subscribe(data => {
 
+        if (data.status == 200) {
+          this.obtenerPost();
+          this.gestionarUsuarios();
+        }
+        /*
         setTimeout(() => {
           this.obtenerPost();
           this.gestionarUsuarios();
         }, 5)
+        */
 
       })
     });

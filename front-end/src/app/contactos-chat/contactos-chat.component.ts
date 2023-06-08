@@ -64,7 +64,7 @@ export class ContactosChatComponent {
     // Obtenemos las coincidencias del usuario registrado en la tabla Amigos
     this._amigosService.obtenerAmistades(this.usuarioRegistrado.id).subscribe(data => {
       this.usuariosAmigos = data.results
-      console.log(this.usuariosAmigos)
+
       for (let amigo of this.usuariosAmigos){
         this._chatService.obtenerMensajesNoLeidos(this.credenciales.id, amigo.datos_usuario_receptor.id).subscribe(numMensajes =>{
          

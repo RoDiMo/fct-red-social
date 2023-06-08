@@ -69,7 +69,6 @@ export class CrearPostComponent implements OnInit {
           usuario: this.post.usuario,
 
         });
-        console.log(this.formularioPost.get('contenido')?.value)
 
         this.controlarCaracteres(this.post.contenido)
         this.formularioPost.valueChanges.subscribe(data => {
@@ -146,9 +145,14 @@ export class CrearPostComponent implements OnInit {
     if (!this.modoEdicion) {
       this._postService.nuevoPost(this.formData).subscribe(data => {
 
+        if (data.status == 201) {
+          this.router.navigateByUrl(`/`);
+        }
+        /*
         setTimeout(() => {
           this.router.navigateByUrl(`/`);
         }, 50)
+        */
       }, err => {
         if (err instanceof HttpErrorResponse) {
           const ValidationErrors = err.error;
@@ -169,7 +173,9 @@ export class CrearPostComponent implements OnInit {
     } else {
       this._postService.modificarPost(this.post.id, this.formularioPost.value).subscribe(data => {
 
+        if (data.status == 200) {
         this.router.navigateByUrl(`post/${this.post.id}`);
+        }
       }, err => {
         if (err instanceof HttpErrorResponse) {
           const ValidationErrors = err.error;

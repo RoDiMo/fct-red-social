@@ -58,23 +58,23 @@ export class HomeComponent {
 
     setTimeout(() => {
       this.contenidoCargado = true;
-  
+
     }, 500);
   }
 
   // Enlace al post seleccionadp
-  enlacePost(id:String){
+  enlacePost(id: String) {
     this.router.navigateByUrl(`/post/${id}`)
   }
 
   // Funcion para obtener los todos  posts de los usuarios obviando los mios
-  obtenerPosts(){
+  obtenerPosts() {
 
     //this.contenidoCargado = false;
     this._paginaPrincipalService.getPostOrdenados(this.credencialesUsuario.id).subscribe(data => {
       this.posts = data;
       this.misPost = false;
-  
+
       // Obtenemos el usuario registrado además de comprobar si le ha dado like a los diferentes posts
       this.gestionarUsuarios();
     })
@@ -88,10 +88,10 @@ export class HomeComponent {
   }
 
   // Funcion para obtener solo mis posts
-  obtenerMisPost(){
+  obtenerMisPost() {
     //this.contenidoCargado = false;
 
-    this._postService.obtenerPostsUsuario(this.credencialesUsuario.id).subscribe(data =>{
+    this._postService.obtenerPostsUsuario(this.credencialesUsuario.id).subscribe(data => {
       this.posts = data.results;
       this.misPost = true;
 
@@ -99,10 +99,10 @@ export class HomeComponent {
       this.gestionarUsuarios();
     })
 
-   /* setTimeout(() => {
-      this.contenidoCargado = true;
-  
-    }, 500);*/
+    /* setTimeout(() => {
+       this.contenidoCargado = true;
+   
+     }, 500);*/
   }
 
   // -------- GESTION DE USUARIOS --------
@@ -242,15 +242,23 @@ export class HomeComponent {
 
       this._postService.modificarPost(this.post[0].id, this.formularioPost.value).subscribe(data => {
 
-        setTimeout(() => {
-          if(!this.misPost){
+        if (data.status == 200) {
+          if (!this.misPost) {
             this.obtenerPosts()
-          }else{
+          } else {
+            this.obtenerMisPost()
+          }
+        }
+        /*
+        setTimeout(() => {
+          if (!this.misPost) {
+            this.obtenerPosts()
+          } else {
             this.obtenerMisPost()
           }
           //this.ngOnInit()
         }, 5)
-
+        */
       })
     })
   }

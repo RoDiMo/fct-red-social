@@ -22,7 +22,7 @@ export class PerfilUsuarioService {
 
   
   editarDatosPerfil(id:string, usuario:any) : Observable<any>{
-    return this.http.put<any>(this.url+`${id}/`, usuario)
+    return this.http.put<any>(this.url+`${id}/`, usuario, { observe: 'response' })
   }
 
   //Obtenemos los datos de los usuario que están chateando

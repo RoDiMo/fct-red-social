@@ -312,8 +312,6 @@ hr{
 
 
 
-
-
 /* PERFIL PERSONAL */
 
 .enlace-cabecera{
@@ -333,6 +331,43 @@ hr{
   display: flex;
 }
 
+/*Cambiar foto Perfil*/
+
+.foto_perfil{
+  position:relative ;
+  
+}
+
+.foto_perfil img{
+  width: 175px; height: 175px;
+}
+
+
+.foto_perfil img:hover{
+
+  cursor: pointer;
+}
+
+.foto_perfil:hover .icono_camara{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+
+
+.foto_perfil .icono_camara{
+  display: none;
+  background-color: rgba(0, 0, 0, 0.317);
+  width: 175px; height: 175px;
+  position:absolute;
+  top: 0px;
+  left: 0px;
+  font-size: 50px;
+  color: #cacaca;
+}
+
 
 
 .cabecera{
@@ -343,6 +378,4 @@ z-index: 12;
 .chat{
   width: 1000px;
   z-index: 5;
-
-
 }

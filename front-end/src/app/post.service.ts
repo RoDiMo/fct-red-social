@@ -31,12 +31,12 @@ export class PostService {
   }
 
   nuevoPost(post: any): Observable<any>{
-    return this.http.post<any>(this.url, post)
+    return this.http.post<any>(this.url, post,  { observe: 'response' })
   }
 
   
   modificarPost(id:string ,post: any): Observable<any>{
-    return this.http.put<any>(this.url+`${id}/`, post)
+    return this.http.put<any>(this.url+`${id}/`, post, { observe: 'response' })
   }
 
 

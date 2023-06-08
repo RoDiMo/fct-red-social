@@ -102,13 +102,20 @@ export class ChatComponent {
       mensaje: this.formularioChat.get('mensaje')?.value
     })
 
-    this._chatService.nuevoMensaje(this.formularioChat.value).subscribe()
+    this._chatService.nuevoMensaje(this.formularioChat.value).subscribe(mensaje =>{
+      if (mensaje.status == 201) {
+        this.ngOnInit()
+        this.formularioChat.reset();
+      }
+    })
 
     // Reinicia los valores del formulario
+    /*
     setTimeout(() => {
       this.ngOnInit()
       this.formularioChat.reset();
     }, 200);
+    */
   }
 
 

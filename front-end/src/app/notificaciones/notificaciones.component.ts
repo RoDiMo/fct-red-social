@@ -70,13 +70,16 @@ export class NotificacionesComponent {
       this.notificacionActualizada[0].procesada = true
 
       // Actualizamos la notificacion a procesada
-      this._notificacionesService.actualizarNotificacion(idNotificacion, this.notificacionActualizada[0]).subscribe()
-
-
+      this._notificacionesService.actualizarNotificacion(idNotificacion, this.notificacionActualizada[0]).subscribe(notificacion =>{
+        if (notificacion.status == 200) {
+          window.location.reload()
+        }
+      })
+      /*
       setTimeout(() => {
         window.location.reload()
       }, 50)
-
+      */
     })
   }
 
@@ -91,12 +94,20 @@ export class NotificacionesComponent {
       this.notificacionActualizada[0].procesada = true
 
       // Actualizamos la notificacion a procesada
-      this._notificacionesService.actualizarNotificacion(idNotificacion, this.notificacionActualizada[0]).subscribe()
-
-
+      this._notificacionesService.actualizarNotificacion(idNotificacion, this.notificacionActualizada[0]).subscribe(notificacion=>{
+        if (notificacion.status == 200) {
+          window.location.reload()
+        }
+  
+      /*
       setTimeout(() => {
         window.location.reload()
       }, 50)
+      */
+      })
+
+
+
 
 
     })

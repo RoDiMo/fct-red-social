@@ -42,13 +42,31 @@
 
             <!-- Foto Perfil y cambiar contraseña -->
             <div class="col-12 col-md-4 border-end text-center border-bottom">
-                <div class="py-4">
-                    <img *ngIf="datosUsuario?.foto_perfil" class="border border-black  rounded-circle"
-                        src={{datosUsuario?.foto_perfil}} style="width: 175px; height: 175px; " alt="">
+                <div class="py-4 ">
+                    <label *ngIf="datosUsuario?.foto_perfil" for="file-input" class=" border border-black  rounded-circle foto_perfil">
 
-                    <img *ngIf="!datosUsuario?.foto_perfil" class="border border-black rounded-circle"
-                        src="https://bootdey.com/img/Content/avatar/avatar7.png" style="width: 175px; height: 175px;"
-                        alt="">
+                        <img  class="border border-black  rounded-circle"
+                            src={{datosUsuario?.foto_perfil}} alt="">
+                        <span class="material-symbols-outlined icono_camara rounded-circle" style=" font-size: 35px;">
+                            add_a_photo
+                        </span>
+                    </label>
+                    <label *ngIf="!datosUsuario?.foto_perfil"  for="file-input foto_perfil">
+                        <img class="border border-black rounded-circle"
+                            src="https://bootdey.com/img/Content/avatar/avatar7.png"
+                            style="width: 175px; height: 175px;" alt="">
+
+                        <span class="material-symbols-outlined icono_camara rounded-circle" style=" font-size: 35px;">
+                            add_a_photo
+                        </span>
+
+                    </label>
+
+                    <input type="file" id="file-input" name="imagen" required (change)="onFileSelected($event)"
+                        class="mb-3 mb-lg-0 d-none">
+
+
+
                 </div>
 
                 <div class="py-3">
@@ -60,7 +78,7 @@
                 </div>
 
             </div>
-            
+
             <!-- Datos personales -->
             <div class="col-12 col-md-8">
 

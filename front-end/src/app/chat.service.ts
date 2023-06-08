@@ -31,7 +31,7 @@ export class ChatService {
   }
 
   nuevoMensaje(mensaje:any):  Observable<any>{
-    return this.http.post<any>(this.url, mensaje)
+    return this.http.post<any>(this.url, mensaje, { observe: 'response' })
   }
 
 }

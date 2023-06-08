@@ -163,9 +163,17 @@ export class AdminUsuariosComponent {
     })
 
     this._editarUsuario.editarDatosPerfil(id, this.usuarioModerador.value).subscribe(data => {
+      
+      if (data.status == 200) {
+        this.guardarValorBusqueda();
+      }
+
+      /*
       setTimeout(() => {
         this.guardarValorBusqueda();
+
       }, 5)
+      */
     })
 
   }
@@ -181,10 +189,16 @@ export class AdminUsuariosComponent {
     })
 
     this._editarUsuario.editarDatosPerfil(id, this.usuarioModerador.value).subscribe(data => {
+      if (data.status == 200) {
+        this.guardarValorBusqueda();
+      }
+
+      /*
       setTimeout(() => {
         this.guardarValorBusqueda();
 
       }, 5)
+      */
 
     })
   }

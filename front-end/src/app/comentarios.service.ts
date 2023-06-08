@@ -34,7 +34,7 @@ export class ComentariosService {
 
   // Crea un nuevo comentario
   nuevoComentario(comentario: any): Observable<any>{
-    return this.http.post<any>(this.url, comentario)
+    return this.http.post<any>(this.url, comentario,{ observe: 'response' })
   }
 
 
@@ -44,7 +44,7 @@ export class ComentariosService {
 
   // Elimina un comentario
   eliminarComentario(id:string): Observable<any>{
-    return this.http.delete<any>(this.url+`${id}/`)
+    return this.http.delete<any>(this.url+`${id}/`, { observe: 'response' })
   }
 
 } 

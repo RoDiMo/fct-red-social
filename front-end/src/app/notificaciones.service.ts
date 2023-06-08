@@ -38,6 +38,6 @@ export class NotificacionesService {
 
   actualizarNotificacion(idNotificacion: any, notificacion: any): Observable<any> {
     console.log(notificacion)
-    return this.http.put(this.url+`${idNotificacion}/`, notificacion);
+    return this.http.put(this.url+`${idNotificacion}/`, notificacion,  { observe: 'response' });
   }
 }
