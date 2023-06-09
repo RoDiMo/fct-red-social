@@ -106,7 +106,6 @@ class Amigos(models.Model):
             )
         ]
 
-
 class NotificacionesAmistad(models.Model):
     usuario_origen = models.ForeignKey(Usuarios, related_name="usuario_origen", on_delete=models.RESTRICT)
     usuario_destino = models.ForeignKey(Usuarios, related_name="usuario_destino", on_delete=models.RESTRICT)

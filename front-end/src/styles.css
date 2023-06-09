@@ -3,173 +3,214 @@
 
 /* GENERALES */
 
-.cursor{
-    cursor: pointer;
+.cursor {
+  cursor: pointer;
+}
+
+.contenedor_titulo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 
-/* COMPONENTE AMIGOS */
+.cabecera {
+  z-index: 12;
+}
+
+.chat {
+  width: 1000px;
+  z-index: 5;
+}
+
+
+
+
+
+/* AMIGOS */
 
 .card_amigos {
 
-    width: 400px;
-    border-radius: 50px;
-    background: #eeeeee;
-    box-shadow: 5px 5px 40px #cacaca,
-        -5px -5px 40px #ffffff;
-    border: none;
+  width: 400px;
+  border-radius: 50px;
+  background: #eeeeee;
+  box-shadow: 5px 5px 40px #cacaca,
+    -5px -5px 40px #ffffff;
+  border: none;
 
 }
 
 .neo-button {
-    width: 40px;
-    height: 40px;
-    outline: 0 !important;
-    cursor: pointer;
-    color: red;
-    font-size: 15px;
-    border: none;
-    margin-right: 10px;
-    border-radius: 50%;
-    background: linear-gradient(145deg, #d6d6d6, #ffffff);
-    box-shadow: 20px 20px 60px #cacaca,
-        -20px -20px 60px #ffffff;
+  width: 40px;
+  height: 40px;
+  outline: 0 !important;
+  cursor: pointer;
+  color: red;
+  font-size: 15px;
+  border: none;
+  margin-right: 10px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #d6d6d6, #ffffff);
+  box-shadow: 20px 20px 60px #cacaca,
+    -20px -20px 60px #ffffff;
 }
 
 .neo-button:active {
-    border-radius: 50%;
-    background: linear-gradient(145deg, #d6d6d6, #ffffff);
-    box-shadow: inset 20px 20px 60px #cacaca,
-        inset -20px -20px 60px #ffffff;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #d6d6d6, #ffffff);
+  box-shadow: inset 20px 20px 60px #cacaca,
+    inset -20px -20px 60px #ffffff;
 }
 
 
 /* CARGA DE LA PAGINA */
-.animacion{
+.animacion {
   text-align: center;
 }
 
 
 .lds-roller {
-    display: flex;
-    position: relative;
-    width: 100%;
-    height: 80px;
-    
-    margin-top: 50px;
-    margin-left: -45px;
-    margin-bottom: 20px;
-    justify-content: center;
+  display: flex;
+  position: relative;
+  width: 100%;
+  height: 80px;
+
+  margin-top: 50px;
+  margin-left: -45px;
+  margin-bottom: 20px;
+  justify-content: center;
+}
+
+.lds-roller div {
+  animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  transform-origin: 40px 40px;
+}
+
+.lds-roller div:after {
+  content: " ";
+  display: block;
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: red;
+  margin: -4px 0 0 -4px;
+}
+
+.lds-roller div:nth-child(1) {
+  animation-delay: -0.036s;
+}
+
+.lds-roller div:nth-child(1):after {
+  top: 63px;
+  left: 63px;
+}
+
+.lds-roller div:nth-child(2) {
+  animation-delay: -0.072s;
+}
+
+.lds-roller div:nth-child(2):after {
+  top: 68px;
+  left: 56px;
+}
+
+.lds-roller div:nth-child(3) {
+  animation-delay: -0.108s;
+}
+
+.lds-roller div:nth-child(3):after {
+  top: 71px;
+  left: 48px;
+}
+
+.lds-roller div:nth-child(4) {
+  animation-delay: -0.144s;
+}
+
+.lds-roller div:nth-child(4):after {
+  top: 72px;
+  left: 40px;
+}
+
+.lds-roller div:nth-child(5) {
+  animation-delay: -0.18s;
+}
+
+.lds-roller div:nth-child(5):after {
+  top: 71px;
+  left: 32px;
+}
+
+.lds-roller div:nth-child(6) {
+  animation-delay: -0.216s;
+}
+
+.lds-roller div:nth-child(6):after {
+  top: 68px;
+  left: 24px;
+}
+
+.lds-roller div:nth-child(7) {
+  animation-delay: -0.252s;
+}
+
+.lds-roller div:nth-child(7):after {
+  top: 63px;
+  left: 17px;
+}
+
+.lds-roller div:nth-child(8) {
+  animation-delay: -0.288s;
+}
+
+.lds-roller div:nth-child(8):after {
+  top: 56px;
+  left: 12px;
+}
+
+@keyframes lds-roller {
+  0% {
+    transform: rotate(0deg);
   }
-  .lds-roller div {
-    animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-    transform-origin: 40px 40px;
+
+  100% {
+    transform: rotate(360deg);
   }
-  .lds-roller div:after {
-    content: " ";
-    display: block;
-    position: absolute;
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: red;
-    margin: -4px 0 0 -4px;
-  }
-  .lds-roller div:nth-child(1) {
-    animation-delay: -0.036s;
-  }
-  .lds-roller div:nth-child(1):after {
-    top: 63px;
-    left: 63px;
-  }
-  .lds-roller div:nth-child(2) {
-    animation-delay: -0.072s;
-  }
-  .lds-roller div:nth-child(2):after {
-    top: 68px;
-    left: 56px;
-  }
-  .lds-roller div:nth-child(3) {
-    animation-delay: -0.108s;
-  }
-  .lds-roller div:nth-child(3):after {
-    top: 71px;
-    left: 48px;
-  }
-  .lds-roller div:nth-child(4) {
-    animation-delay: -0.144s;
-  }
-  .lds-roller div:nth-child(4):after {
-    top: 72px;
-    left: 40px;
-  }
-  .lds-roller div:nth-child(5) {
-    animation-delay: -0.18s;
-  }
-  .lds-roller div:nth-child(5):after {
-    top: 71px;
-    left: 32px;
-  }
-  .lds-roller div:nth-child(6) {
-    animation-delay: -0.216s;
-  }
-  .lds-roller div:nth-child(6):after {
-    top: 68px;
-    left: 24px;
-  }
-  .lds-roller div:nth-child(7) {
-    animation-delay: -0.252s;
-  }
-  .lds-roller div:nth-child(7):after {
-    top: 63px;
-    left: 17px;
-  }
-  .lds-roller div:nth-child(8) {
-    animation-delay: -0.288s;
-  }
-  .lds-roller div:nth-child(8):after {
-    top: 56px;
-    left: 12px;
-  }
-  @keyframes lds-roller {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
+}
 
 
 
 
 
 /** ANIMACIONES */
-  .slides {
-    display: inline-block;
+.slides {
+  display: inline-block;
 
-  
-    animation: slideInDown; /* referring directly to the animation's @keyframe declaration */
-    animation-duration: 0.5s; /* don't forget to set a duration! */
-  }
-  
+
+  animation: slideInDown;
+  /* referring directly to the animation's @keyframe declaration */
+  animation-duration: 0.5s;
+  /* don't forget to set a duration! */
+}
+
 
 .fadeIn {
   display: inline-block;
 
-  animation: fadeIn; /* referring directly to the animation's @keyframe declaration */
-  animation-duration: 0.5s; /* don't forget to set a duration! */
+  animation: fadeIn;
+  /* referring directly to the animation's @keyframe declaration */
+  animation-duration: 0.5s;
+  /* don't forget to set a duration! */
 }
 
 
 /* CABECERA */
-.icono-cabecera {
- 
-}
 
 
-.texto-cabecera{
- 
+
+.texto-cabecera {
+
   font-size: 26px;
 }
 
@@ -177,13 +218,12 @@
 /* Num notificaciones */
 
 .button {
-  
-  display: inline-block; /* Inline elements with width and height. TL;DR they make the icon buttons stack from left-to-right instead of top-to-bottom */
-  position: relative; /* All 'absolute'ly positioned elements are relative to this one */
-  padding: 2px 5px; /* Add some padding so it looks nice */
+
+  display: inline-block;
+  padding: 2px 5px;
 }
 
-/* Make the badge float in the top right corner of the button */
+
 .button__badge {
   background-color: #fa3e3e;
   border-radius: 20px;
@@ -193,15 +233,19 @@
   font-size: 15px;
   width: 25px;
   text-align: center;
-  
-  position: absolute; /* Position the badge within the relatively positioned button */
+
+  position: absolute;
+  /* Position the badge within the relatively positioned button */
   top: 0;
   right: 0;
 }
 
 
 
-.enlace-cabecera{
+
+
+
+.enlace-cabecera {
   color: black;
   margin-bottom: 30px;
   margin-left: 10px;
@@ -210,7 +254,7 @@
 }
 
 
-.enlace-cabecera-seleccionado{
+.enlace-cabecera-seleccionado {
   color: red;
   margin-bottom: 30px;
   margin-left: 10px;
@@ -220,33 +264,33 @@
 
 
 
-.nueva-publicacion{
+.nueva-publicacion {
   margin-right: 20px;
   display: flex;
 
 }
 
-.logout{
+.logout {
   color: black;
   margin-left: 10px;
   justify-content: center;
   display: flex;
 }
 
-.logout-datos{
+.logout-datos {
   display: flex;
   flex-direction: column;
-  
+
   margin-left: 10px;
   text-align: center;
 }
 
 
-.logout-datos *{
+.logout-datos * {
   margin-bottom: 10px;
 }
 
-hr{
+hr {
   color: black;
   border: solid;
   display: flex;
@@ -255,20 +299,14 @@ hr{
 }
 
 
-
-
-#menu{
-
-}
-
 /* PAGINA PRINCIPAL */
 
 /* Post */
-.Post{
+.Post {
   border-radius: 2%;
   background: #eeeeee;
   box-shadow: 5px 5px 5px #cacaca,
-      -5px -5px 5px #ffffff;
+    -5px -5px 5px #ffffff;
   border: none;
 }
 
@@ -277,36 +315,36 @@ hr{
   transition-duration: 0.5s;
 }
 
-.enlaces{
+.enlaces {
   height: 100px;
 }
 
-.enlace_izquierdo{
+.enlace_izquierdo {
   padding-top: 15px;
-  border-right:solid rgb(185, 185, 185);
+  border-right: solid rgb(185, 185, 185);
   border-bottom: solid;
 
 }
 
-.enlace_izquierdo_marcado{
+.enlace_izquierdo_marcado {
   padding-top: 15px;
-  border-right:solid rgb(185, 185, 185);
-  -webkit-box-shadow: 0px 5px 0px 0px rgba(247,5,69,1);
-  -moz-box-shadow: 0px 5px 0px 0px rgba(247,5,69,1);
-  box-shadow: 0px 5px 0px 0px rgba(247,5,69,1);
+  border-right: solid rgb(185, 185, 185);
+  -webkit-box-shadow: 0px 5px 0px 0px rgba(247, 5, 69, 1);
+  -moz-box-shadow: 0px 5px 0px 0px rgba(247, 5, 69, 1);
+  box-shadow: 0px 5px 0px 0px rgba(247, 5, 69, 1);
 }
 
-.enlace_derecho{
+.enlace_derecho {
   padding-top: 15px;
   border-bottom: solid;
 }
 
-.enlace_derecho_marcado{
+.enlace_derecho_marcado {
   padding-top: 15px;
   border-bottom: solid;
-  -webkit-box-shadow: 0px 5px 0px 0px rgba(247,5,69,1);
-  -moz-box-shadow: 0px 5px 0px 0px rgba(247,5,69,1);
-  box-shadow: 0px 5px 0px 0px rgba(247,5,69,1);
+  -webkit-box-shadow: 0px 5px 0px 0px rgba(247, 5, 69, 1);
+  -moz-box-shadow: 0px 5px 0px 0px rgba(247, 5, 69, 1);
+  box-shadow: 0px 5px 0px 0px rgba(247, 5, 69, 1);
 }
 
 
@@ -314,7 +352,7 @@ hr{
 
 /* PERFIL PERSONAL */
 
-.enlace-cabecera{
+.enlace-cabecera {
   color: black;
   margin-bottom: 30px;
   margin-left: 10px;
@@ -323,7 +361,7 @@ hr{
 }
 
 
-.enlace-cabecera-seleccionado{
+.enlace-cabecera-seleccionado {
   color: red;
   margin-bottom: 30px;
   margin-left: 10px;
@@ -333,22 +371,21 @@ hr{
 
 /*Cambiar foto Perfil*/
 
-.foto_perfil{
-  position:relative ;
-  
+.foto_perfil {
+  position: relative;
 }
 
-.foto_perfil img{
-  width: 175px; height: 175px;
+.foto_perfil img {
+  width: 175px;
+  height: 175px;
 }
 
-
-.foto_perfil img:hover{
+.foto_perfil img:hover {
 
   cursor: pointer;
 }
 
-.foto_perfil:hover .icono_camara{
+.foto_perfil:hover .icono_camara {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -357,11 +394,12 @@ hr{
 
 
 
-.foto_perfil .icono_camara{
+.foto_perfil .icono_camara {
   display: none;
   background-color: rgba(0, 0, 0, 0.317);
-  width: 175px; height: 175px;
-  position:absolute;
+  width: 175px;
+  height: 175px;
+  position: absolute;
   top: 0px;
   left: 0px;
   font-size: 50px;
@@ -369,13 +407,122 @@ hr{
 }
 
 
+/*DETALLES POST*/
 
-.cabecera{
+.texto_comentario {
 
-z-index: 12;
+  padding: 5px;
 }
 
-.chat{
-  width: 1000px;
-  z-index: 5;
+
+.foto_post {
+  position: relative;
+}
+
+
+.foto_post img:hover {
+
+  cursor: pointer;
+}
+
+.foto_post:hover .icono_camara {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.foto_post {
+  position: relative;
+
+}
+
+.foto_post .icono_camara {
+  display: none;
+  background-color: rgba(0, 0, 0, 0.317);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  color: #cacaca;
+}
+
+#boton_editar_post {
+  background-color: #fa3e3e;
+  border-radius: 20px;
+  color: white;
+  padding: 10px;
+  margin-right: -15px;
+
+  text-align: center;
+  position: absolute;
+  /* Position the badge within the relatively positioned button */
+  top: 95%;
+  right: 0;
+  z-index: 20;
+}
+
+#boton_editar_post:hover {
+  cursor: pointer;
+}
+
+
+
+/*RESPONSIVE*/
+
+@media screen and (max-width: 768px) {
+  /* Estilos para pantallas con un ancho máximo de 768px o menos */
+
+  .contenedor_titulo {
+    padding-left: 5px;
+    height: 50%;
+  }
+
+  .titulo {
+    padding-left: 10px;
+    font-size: 13px;
+  }
+
+  .texto_post {
+    font-size: 8px;
+  }
+
+  .iconos {
+    font-size: 12px;
+  }
+
+
+  /*DETALLES POST RESPONSIVE*/
+
+  #boton_post {
+    font-size: 8px;
+
+  }
+
+  .titulo_comentarios {
+    font-size: 14px;
+  }
+
+  .fecha_comentario {
+    font-size: 12px;
+  }
+
+  .texto_comentario {
+    font-size: 12px;
+  }
+
+
+  #boton_editar_post {
+    top: 90%;
+    padding: 7px;
+    font-size: 15px;
+  }
+
+
+  /*PERFIL PERSONAL RESPONSIVE*/
+  .titulo_perfil {
+
+    font-size: 13px;
+  }
 }

@@ -19,23 +19,23 @@
         <span class="animacion_texto">Cargando</span>
     </div>
 
-    <div *ngIf="contenidoCargado" class="col-12 pe-5 pe-xl-0 col-xl-7 border fadeIn">
+    <div *ngIf="contenidoCargado" class="col-11 pe-5 pe-xl-0 col-xl-7 border fadeIn">
 
 
 
         <div class=" d-flex enlaces">
 
-            <div class="col-4 d-flex justify-content-center enlace_izquierdo" routerLink="/perfil-personal"
-                style="cursor: pointer;">
-                <h2>Datos personales</h2>
+            <div class="col-4 d-flex justify-content-center enlace_izquierdo contenedor_titulo"
+                routerLink="/perfil-personal" style="cursor: pointer;">
+                <h2 class="titulo_perfil">Datos personales</h2>
             </div>
-            <div class="col-4 d-flex justify-content-center enlace_izquierdo" routerLink="/amigos"
+            <div class="col-4 d-flex justify-content-center enlace_izquierdo contenedor_titulo" routerLink="/amigos"
                 style="cursor: pointer;">
-                <h2>Amigos</h2>
+                <h2 class="titulo_perfil">Amigos</h2>
             </div>
-            <div class="col-4 d-flex justify-content-center enlace_derecho_marcado "
+            <div class="col-4 d-flex justify-content-center enlace_derecho_marcado contenedor_titulo"
                 routerLink="/perfil-personal-estadisticas" style="cursor: pointer;">
-                <h2>Estadísticas</h2>
+                <h2 class="titulo_perfil">Estadísticas</h2>
             </div>
         </div>
 
@@ -69,7 +69,7 @@
             </div>
         </div>
 
-       
+
 
         <!-- Estadisticas de los Posts -->
         <div class="d-flex justify-content-center ">
@@ -79,37 +79,38 @@
         </div>
         <hr>
 
-        <div class="d-flex justify-content-center   py-5">
-            <div class="row">
-                <div *ngFor="let postViews of postsMasViews" class="card col-6 mx-5 mb-5" style="width: 18rem;">
-                    <img *ngIf="postViews.imagen" class="card-img-top" src="{{postViews.imagen}}" alt="Card image cap">
-                    <img *ngIf="!postViews.imagen" class="card-img-top" src="../../assets/imagen_default.jpg" alt="Card image cap">
-                    <div class="card-body">
-                        <h3 class="card-text">{{postViews.titulo}}</h3>
-                        <hr>
-                        <div class="row d-flex justify-content-end">
-                            <!-- Visitas -->
-                            <div class=" col-4">
-                                <span class="material-symbols-outlined"> visibility </span>
-                                <span>{{postViews.num_visitas}}</span>
-                            </div>
-                            <!-- Likes -->
-                            <div class=" col-4">
-                                <span class="material-symbols-outlined"> favorite </span>
-                                <span>{{postViews.num_likes}}</span>
-                            </div>
 
-                            <!-- Mensajes -->
-                            <div class=" col-4">
-                                <span class="material-symbols-outlined"> comment </span>
-                                <span>3</span>
-                            </div>
+        <div class="row d-flex justify-content-center pe-4 ps-xl-4">
+            <div *ngFor="let postViews of postsMasViews" class="card col-10 col-xl-5 ms-3 mt-3" >
+                <img *ngIf="postViews.imagen" class="card-img-top" src="{{postViews.imagen}}" alt="Card image cap">
+                <img *ngIf="!postViews.imagen" class="card-img-top" src="../../assets/imagen_default.jpg"
+                    alt="Card image cap">
+                <div class="card-body">
+                    <h3 class="card-text">{{postViews.titulo}}</h3>
+                    <hr>
+                    <div class="row d-flex justify-content-end">
+                        <!-- Visitas -->
+                        <div class=" col-4">
+                            <span class="material-symbols-outlined"> visibility </span>
+                            <span>{{postViews.num_visitas}}</span>
+                        </div>
+                        <!-- Likes -->
+                        <div class=" col-4">
+                            <span class="material-symbols-outlined"> favorite </span>
+                            <span>{{postViews.num_likes}}</span>
+                        </div>
+
+                        <!-- Mensajes -->
+                        <div class=" col-4">
+                            <span class="material-symbols-outlined"> comment </span>
+                            <span>3</span>
                         </div>
                     </div>
-
                 </div>
+
             </div>
         </div>
+
 
 
         <hr>
@@ -119,33 +120,34 @@
             </div>
         </div>
         <hr>
-        <div class="d-flex justify-content-center   py-5">
-            <div class="row">
-                <div *ngFor="let postLikes of postMasLikes" class="card col-6 mx-5 mb-5" style="width: 18rem;">
-                    <img *ngIf="postLikes.imagen" class="card-img-top" src="{{postLikes.imagen}}" alt="Card image cap">
-                    <img *ngIf="!postLikes.imagen" class="card-img-top" src="../../assets/imagen_default.jpg" alt="Card image cap">
-                    <div class="card-body">
-                        <h3 class="card-text">{{postLikes.titulo}}</h3>
-                        <hr>
-                        <div class="row d-flex justify-content-end">
-                            <!-- Visitas -->
-                            <div class=" col-4">
-                                <span class="material-symbols-outlined"> visibility </span>
-                                <span>{{postLikes.num_visitas}}</span>
-                            </div>
-                            <!-- Likes -->
-                            <div class=" col-4">
-                                <span class="material-symbols-outlined"> favorite </span>
-                                <span>{{postLikes.num_likes}}</span>
-                            </div>
 
-                            <!-- Mensajes -->
-                            <div class=" col-4">
-                                <span class="material-symbols-outlined"> comment </span>
-                                <span>3</span>
-                            </div>
+        <div class="row d-flex justify-content-center pe-4 ps-xl-4">
+            <div *ngFor="let postLikes of postMasLikes" class="card col-10 col-xl-5 ms-3 mt-3 ">
+                <img *ngIf="postLikes.imagen" class="card-img-top" src="{{postLikes.imagen}}" alt="Card image cap">
+                <img *ngIf="!postLikes.imagen" class="card-img-top" src="../../assets/imagen_default.jpg"
+                    alt="Card image cap">
+                <div class="card-body">
+                    <h3 class="card-text">{{postLikes.titulo}}</h3>
+                    <hr>
+                    <div class="row d-flex justify-content-end">
+                        <!-- Visitas -->
+                        <div class=" col-4">
+                            <span class="material-symbols-outlined"> visibility </span>
+                            <span>{{postLikes.num_visitas}}</span>
+                        </div>
+                        <!-- Likes -->
+                        <div class=" col-4">
+                            <span class="material-symbols-outlined"> favorite </span>
+                            <span>{{postLikes.num_likes}}</span>
+                        </div>
+
+                        <!-- Mensajes -->
+                        <div class=" col-4">
+                            <span class="material-symbols-outlined"> comment </span>
+                            <span>3</span>
                         </div>
                     </div>
+
 
                 </div>
             </div>

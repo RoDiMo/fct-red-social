@@ -21,15 +21,15 @@
             <span class="animacion_texto">Cargando</span>
         </div>
 
-        <div *ngIf="contenidoCargado" class="col-12 pe-5 pe-xl-0 col-xl-7 border fadeIn">
+        <div *ngIf="contenidoCargado" class="col-11 pe-5 pe-xl-0 col-xl-7 border fadeIn">
 
             <div class=" d-flex enlaces">
 
-                <div class="col-6 d-flex justify-content-center enlace_izquierdo_marcado" routerLink="/perfil-usuario/{{id}}"  style="cursor: pointer;">
-                    <h2>Datos personales</h2>
+                <div class="col-6 d-flex justify-content-center enlace_izquierdo_marcado contenedor_titulo" routerLink="/perfil-usuario/{{id}}"  style="cursor: pointer;">
+                    <h2 class="titulo_perfil">Datos personales</h2>
                 </div>
-                <div class="col-6 pt-3 d-flex justify-content-center enlace_derecho" routerLink="/perfil-usuario-publicaciones/{{id}}"  style="cursor: pointer;">
-                    <h2>Publicaciones</h2>
+                <div class="col-6 pt-3 d-flex justify-content-center enlace_derecho contenedor_titulo" routerLink="/perfil-usuario-publicaciones/{{id}}"  style="cursor: pointer;">
+                    <h2 class="titulo_perfil">Publicaciones</h2>
                 </div>
             </div>
 

@@ -19,17 +19,17 @@
         <span class="animacion_texto">Cargando</span>
     </div>
 
-    <div *ngIf="contenidoCargado" class="col-12 pe-5 pe-xl-0 col-xl-7 border fadeIn">
+    <div *ngIf="contenidoCargado" class="col-11 pe-5 pe-xl-0 col-xl-7 border fadeIn">
 
 
         <!-- Cabecera -->
-        <div class=" d-flex enlaces">
+        <div class=" d-flex enlaces pe-1">
             <div
-                class="col-6 d-flex justify-content-center {{!misPost ? 'enlace_izquierdo_marcado' : 'enlace_izquierdo' }}">
-                <h1 style="cursor: pointer;" (click)="obtenerPosts()">Página principal</h1>
+                class="col-6  cursor contenedor_titulo {{!misPost ? 'enlace_izquierdo_marcado' : 'enlace_izquierdo' }}">
+                <h1 class="titulo" (click)="obtenerPosts()">Página principal</h1>
             </div>
-            <div class="col-6 d-flex justify-content-center {{misPost ? 'enlace_derecho_marcado' : 'enlace_derecho' }}">
-                <h1 style="cursor: pointer;" (click)="obtenerMisPost()">Mis publicaciones</h1>
+            <div class="col-6 d-flex justify-content-center cursor contenedor_titulo {{misPost ? 'enlace_derecho_marcado' : 'enlace_derecho' }}">
+                <h1 class="titulo" (click)="obtenerMisPost()">Mis publicaciones</h1>
             </div>
         </div>
 
@@ -37,12 +37,8 @@
 
 
         <!-- Cuerpo -->
-        <div class="pe-4 ps-xl-4">
+        <div class=" ps-xl-4">
             <div *ngFor="let post of posts" class="container pe-4  ">
-
-
-
-
                 <div class="col my-5 Post">
                     <div class="card">
                         <img src="{{post.imagen}}" class="card-img-top" alt="" style="cursor: pointer;"
@@ -72,14 +68,14 @@
                             <hr>
 
                             <h5 class="card-title">{{post.titulo}}</h5>
-                            <p class="card-text">
+                            <p class="card-text texto_post">
                                 {{post.contenido}}
                             </p>
                         </div>
                         <hr>
                         <div class="row  mb-3 ms-0 container">
 
-                            <div class="d-flex  justify-content-end">
+                            <div class="d-flex  justify-content-end iconos">
                                 <!-- Visitas -->
                                 <div class="col-4 col-lg-1">
                                     <span class="material-symbols-outlined"> visibility </span>
