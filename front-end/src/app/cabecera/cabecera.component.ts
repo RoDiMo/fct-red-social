@@ -29,7 +29,8 @@ export class CabeceraComponent {
     public _obtenerUsuarioService: AutenticacionUsuariosService,
     public _notificacionesService: NotificacionesService,
     private router: Router,
-    private location: Location
+    private location: Location,
+
   ) { }
 
 

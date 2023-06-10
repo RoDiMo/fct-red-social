@@ -27,8 +27,7 @@ import { ContactosChatComponent } from './contactos-chat/contactos-chat.componen
 import { ChatComponent } from './chat/chat.component';
 import { AdminPostsComponent } from './admin-posts/admin-posts.component';
 import { AdminUsuariosComponent } from './admin-usuarios/admin-usuarios.component';
-
-
+import { ContactosChatModalComponent } from './contactos-chat-modal/contactos-chat-modal.component';
 
 
 
@@ -56,6 +55,7 @@ import { AdminUsuariosComponent } from './admin-usuarios/admin-usuarios.componen
     ChatComponent,
     AdminPostsComponent,
     AdminUsuariosComponent,
+    ContactosChatModalComponent,
  
   ],
   imports: [
@@ -65,6 +65,8 @@ import { AdminUsuariosComponent } from './admin-usuarios/admin-usuarios.componen
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
+
+
     
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },],
