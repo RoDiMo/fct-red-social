@@ -33,9 +33,7 @@ export class ContactosChatComponent {
   ) { }
 
   ngOnInit() {
-
     this.gestionarUsuarios()
-    
   }
 
     /**

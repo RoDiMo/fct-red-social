@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { AmigosChat } from '../amigos/amigo';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-contactos-chat-modal',
@@ -7,5 +9,23 @@ import { Component } from '@angular/core';
   ]
 })
 export class ContactosChatModalComponent {
+  @Input() datosAmigos: Array<AmigosChat> = []
 
+
+  constructor(
+    public location: Location,
+  ) { }
+
+  ngOnInit() {
+    console.log(this.datosAmigos)
+  }
+
+      // Redirigimos a la id del usuario con el que queremos chatear
+      redirigirChat(idAmigo: string) {
+
+        this.location.replaceState(`/chat/${idAmigo}`)
+        location.reload();
+      }
+  
 }
+

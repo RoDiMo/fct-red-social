@@ -1,6 +1,5 @@
 
-<div
-  class="d-flex flex-column align-items-center justify-content-center align-items-sm-start px-3 pt-2 min-vh-100 sticky-top">
+<div class="d-flex flex-column align-items-centeralign-items-sm-start px-3 pt-2  sticky-top content scroll " [style.height.px]="altoVentana" >
 
 
 
@@ -13,6 +12,8 @@
     </li>
 
     <li *ngIf="datosUsuario != undefined" class="nav-item logout mx-0 " (click)="enlaceInicio()">
+
+
 
       <img *ngIf="datosUsuario.foto_perfil" style="width: 75px; height: 75px;"
         class="border border-black rounded-circle me-5 ms-2 d-none d-xl-inline texto-cabecera cursor"
@@ -90,6 +91,12 @@
 
     </li>
 
+    <li class="nav-item enlace-cabecera d-xl-none d-inline texto-cabecera cursor"  (click)="contactosChatModal()">
+
+      <span class="material-symbols-outlined icono-cabecera cursor" style=" font-size: 35px;"> comment </span>
+
+    </li>
+
     <hr class="mt-0">
 
     <li class="nav-item {{pagina == 'formulario-post' ? 'enlace-cabecera-seleccionado'  : 'enlace-cabecera'}} "
@@ -100,6 +107,9 @@
       <span class="material-symbols-outlined icono-cabecera cursor" style=" font-size: 35px;"> send </span>
 
     </li>
+
+
+    
   </ul>
 
 </div>

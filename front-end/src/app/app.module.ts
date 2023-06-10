@@ -28,6 +28,7 @@ import { ChatComponent } from './chat/chat.component';
 import { AdminPostsComponent } from './admin-posts/admin-posts.component';
 import { AdminUsuariosComponent } from './admin-usuarios/admin-usuarios.component';
 import { ContactosChatModalComponent } from './contactos-chat-modal/contactos-chat-modal.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -65,6 +66,7 @@ import { ContactosChatModalComponent } from './contactos-chat-modal/contactos-ch
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
+    NgbModule,
 
 
     

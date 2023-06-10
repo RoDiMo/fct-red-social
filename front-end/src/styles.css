@@ -27,6 +27,8 @@
 
 
 
+
+
 /* AMIGOS */
 
 .card_amigos {
@@ -206,6 +208,16 @@
 
 
 /* CABECERA */
+
+div.scroll {
+
+  overflow: auto;
+}
+
+
+div.scroll::-webkit-scrollbar {
+  display: none;
+}
 
 
 
