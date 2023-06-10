@@ -72,19 +72,23 @@ class RegistroSerializer(serializers.ModelSerializer):
         return Usuarios.objects.create_user(**validated_data)
 
     def validate_password(self, value):
-        if len(value) < 8:
-            raise serializers.ValidationError("La contraseña debe tener al menos 8 caracteres.")
-        if not any(char.isupper() for char in value):
-            raise serializers.ValidationError("La contraseña debe contener al menos una letra mayúscula.")
-        if not any(char.islower() for char in value):
-            raise serializers.ValidationError("La contraseña debe contener al menos una letra minúscula.")
-        if not any(char in string.punctuation for char in value):
-            raise serializers.ValidationError("La contraseña debe contener al menos un signo de puntuación.")
+        if len(value) < 8 and not any(char.isupper() for char in value) \
+                and not any(char.islower() for char in value) \
+                and not any(char in string.punctuation for char in value):
+            raise serializers.ValidationError("La contraseña debe tener al menos 8 caracteres una letra mayúsula, "
+                                              "una minúscula y un signo de puntuación.")
+        # if not any(char.isupper() for char in value):
+        #     raise serializers.ValidationError("La contraseña debe contener al menos una letra mayúscula.")
+        # if not any(char.islower() for char in value):
+        #     raise serializers.ValidationError("La contraseña debe contener al menos una letra minúscula.")
+        # if not any(char in string.punctuation for char in value):
+        #     raise serializers.ValidationError("La contraseña debe contener al menos un signo de puntuación.")
         return value
 
 
 class PostSerializer(serializers.HyperlinkedModelSerializer):
     datos_usuario = UsuarioSerializer(source='usuario', read_only=True)
+
     class Meta:
         model = Posts
         fields = ('url',
@@ -101,6 +105,7 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
                   'datos_usuario'
                   )
 
+
 class ComentariosSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Comentarios
@@ -116,9 +121,11 @@ class LikesSerializer(serializers.HyperlinkedModelSerializer):
 class AmigosSerializer(serializers.HyperlinkedModelSerializer):
     datos_usuario_solicitante = UsuarioSerializer(source='usuario_solicitante', read_only=True)
     datos_usuario_receptor = UsuarioSerializer(source='usuario_receptor', read_only=True)
+
     class Meta:
         model = Amigos
-        fields = ('url', 'usuario_solicitante', 'usuario_receptor', 'fecha_creacion', 'datos_usuario_solicitante', 'datos_usuario_receptor')
+        fields = ('url', 'usuario_solicitante', 'usuario_receptor', 'fecha_creacion', 'datos_usuario_solicitante',
+                  'datos_usuario_receptor')
 
 
 class NotificacionesSerializer(serializers.HyperlinkedModelSerializer):
@@ -137,4 +144,3 @@ class ChatSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Chat
         fields = ('url', 'id', 'emisor', 'receptor', 'fecha_mensaje', 'leido', 'mensaje')
-

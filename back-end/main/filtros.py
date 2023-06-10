@@ -11,13 +11,14 @@ class FechaPublicacionFilterBackend(filters.BaseFilterBackend):
 
         if fecha_inicio and fecha_fin:
             queryset = queryset.filter(
-                Q(fecha_publicacion__gte=fecha_inicio) &
-                Q(fecha_publicacion__lte=fecha_fin)
+                Q(fecha_publicacion__date__range=[fecha_inicio, fecha_fin])
+                #Q(fecha_publicacion__gte=fecha_inicio) &
+                #Q(fecha_publicacion__lte=fecha_fin)
             )
         elif fecha_inicio:
-            queryset = queryset.filter(fecha_publicacion__gte=fecha_inicio)
+            queryset = queryset.filter(fecha_publicacion__date__gte=fecha_inicio)
         elif fecha_fin:
-            queryset = queryset.filter(fecha_publicacion__lte=fecha_fin)
+            queryset = queryset.filter(fecha_publicacion__date__lte=fecha_fin)
 
         return queryset
 

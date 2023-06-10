@@ -50,7 +50,7 @@ export class RegistroUsuarioComponent {
       password: ['', Validators.required],
       first_name: ['' as string | null, Validators.required],
       last_name: ['' as string | null, Validators.required],
-      telefono: ['' as string | null, Validators.required],
+      telefono: ['', [Validators.required, Validators.pattern('^[0-9]{1,15}$')]],
       pais: ['' as string | null, Validators.required],
       estado: ['' as string | null, Validators.required],
       ciudad: ['' as string | null, Validators.required],
@@ -70,8 +70,6 @@ export class RegistroUsuarioComponent {
       this.formulario.patchValue({
         pais: this.pais
       })
-
-   
     })
   }
 
