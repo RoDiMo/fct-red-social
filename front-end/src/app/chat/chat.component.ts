@@ -22,6 +22,7 @@ export class ChatComponent {
   public usuario_logeado!: PerfilUsuario;
   public usuario_amigo!: PerfilUsuario;
   public formularioChat!: FormGroup;
+  
 
 
 

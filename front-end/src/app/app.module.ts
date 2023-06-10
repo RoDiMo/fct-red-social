@@ -29,6 +29,7 @@ import { AdminPostsComponent } from './admin-posts/admin-posts.component';
 import { AdminUsuariosComponent } from './admin-usuarios/admin-usuarios.component';
 import { ContactosChatModalComponent } from './contactos-chat-modal/contactos-chat-modal.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DetallePostModalComponent } from './detalle-post-modal/detalle-post-modal.component';
 
 
 
@@ -57,6 +58,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AdminPostsComponent,
     AdminUsuariosComponent,
     ContactosChatModalComponent,
+    DetallePostModalComponent,
  
   ],
   imports: [

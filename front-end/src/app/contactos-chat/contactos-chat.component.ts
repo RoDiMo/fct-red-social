@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { PerfilUsuario } from '../perfil-usuario/perfil-usuario';
 import { Amigo, AmigosChat } from '../amigos/amigo';
 import { AmigosService } from '../amigos.service';
@@ -21,7 +21,8 @@ export class ContactosChatComponent {
   public usuariosAmigos: Array<AmigosChat> = [];
   public usuarioRegistrado!: PerfilUsuario;
   public credenciales = this._obtenerUsuarioService.obtenerCredenciales();
-  public url = url()
+  public url = url();
+  public altoVentana = window.innerHeight;
 
   constructor(
     public _obtenerUsuarioService: AutenticacionUsuariosService,
@@ -34,6 +35,12 @@ export class ContactosChatComponent {
 
   ngOnInit() {
     this.gestionarUsuarios()
+  }
+
+
+  @HostListener('window:resize')
+  onWindowResize() {
+    this.altoVentana = window.innerHeight;
   }
 
     /**

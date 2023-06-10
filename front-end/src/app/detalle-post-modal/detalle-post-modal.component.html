@@ -1,0 +1,61 @@
+
+    <div class="container pe-4  ">
+        <div class="col my-5 Post">
+            <div class="card">
+                <img src="../../assets/imagen_default.jpg" class="card-img-top" alt="" style="cursor: pointer;"
+                     />
+
+                <div class="card-body" style="cursor: pointer;">
+                    <div class="row mb-3">
+
+                        <div class="col-1 text-center " style="width: 50px; ">
+                            <img style="width: 50px; height: 50px;"
+                                src="https://bootdey.com/img/Content/avatar/avatar7.png"
+                                alt="Image Description">
+                        </div>
+
+                        <div class="col-6 position-relative top-0 start-0 ">
+                            <span>{{datosPost.nombre_usuario}}</span>
+                        </div>
+                        <div class="col-12 col-lg-4  text-end ">
+                            <span>10/06/2023</span>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <h5 class="card-title">{{datosPost.titulo}}</h5>
+                    <p class="card-text texto_post">
+                        {{datosPost.contenido}}
+                    </p>
+                </div>
+                <hr>
+                <div class="row  mb-3 ms-0 container">
+
+                    <div class="d-flex  justify-content-end iconos">
+                        <!-- Visitas -->
+                        <div class="col-4 col-lg-1">
+                            <span class="material-symbols-outlined"> visibility </span>
+                            <span>0</span>
+                        </div>
+                        <div class="col-4 col-lg-1">
+                            <span  class="material-symbols-outlined"
+                                style="cursor: pointer;">
+                                heart_check </span>
+                            <span>0</span>
+                        </div>
+
+                        <!-- Mensajes -->
+                        <div class="col-1 col-3 col-lg-1">
+                            <span class="material-symbols-outlined "> comment </span>
+                            <span>0</span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+

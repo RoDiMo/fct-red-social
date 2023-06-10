@@ -17,7 +17,7 @@ export class ContactosChatModalComponent {
   ) { }
 
   ngOnInit() {
-    console.log(this.datosAmigos)
+  
   }
 
       // Redirigimos a la id del usuario con el que queremos chatear

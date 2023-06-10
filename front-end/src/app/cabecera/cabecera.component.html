@@ -1,16 +1,9 @@
 
-<div class="d-flex flex-column align-items-centeralign-items-sm-start px-3 pt-2  sticky-top content scroll " [style.height.px]="altoVentana" >
+<div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2  sticky-top content scroll " [style.height.px]="altoVentana" >
 
 
 
-  <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-
-    <li class="nav-item enlace-cabecera" (click)="enlaceInicio()">
-
-      <!--<img class="ms-5" src="../../assets/logo.png" alt="" style="width: 160px; height: 90px;">-->
-
-    </li>
-
+  <ul class="nav nav-pills flex-column mb-sm-auto mb-0 pt-2 pt-xl-5 align-items-center align-items-sm-start" >
     <li *ngIf="datosUsuario != undefined" class="nav-item logout mx-0 " (click)="enlaceInicio()">
 
 
@@ -36,10 +29,10 @@
     </li>
 
 
-    <hr>
+    <hr style="border: solid 1px;">
 
 
-    <li class="nav-item {{pagina == 'inicio' ? 'enlace-cabecera-seleccionado'  : 'enlace-cabecera'}} "
+    <li class="nav-item mx-0  {{pagina == 'inicio' ? 'enlace-cabecera-seleccionado'  : 'enlace-cabecera'}} "
       (click)="enlaceInicio()">
 
       <span class="material-symbols-outlined icono-cabecera cursor" style=" font-size: 35px;"> home </span>
@@ -47,7 +40,7 @@
 
     </li>
 
-    <li class="nav-item   {{pagina == 'notificaciones' ? 'enlace-cabecera-seleccionado'  : 'enlace-cabecera'}}"
+    <li class="nav-item  mx-0  {{pagina == 'notificaciones' ? 'enlace-cabecera-seleccionado'  : 'enlace-cabecera'}}"
       (click)="enlaceNotificaciones()">
 
       <div class="mx-0 px-0 button">
@@ -59,7 +52,7 @@
 
     </li>
 
-    <li class="nav-item {{pagina == 'perfil-personal' ? 'enlace-cabecera-seleccionado'  : 'enlace-cabecera'}}"
+    <li class="nav-item  mx-0 {{pagina == 'perfil-personal' ? 'enlace-cabecera-seleccionado'  : 'enlace-cabecera'}}"
       (click)="enlacePerfil()">
 
       <span class="material-symbols-outlined icono-cabecera cursor" style=" font-size: 35px;"> account_circle </span>
@@ -67,7 +60,7 @@
 
     </li>
 
-    <li class="nav-item {{pagina == 'amigos' ? 'enlace-cabecera-seleccionado'  : 'enlace-cabecera'}}"
+    <li class="nav-item  mx-0 {{pagina == 'amigos' ? 'enlace-cabecera-seleccionado'  : 'enlace-cabecera'}}"
       (click)="enlaceAmigos()">
 
       <span class="material-symbols-outlined icono-cabecera cursor" style=" font-size: 35px;"> diversity_3 </span>
@@ -76,7 +69,7 @@
     </li>
 
     <li
-      class="nav-item {{pagina == 'perfil-usuario-publicaciones' ? 'enlace-cabecera-seleccionado'  : 'enlace-cabecera'}}"
+      class="nav-item  mx-0 {{pagina == 'perfil-usuario-publicaciones' ? 'enlace-cabecera-seleccionado'  : 'enlace-cabecera'}}"
       (click)="enlacePublicaciones()">
 
       <span class="material-symbols-outlined icono-cabecera cursor" style=" font-size: 35px;"> post_add </span>
@@ -84,16 +77,16 @@
 
     </li>
 
-    <li *ngIf="esAdmin" class="nav-item enlace-cabecera" (click)="enlaceAdministracion()">
+    <li *ngIf="esAdmin" class="nav-item enlace-cabecera  mx-0" (click)="enlaceAdministracion()">
 
       <span class="material-symbols-outlined icono-cabecera cursor" style=" font-size: 35px;"> shield_person </span>
       <h3 class="ms-2 d-none d-xl-inline texto-cabecera cursor">Administracion</h3>
 
     </li>
 
-    <li class="nav-item enlace-cabecera d-xl-none d-inline texto-cabecera cursor"  (click)="contactosChatModal()">
+    <li class="nav-item enlace-cabecera d-xl-none d-inline texto-cabecera cursor  mx-0"  (click)="contactosChatModal()">
 
-      <span class="material-symbols-outlined icono-cabecera cursor" style=" font-size: 35px;"> comment </span>
+      <span class="material-symbols-outlined icono-chat cursor" style=" font-size: 35px;"> comment </span>
 
     </li>
 

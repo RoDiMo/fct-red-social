@@ -1,7 +1,7 @@
 <div class="container-fluid d-flex mx-0 px-0">
 
-    <div class="col-auto col-xl-3 px-0 bg-light  " >
-        <app-cabecera ></app-cabecera>
+    <div class="col-auto col-xl-3 px-0 bg-light  ">
+        <app-cabecera></app-cabecera>
     </div>
 
 
@@ -28,7 +28,8 @@
                 class="col-6  cursor contenedor_titulo {{!misPost ? 'enlace_izquierdo_marcado' : 'enlace_izquierdo' }}">
                 <h1 class="titulo" (click)="obtenerPosts()">Página principal</h1>
             </div>
-            <div class="col-6 d-flex justify-content-center cursor contenedor_titulo {{misPost ? 'enlace_derecho_marcado' : 'enlace_derecho' }}">
+            <div
+                class="col-6 d-flex justify-content-center cursor contenedor_titulo {{misPost ? 'enlace_derecho_marcado' : 'enlace_derecho' }}">
                 <h1 class="titulo" (click)="obtenerMisPost()">Mis publicaciones</h1>
             </div>
         </div>

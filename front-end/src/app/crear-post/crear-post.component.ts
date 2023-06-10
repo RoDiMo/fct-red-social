@@ -6,6 +6,9 @@ import { AutenticacionUsuariosService } from '../autenticacion-usuarios.service'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { PostService } from '../post.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { DetallePostModalComponent } from '../detalle-post-modal/detalle-post-modal.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-crear-post',
   templateUrl: './crear-post.component.html',
@@ -31,6 +34,8 @@ export class CrearPostComponent implements OnInit {
     public _postService: PostService,
     public activatedRoute: ActivatedRoute,
     public router: Router,
+    private modal: NgbModal,
+    private location: Location,
   ) {
     this.formularioPost = this.formBuilder.group({
       titulo: new FormControl(''), //['' as string | null, Validators.required],
@@ -130,6 +135,16 @@ export class CrearPostComponent implements OnInit {
     }
   }
 
+  detallePostModal(){
+    this.formData.append('titulo', this.formularioPost.get('titulo')?.value);
+    this.formData.append('contenido', this.formularioPost.get('contenido')?.value);
+    this.formData.append('usuario', this.formularioPost.get('usuario')?.value);
+
+    const _modal =  this.modal.open(DetallePostModalComponent)
+    _modal.componentInstance.datosPost = this.formularioPost.value
+
+  }
+
 
   enviaPost() {
 
@@ -146,7 +161,13 @@ export class CrearPostComponent implements OnInit {
       this._postService.nuevoPost(this.formData).subscribe(data => {
 
         if (data.status == 201) {
-          this.router.navigateByUrl(`/`);
+  
+
+            this.location.replaceState(`/`);
+            localStorage.removeItem(`enlace-cabecera`)
+            localStorage.setItem(`enlace-cabecera`, 'inicio');
+            location.reload();
+
         }
         /*
         setTimeout(() => {
