@@ -51,11 +51,13 @@ export class AdminUsuariosComponent {
     // La clave del diccionario es el valor de búsqueda del elemento del usuario
     this.campos = {
       username: 'Usuario',
-      first_name: 'Nombre Completo',
+      first_name: 'Nombre',
       email: 'Email',
       pais: 'Pais',
       estado: 'Estado',
-      es_moderador: 'Nombre Completo',
+      ciudad: 'Ciudad',
+      direccion: 'Direccion',
+      es_moderador: 'Tipo de usuario',
       fecha_alta: 'Fecha de Alta',
 
     }

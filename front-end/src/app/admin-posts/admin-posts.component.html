@@ -16,12 +16,39 @@
 
     <!-- CUERPO DEL PROYECTO -->
 
-    <div *ngIf="contenidoCargado" class="col-md-12 offset-12 mt-5 py-4 slides">
+    <div *ngIf="contenidoCargado" class="col-md-12 mt-5 py-4 ">
         <!-- POSTS -->
         <section id="posts" class="m-5">
             <div class="row">
-                <div class="col-md-9">
-                    <div class="card">
+
+                <div class="col-12  col-md-3">
+                    <div class="row">
+                        <div class="card text-center text-danger me-md-0 col-6 col-md-12 background-primary mb-3">
+                            <div class="card-body ">
+                                <h3>Posts</h3>
+                                <h4 class="display-4">
+                                    <i class="fas fa-pencil-alt"></i>
+                                    <span id="postCount">{{posts.length}}</span>
+                                </h4>
+                                <br>
+                            </div>
+
+                        </div>
+                        <div class="card text-center background-light mb-3 col-6 col-md-12">
+                            <div class="card-body ">
+                                <h3>Usuarios</h3>
+                                <h4 class="display-4">
+                                    <i class="fas fa-users background-light"></i> {{usuarios.length}}
+                                </h4>
+                                <a class="btn btn-outline-dark btn-sm" [routerLink]="['/admin-usuarios']">Ver</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-9" style="overflow-x: scroll;">
+                    <div class="card" style="width: 1190px;">
                         <div class="card-header text-center ">
                             <div class="row">
                                 <div class="col-3 d-flex align-self-center cursor" (click)="enlaceAplicacion()">
@@ -33,11 +60,13 @@
                                 <div class="col-6 form-floating  d-flex">
                                     <div class="text-start  col-5">
                                         <span>fecha inicio</span>
-                                        <input class="me-5" type="date" [(ngModel)]="fecha_inicio"  [ngModelOptions]="{standalone: true}" (change)="guardarValorBusqueda()">
+                                        <input class="me-5" type="date" [(ngModel)]="fecha_inicio"
+                                            [ngModelOptions]="{standalone: true}" (change)="guardarValorBusqueda()">
                                     </div>
                                     <div class="text-start  col-5">
                                         <span>fecha fin</span>
-                                        <input class="me-5" type="date" [(ngModel)]="fecha_fin"  [ngModelOptions]="{standalone: true}"  (change)="guardarValorBusqueda()">
+                                        <input class="me-5" type="date" [(ngModel)]="fecha_fin"
+                                            [ngModelOptions]="{standalone: true}" (change)="guardarValorBusqueda()">
                                     </div>
                                 </div>
 
@@ -119,29 +148,7 @@
                         </table>
                     </div>
                 </div>
-                <div class="col-lg-3">
-                    <div class="card text-center background-primary mb-3">
-                        <div class="card-body">
-                            <h3>Posts</h3>
-                            <h4 class="display-4">
-                                <i class="fas fa-pencil-alt"></i>
-                                <span id="postCount">{{posts.length}}</span>
-                            </h4>
-                            <br>
-                        </div>
 
-                    </div>
-                    <div class="card text-center background-light mb-3">
-                        <div class="card-body">
-                            <h3>Usuarios</h3>
-                            <h4 class="display-4">
-                                <i class="fas fa-users background-light"></i> {{usuarios.length}}
-                            </h4>
-                            <a class="btn btn-outline-dark btn-sm" [routerLink]="['/admin-usuarios']">Ver</a>
-                        </div>
-
-                    </div>
-                </div>
             </div>
 
         </section>

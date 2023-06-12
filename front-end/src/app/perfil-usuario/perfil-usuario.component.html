@@ -24,16 +24,16 @@
 
         <div class=" d-flex enlaces">
 
-            <div class="col-4 d-flex justify-content-center contenedor_titulo enlace_izquierdo_marcado" routerLink="/perfil-personal"
-                style="cursor: pointer;">
+            <div class="col-4 d-flex justify-content-center contenedor_titulo enlace_izquierdo_marcado"
+                routerLink="/perfil-personal" style="cursor: pointer;">
                 <h2 class="titulo_perfil">Datos personales</h2>
             </div>
-            <div class="col-4 d-flex justify-content-center contenedor_titulo enlace_izquierdo" routerLink="/amigos"
+            <div class="col-4 d-flex justify-content-center contenedor_titulo enlace_izquierdo" (click)="enlaceAmigos()"
                 style="cursor: pointer;">
                 <h2 class="titulo_perfil">Amigos</h2>
             </div>
-            <div class="col-4 d-flex justify-content-center contenedor_titulo enlace_derecho" routerLink="/perfil-personal-estadisticas"
-                style="cursor: pointer;">
+            <div class="col-4 d-flex justify-content-center contenedor_titulo enlace_derecho"
+                routerLink="/perfil-personal-estadisticas" style="cursor: pointer;">
                 <h2 class="titulo_perfil">Estadísticas</h2>
             </div>
         </div>
@@ -43,18 +43,17 @@
             <!-- Foto Perfil y cambiar contraseña -->
             <div class="col-12 col-md-4 border-end text-center border-bottom">
                 <div class="py-4 ">
-                    <label *ngIf="datosUsuario?.foto_perfil" for="file-input" class=" border border-black  rounded-circle foto_perfil">
+                    <label *ngIf="datosUsuario?.foto_perfil" for="file-input"
+                        class=" border border-black  rounded-circle foto_perfil">
 
-                        <img  class="border border-black  rounded-circle"
-                            src={{datosUsuario?.foto_perfil}} alt="">
+                        <img class="border border-black  rounded-circle" src={{datosUsuario?.foto_perfil}} alt="">
                         <span class="material-symbols-outlined icono_camara rounded-circle" style=" font-size: 35px;">
                             add_a_photo
                         </span>
                     </label>
-                    <label *ngIf="!datosUsuario?.foto_perfil"  for="file-input foto_perfil">
-                        <img class="border border-black rounded-circle"
-                            src="https://bootdey.com/img/Content/avatar/avatar7.png"
-                            style="width: 175px; height: 175px;" alt="">
+                    <label *ngIf="!datosUsuario?.foto_perfil" for="file-input" class="foto_perfil">
+                        <img class="border border-black rounded-circle" src="https://bootdey.com/img/Content/avatar/avatar7.png"
+                             alt="">
 
                         <span class="material-symbols-outlined icono_camara rounded-circle" style=" font-size: 35px;">
                             add_a_photo

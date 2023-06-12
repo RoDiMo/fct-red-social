@@ -13,19 +13,24 @@
       <h1>Cambiar contraseña</h1>
     </div>
 
-    <div class="row col-10  offset-lg-1 px-lg-5   border  ">
+    <div class="row col-10  offset-lg-1 px-lg-5  pt-4 border  ">
 
       <form [formGroup]="formularioDatosUsuario" (ngSubmit)="editarDatosUsuario()">
         <!-- 2 column grid layout with text inputs for the first and last names -->
         <div class="form-outline form-floating mb-4">
-          <input class="form-control" id="password" formControlName="password" type="password" />
-          <label class="form-label" for="password">Contraseña</label>
-          <mat-error *ngIf="formularioDatosUsuario.get('password')?.errors?.['serverError']">
-            {{formularioDatosUsuario.get('password')?.errors?.['serverError']}}</mat-error>
+          <input class="form-control {{formularioDatosUsuario.get('password')?.hasError('required') || formularioDatosUsuario.get('password')?.hasError('pattern') ? 'border-danger' : ''}}" id="password" formControlName="password" type="{{ mostrarContrasenia ? 'text' : 'password' }}" />
+          <label class="form-label {{formularioDatosUsuario.get('password')?.hasError('required') || formularioDatosUsuario.get('password')?.hasError('pattern') ? 'text-danger' : ''}}" for="password">Contraseña</label>
+          <div>
+            <span style="margin-right: 15px;">Mostrar contraseña</span>  <input type="checkbox" name="mostrarContrasenia" id="mostrarContrasenia" [ngModelOptions]="{standalone: true}" [(ngModel)]="mostrarContrasenia" >
+          </div>
+          <div *ngIf="formularioDatosUsuario.get('password')?.hasError('pattern')">
+            <small class="text-danger"> La contraseña debe tener al menos 8 caracteres una letra mayúsula, una minúscula y un signo de puntuación.</small>
+          </div>
         </div>
 
         <!-- Submit button -->
-        <button type="submit" class="btn btn-primary btn-block mb-4">Registrarte</button>
+        <button type="submit" class="btn btn-primary btn-block mb-4 {{formularioDatosUsuario.get('password')?.hasError('required') ||
+                                                                      formularioDatosUsuario.get('password')?.hasError('pattern') ? 'disabled' : ''}}">Cambiar contraseña</button>
 
         <!-- Register buttons -->
 

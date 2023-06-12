@@ -35,6 +35,8 @@ export class RegistroUsuarioComponent {
   public estado!: string
   public ciudad!: string
 
+  mostrarContrasenia: boolean = false
+
   constructor(
     public fb: FormBuilder,
     public _registroUsuario: AutenticacionUsuariosService,

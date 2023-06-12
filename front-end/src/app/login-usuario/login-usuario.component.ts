@@ -3,7 +3,7 @@ import { FormBuilder, Validators, } from "@angular/forms";
 import { AutenticacionUsuariosService } from "../autenticacion-usuarios.service";
 import { UserCredentials } from "../auth";
 import { Router } from "@angular/router";
-
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -16,7 +16,10 @@ export class LoginUsuarioComponent implements OnInit {
   httpResponse: any;
   mostrarContrasenia: boolean = false
 
-  constructor(private formBuilder: FormBuilder, private loginUsuario: AutenticacionUsuariosService, private router: Router) {
+  constructor(private formBuilder: FormBuilder, 
+    private loginUsuario: AutenticacionUsuariosService,
+    private router: Router,
+    private location: Location,) {
     this.logInForm = this.formBuilder.group({
       username: ['' as string | null, Validators.required],
       password: ['' as string | null, Validators.required]
@@ -25,6 +28,9 @@ export class LoginUsuarioComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.location.replaceState(`/`);
+    localStorage.removeItem(`enlace-cabecera`)
+    localStorage.setItem(`enlace-cabecera`, 'inicio');
  
   }
 

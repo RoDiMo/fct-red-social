@@ -40,7 +40,7 @@ export class EditarDatosPersonalesComponent {
       email: ['' as string | null, Validators.required],
       first_name: ['' as string | null, Validators.required],
       last_name: ['' as string | null, Validators.required],
-      telefono: ['' as string | null, Validators.required],
+      telefono: ['', [Validators.required, Validators.pattern('^[0-9]{1,15}$')]],
       pais: ['' as string | null, Validators.required],
       estado: ['' as string | null, Validators.required],
       ciudad: ['' as string | null, Validators.required],
@@ -122,7 +122,6 @@ export class EditarDatosPersonalesComponent {
   guardarDireccionFormulario(){
     this.formularioDatosUsuario.patchValue({
       pais: this.pais,
-      estado: this.estado,
       ciudad: this.ciudad,
     })
   }

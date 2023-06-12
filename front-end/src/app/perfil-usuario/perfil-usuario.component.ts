@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Router } from "@angular/router";
 import { AutenticacionUsuariosService } from '../autenticacion-usuarios.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-perfil-usuario',
   templateUrl: './perfil-usuario.component.html',
@@ -23,6 +24,7 @@ export class PerfilUsuarioComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     public fFormBuilder: FormBuilder,
+    private location: Location,
   ) { 
 
     this.formularioImagenUsuario = this.fFormBuilder.group({
@@ -67,6 +69,14 @@ export class PerfilUsuarioComponent implements OnInit {
   }
 
 
+  
+  enlaceAmigos() {
+
+    this.location.replaceState(`/amigos`);
+    localStorage.removeItem(`enlace-cabecera`)
+    localStorage.setItem(`enlace-cabecera`, 'amigos');
+    location.reload();
+  }
 
     // Función para manejar la selección de una imagen por parte del usuario
     onFileSelected(event: any) {

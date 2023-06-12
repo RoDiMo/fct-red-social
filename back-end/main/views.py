@@ -45,7 +45,7 @@ class Usuario(viewsets.ModelViewSet):
     queryset = Usuarios.objects.all()
     serializer_class = UsuarioSerializer
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter, filtros.FechaAltaFilterBackend]
-    ordering_fields = ['username', 'first_name', 'last_name', 'email', 'pais', 'estado', 'es_moderador', 'fecha_alta']
+    ordering_fields = ['username', 'first_name', 'last_name', 'email', 'pais', 'ciudad', 'direccion', 'estado', 'es_moderador', 'fecha_alta']
     filterset_fields = ['id', 'username', 'es_moderador']
     search_fields = ['username', 'first_name', 'last_name', 'email', 'pais', 'estado']
 

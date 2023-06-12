@@ -6,7 +6,7 @@ import { Amigo } from './amigo';
 import { AmistadesCanceladas } from '../amistades-canceladas/amistades-canceladas';
 import { Notificacion } from '../notificaciones/notificaciones';
 import { NotificacionesService } from '../notificaciones.service';
-
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-amigos',
   templateUrl: './amigos.component.html',
@@ -31,10 +31,12 @@ export class AmigosComponent {
     public _obtenerUsuarioService: AutenticacionUsuariosService,
     public _amigosService: AmigosService,
     public _notificacionesService: NotificacionesService,
+    private location: Location,
   ) { }
 
 
   ngOnInit() {
+
 
     this.credencialesUsuario = this._obtenerUsuarioService.obtenerCredenciales()
     this.obtenerUsuarioRegistrado()
@@ -42,6 +44,7 @@ export class AmigosComponent {
     this.obtenerAmigos()
     this.obtenerNoAmigos()
 
+  
     setTimeout(() => {
       this.contenidoCargado = true;
   
@@ -49,6 +52,23 @@ export class AmigosComponent {
 
 
   }
+
+  enlacePerfil() {
+    this.location.replaceState(`/perfil-personal`);
+    localStorage.removeItem(`enlace-cabecera`)
+    localStorage.setItem(`enlace-cabecera`, 'perfil-personal');
+    location.reload();
+  }
+
+  enlaceEstadisticas() {
+    this.location.replaceState(`/perfil-personal-estadisticas`);
+    localStorage.removeItem(`enlace-cabecera`)
+    localStorage.setItem(`enlace-cabecera`, 'perfil-personal');
+    location.reload();
+  }
+
+  
+
 
   // Función donde Obtenemos los datos del usuario logueado
   obtenerUsuarioRegistrado() {

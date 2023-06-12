@@ -4,7 +4,7 @@ import { PerfilUsuario } from '../perfil-usuario/perfil-usuario';
 import { PerfilUsuarioService } from '../perfil-usuario.service';
 import { AutenticacionUsuariosService } from '../autenticacion-usuarios.service';
 import { PostService } from '../post.service';
-
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-perfil-personal-estadisticas',
   templateUrl: './perfil-personal-estadisticas.component.html',
@@ -41,6 +41,8 @@ export class PerfilPersonalEstadisticasComponent {
     private _perfilUsuarioService: PerfilUsuarioService,
     public _obtenerUsuario: AutenticacionUsuariosService,
     private _postService: PostService,
+    private location: Location,
+
 
   ) { }
 
@@ -56,6 +58,21 @@ export class PerfilPersonalEstadisticasComponent {
       this.contenidoCargado = true;
   
     }, 500)
+  }
+
+  enlaceAmigos() {
+
+    this.location.replaceState(`/amigos`);
+    localStorage.removeItem(`enlace-cabecera`)
+    localStorage.setItem(`enlace-cabecera`, 'amigos');
+    location.reload();
+  }
+
+  enlacePerfil() {
+    this.location.replaceState(`/perfil-personal`);
+    localStorage.removeItem(`enlace-cabecera`)
+    localStorage.setItem(`enlace-cabecera`, 'perfil-personal');
+    location.reload();
   }
 
 

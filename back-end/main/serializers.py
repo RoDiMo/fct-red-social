@@ -72,17 +72,15 @@ class RegistroSerializer(serializers.ModelSerializer):
         return Usuarios.objects.create_user(**validated_data)
 
     def validate_password(self, value):
-        if len(value) < 8 and not any(char.isupper() for char in value) \
-                and not any(char.islower() for char in value) \
-                and not any(char in string.punctuation for char in value):
+        if len(value) < 8:
             raise serializers.ValidationError("La contraseña debe tener al menos 8 caracteres una letra mayúsula, "
                                               "una minúscula y un signo de puntuación.")
-        # if not any(char.isupper() for char in value):
-        #     raise serializers.ValidationError("La contraseña debe contener al menos una letra mayúscula.")
-        # if not any(char.islower() for char in value):
-        #     raise serializers.ValidationError("La contraseña debe contener al menos una letra minúscula.")
-        # if not any(char in string.punctuation for char in value):
-        #     raise serializers.ValidationError("La contraseña debe contener al menos un signo de puntuación.")
+        if not any(char.isupper() for char in value):
+             raise serializers.ValidationError("La contraseña debe contener al menos una letra mayúscula.")
+        if not any(char.islower() for char in value):
+             raise serializers.ValidationError("La contraseña debe contener al menos una letra minúscula.")
+        if not any(char in string.punctuation for char in value):
+             raise serializers.ValidationError("La contraseña debe contener al menos un signo de puntuación.")
         return value
 
 
