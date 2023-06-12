@@ -45,11 +45,13 @@ export class RegistroUsuarioComponent {
 
   ngOnInit() {
 
+    const patronContraseña = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*()\-=_+{};':"|,.<>?]).{8,}$/;
+
     // Datos del formulario de registro del usuario
     this.formulario = this.fb.group({
       username: ['' as string | null, Validators.required],
       email: ['' as string | null, Validators.required],
-      password: ['', Validators.required],
+      password: ['', [Validators.required, Validators.pattern(patronContraseña)]],
       first_name: ['' as string | null, Validators.required],
       last_name: ['' as string | null, Validators.required],
       telefono: ['', [Validators.required, Validators.pattern('^[0-9]{1,15}$')]],

@@ -51,6 +51,10 @@
                 <label class="form-label {{formulario.get('password')?.hasError('required') ? 'text-danger' : ''}}"
                   for="password">Contraseña*</label>
 
+                <div *ngIf="formulario.get('password')?.hasError('pattern')">
+                  <small class="text-danger"> La contraseña debe tener al menos 8 caracteres una letra mayúsula, una minúscula y un signo de puntuación.</small>
+                </div>
+
                 <div *ngIf="formulario.get('password')?.errors?.['serverError']" class=" text-start">
                   <small class="text-danger"> {{formulario.get('password')?.errors?.['serverError']}} </small>
                 </div>
@@ -184,7 +188,8 @@
                                                                         formulario.get('username')?.hasError('required') ||
                                                                         formulario.get('telefono')?.hasError('required') || 
                                                                         formulario.get('telefono')?.hasError('pattern') ||
-                                                                        formulario.get('password')?.hasError('required')  ? 'disabled' : ''}}" >Registrarte</button>
+                                                                        formulario.get('password')?.hasError('required') ||
+                                                                        formulario.get('password')?.hasError('pattern')  ? 'disabled' : ''}}" >Registrarte</button>
 
           <!-- Register buttons -->
           <div class="text-center">
