@@ -34,9 +34,9 @@ export class CabeceraComponent {
     public _notificacionesService: NotificacionesService,
     public _amigosService: AmigosService,
     public _chatService: ChatService,
-    private router: Router,
-    private location: Location,
-    private modal: NgbModal,
+    public router: Router,
+    public location: Location,
+    public modal: NgbModal,
   ) { }
 
 
@@ -84,12 +84,12 @@ export class CabeceraComponent {
   obtenerAmistades() {
 
     // Obtenemos las coincidencias del usuario registrado en la tabla Amigos
-    this._amigosService.obtenerAmistades(this.datosUsuario.id).subscribe(data => {
+    this._amigosService.obtenerAmistades(this.datosUsuario?.id).subscribe(data => {
       this.usuariosAmigos = data.results
     
       for (let amigo of this.usuariosAmigos){
      
-        this._chatService.obtenerMensajesNoLeidos(this.credenciales.id, amigo.datos_usuario_receptor.id).subscribe(numMensajes =>{
+        this._chatService.obtenerMensajesNoLeidos(this.credenciales?.id, amigo.datos_usuario_receptor.id).subscribe(numMensajes =>{
          
           amigo.numMensajesNoLeidos = numMensajes.length
           if(this.location.path()==(`/chat/${amigo.datos_usuario_receptor.id}`)){

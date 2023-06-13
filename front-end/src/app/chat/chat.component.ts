@@ -103,12 +103,12 @@ export class ChatComponent {
   // Crea un nuevo mensaje
   nuevoMensaje() {
     this.formularioChat.patchValue({
-      emisor: this.usuario_logeado.url,
-      receptor: this.usuario_amigo.url,
+      emisor: this.usuario_logeado?.url,
+      receptor: this.usuario_amigo?.url,
       mensaje: this.formularioChat.get('mensaje')?.value
     })
 
-    this._chatService.nuevoMensaje(this.formularioChat.value).subscribe(mensaje =>{
+    this._chatService?.nuevoMensaje(this.formularioChat?.value).subscribe(mensaje =>{
       if (mensaje.status == 201) {
         this.ngOnInit()
         this.formularioChat.reset();

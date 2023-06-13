@@ -23,7 +23,7 @@ export class CrearComentarioComponent implements OnInit{
   public post!: Post;
   public idPost: any = {};
   public comentario: any = {};
-  public formularioComent!: FormGroup;
+  public formularioComent: FormGroup;
 
   public caracRestantes: number= 1024;
   public caracSobrantes?: number
@@ -40,7 +40,7 @@ export class CrearComentarioComponent implements OnInit{
                 public _postService: PostService,
                 public activatedRoute: ActivatedRoute,
                 public router: Router,
-                private http: HttpClient
+                public http: HttpClient
             ){
               
                 this.formularioComent = this.formBuilder.group({
@@ -98,9 +98,7 @@ export class CrearComentarioComponent implements OnInit{
         this.errors = err.error.message;
       }
       );
-   
     })
-
   }
 
   // Funcion para controlar que el número de caracteres no sobrepase la capacidad permitida

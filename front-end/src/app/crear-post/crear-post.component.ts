@@ -16,8 +16,8 @@ import { Location } from '@angular/common';
   ]
 })
 export class CrearPostComponent implements OnInit {
-  private credenciales!: PerfilUsuario;
-  private usuario!: PerfilUsuario;
+  public credenciales!: PerfilUsuario;
+  public usuario!: PerfilUsuario;
   formularioPost!: FormGroup;
   public post: any = {};
   public modoEdicion: boolean = false;
@@ -34,8 +34,8 @@ export class CrearPostComponent implements OnInit {
     public _postService: PostService,
     public activatedRoute: ActivatedRoute,
     public router: Router,
-    private modal: NgbModal,
-    private location: Location,
+    public modal: NgbModal,
+    public location: Location,
   ) {
     this.formularioPost = this.formBuilder.group({
       titulo: new FormControl(''), //['' as string | null, Validators.required],
@@ -47,7 +47,7 @@ export class CrearPostComponent implements OnInit {
 
   ngOnInit(): void {
 
-
+  
     // Comprobamos si el formulario recibe una id o no
     // 1. Si se recibe una id, significa que se debe modificar un post ya existente
     // 2. Si no se recibe una id, significa que se debe crear un post nuevo
@@ -166,7 +166,7 @@ export class CrearPostComponent implements OnInit {
             this.location.replaceState(`/`);
             localStorage.removeItem(`enlace-cabecera`)
             localStorage.setItem(`enlace-cabecera`, 'inicio');
-            location.reload();
+            //location.reload();
 
         }
         /*
