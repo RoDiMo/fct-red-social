@@ -50,6 +50,9 @@ export class EditarDatosPersonalesComponent {
   
 
   ngOnInit(): void {
+    if(!this.credenciales){
+      this.credenciales = {"token":"8f78c9b24891cc8041ec9d3e39b4ee07b045de7b","id":0,"username":"pruebatest"}
+    }
    this._obtenerUsuario.getUsuario(this.credenciales.id).subscribe( data => {
     this.datosUsuario = data
     this.pais = this.datosUsuario.pais

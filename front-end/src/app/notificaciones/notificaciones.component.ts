@@ -33,7 +33,7 @@ export class NotificacionesComponent {
 
   // Obtenemos las notificaciones destinadas a este usuario que no han sido aún procesadas
   obtenerNotificaciones() {
-    this._notificacionesService.obtenerNotificacionesUsuarioDestino(this.credencialesUsuario.id).subscribe(data => {
+    this._notificacionesService.obtenerNotificacionesUsuarioDestino(this.credencialesUsuario?.id).subscribe(data => {
       this.notificaciones = data.results
 
       // Obtenemos los datos del usuario que envio la notificacion

@@ -9,12 +9,11 @@ import { FormGroup } from '@angular/forms';
 })
 export class DetallePostModalComponent {
 
-  @Input() datosPost!: any;
+  @Input() datosPost?: any;
 
 
   ngOnInit() {
-    console.log( this.datosPost.titulo)
-    console.log( this.datosPost.contenio)
+
   }
 
 

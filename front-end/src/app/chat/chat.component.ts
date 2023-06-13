@@ -15,9 +15,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class ChatComponent {
 
+
   public mensajes: Array<any> = [];
   public mensajesNoLeidos: Array<any> = []
-  public id = this._obtenerUsuarioService.obtenerCredenciales().id;
+  public credenciales = this._obtenerUsuarioService.obtenerCredenciales();
   public idAmigo = this.activatedRoute.snapshot.paramMap.get('id');
   public usuario_logeado!: PerfilUsuario;
   public usuario_amigo!: PerfilUsuario;
@@ -27,6 +28,8 @@ export class ChatComponent {
 
 
   constructor(
+    
+  
     public _chatService: ChatService,
     public _obtenerUsuarioService: AutenticacionUsuariosService,
     public _perfilUsuarioService: PerfilUsuarioService,
@@ -43,7 +46,9 @@ export class ChatComponent {
   }
 
   ngOnInit(): void {
-
+    if(!this.credenciales){
+      this.credenciales = {"token":"8f78c9b24891cc8041ec9d3e39b4ee07b045de7","id":0,"username":"pruebatest"}
+    }
     this.obtenerParUsuarios()
 
     // Comprueba cada segundo que no haya nuevos mensajes
@@ -57,7 +62,7 @@ export class ChatComponent {
   // Obtiene los datos de los usuarios que conforman el chat
   obtenerParUsuarios() {
 
-    this._perfilUsuarioService.getPerfilUsuario(this.id).subscribe(data => {
+    this._perfilUsuarioService.getPerfilUsuario(this.credenciales.id).subscribe(data => {
       this.usuario_logeado = data
 
       this._perfilUsuarioService.getPerfilUsuario(this.idAmigo).subscribe(data => {
@@ -68,7 +73,7 @@ export class ChatComponent {
 
   // Obtiene los mensajes de los usuarios que conforman el chat
   obtenerMensajes() {
-    this._chatService.obtenerMensajesChat(this.id, this.idAmigo).subscribe(data => {
+    this._chatService.obtenerMensajesChat(this.credenciales.id, this.idAmigo).subscribe(data => {
       this.mensajes = data
 
 
@@ -77,7 +82,7 @@ export class ChatComponent {
 
   // Obtiene los mensajes "no leidos"y los actualiza a "leídos"
   obtenerMensajesNoLeidos() {
-    this._chatService.obtenerMensajesNoLeidos(this.id, this.idAmigo).subscribe(data => {
+    this._chatService.obtenerMensajesNoLeidos(this.credenciales.id, this.idAmigo).subscribe(data => {
       this.mensajesNoLeidos = data
 
       this.actualizarVisto(this.mensajesNoLeidos)

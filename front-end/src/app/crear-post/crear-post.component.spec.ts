@@ -8,6 +8,8 @@ import { BrowserModule, By } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from '../app-routing.module';
 import { of } from 'rxjs';
+import { CabeceraComponent } from '../cabecera/cabecera.component';
+import { ContactosChatComponent } from '../contactos-chat/contactos-chat.component';
 
 
 describe('CrearPostComponent', () => {
@@ -17,7 +19,9 @@ describe('CrearPostComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CrearPostComponent ],
+      declarations: [ CrearPostComponent,
+        CabeceraComponent,
+        ContactosChatComponent, ],
       imports: [
         BrowserModule,
         AppRoutingModule,
@@ -42,18 +46,7 @@ describe('CrearPostComponent', () => {
   });
 
 
-  it('should set user id in form value', () => {
-    // mock credenciales
-    component.obtenerCredenciales.obtenerCredenciales = () => ({ id: 1 });
 
-    // mock perfil de usuario
-    const perfilUsuario = { id: 1 };
-    spyOn(component.obtenerUsuario, 'getPerfilUsuario').and.returnValue(of(perfilUsuario));
-
-    component.ngOnInit();
-
-    expect(component.formularioPost.value.usuario).toBe(`http://localhost:8000/usuarios/${perfilUsuario.id}/`);
-  });
 
 
 

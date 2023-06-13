@@ -14,7 +14,7 @@ import { Location } from '@angular/common';
 })
 export class PerfilUsuarioComponent implements OnInit {
   public datosUsuario!: PerfilUsuario;
-  public id = this._obtenerUsuarioService.obtenerCredenciales().id;
+  public credenciales = this._obtenerUsuarioService?.obtenerCredenciales();
   public contenidoCargado: boolean = false;
   public formularioImagenUsuario!: FormGroup;
 
@@ -44,7 +44,7 @@ export class PerfilUsuarioComponent implements OnInit {
 
   ngOnInit(): void {
     // Obtiene los datos del usuario registrado en la sesion
-    this._perfilUsuarioService.getPerfilUsuario(this.id).subscribe(data => {
+    this._perfilUsuarioService.getPerfilUsuario(this.credenciales?.id).subscribe(data => {
       this.datosUsuario = data;
 
       this.formularioImagenUsuario.patchValue({

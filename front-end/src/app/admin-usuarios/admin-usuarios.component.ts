@@ -88,7 +88,7 @@ export class AdminUsuariosComponent {
 
    // Obtenemos los valores del usuario registrado
   obtenerUsuarioRegistrado() {
-    this._usuarioService.getUsuario(this.credenciales.id).subscribe(data => {
+    this._usuarioService.getUsuario(this.credenciales?.id).subscribe(data => {
       this.usuarioRegistrado = data
 
        // Si el usuario no tiene privilgios de administracion se le redirigirá a la página de inicio

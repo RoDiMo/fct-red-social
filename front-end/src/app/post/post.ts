@@ -6,7 +6,7 @@ export class Post{
         public id: string,
         public titulo: string,
         public contenido: string,
-        public imagen: ImageData,
+        public imagen: any,
         public usuario: string,
         public num_likes: Number,
         public num_visitas: number,

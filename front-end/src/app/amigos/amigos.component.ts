@@ -38,7 +38,7 @@ export class AmigosComponent {
   ngOnInit() {
 
 
-    this.credencialesUsuario = this._obtenerUsuarioService.obtenerCredenciales()
+    this.credencialesUsuario = this._obtenerUsuarioService?.obtenerCredenciales()
     this.obtenerUsuarioRegistrado()
 
     this.obtenerAmigos()
@@ -73,7 +73,7 @@ export class AmigosComponent {
   // Función donde Obtenemos los datos del usuario logueado
   obtenerUsuarioRegistrado() {
 
-    this._obtenerUsuarioService.getUsuario(this.credencialesUsuario.id).subscribe(data => {
+    this._obtenerUsuarioService.getUsuario(this.credencialesUsuario?.id).subscribe(data => {
       this.usuarioRegistrado = [data]
     })
   }
@@ -110,11 +110,11 @@ export class AmigosComponent {
 
     // Busca por cada usuario alguna relación en la tabla NotificacionesAmistad con el usuario registrado
     for (let usuario of usuarios) {
-      this._notificacionesService.obtenerNotificacionesUsuarioOrigenDestino(this.credencialesUsuario.id, usuario.id).subscribe(data => {
+      this._notificacionesService.obtenerNotificacionesUsuarioOrigenDestino(this.credencialesUsuario?.id, usuario.id).subscribe(data => {
         this.notificaciones = data.results
 
         // Si encuentra un usuario con notificacion, lo pondrá en pendiente de amistad
-        if (this.notificaciones.length != 0  ) {
+        if (this.notificaciones?.length != 0  ) {
           usuario.amistadPendiente = true
         }
       })
@@ -130,11 +130,11 @@ export class AmigosComponent {
 
     // Busca por cada usuario alguna relación en la tabla NotificacionesAmistad con el usuario registrado
     for (let usuario of usuarios) {
-      this._notificacionesService.obtenerNotificacionesUsuarioOrigenDestino(usuario.id, this.credencialesUsuario.id ).subscribe(data => {
+      this._notificacionesService.obtenerNotificacionesUsuarioOrigenDestino(usuario.id, this.credencialesUsuario?.id ).subscribe(data => {
         this.notificaciones = data.results
 
         // Si encuentra un usuario con notificacion, lo pondrá en pendiente de amistad
-        if (this.notificaciones.length != 0   ) {
+        if (this.notificaciones?.length != 0   ) {
           usuario.amistadPendiente = true
           console.log(usuario.amistadPendiente)
         }
@@ -148,12 +148,12 @@ export class AmigosComponent {
 
   agregarAmigo(amigoUrl: string) {
 
-    let notificacion = new Notificacion(null, this.usuarioRegistrado[0].url, amigoUrl, "Pendiente", this.fecha, false, null)
+    let notificacion = new Notificacion(null, this.usuarioRegistrado[0]?.url, amigoUrl, "Pendiente", this.fecha, false, null)
 
     this._notificacionesService.nuevaNotificacion(notificacion).subscribe(notificacion => {
       console.log(notificacion.status)
       if (notificacion.status == 201) {
-        window.location.reload();
+        this.ngOnInit();
       }
       /*setTimeout(() => {
         window.location.reload();
@@ -174,7 +174,7 @@ export class AmigosComponent {
 
 
     // Obtiene la amistad de la base de datos perteneciente al amigo del usuario registrado
-    this._amigosService.obtenerAmistad(amigoId, this.credencialesUsuario.id).subscribe(data => {
+    this._amigosService.obtenerAmistad(amigoId, this.credencialesUsuario?.id).subscribe(data => {
       this.idAmistad = data.results
 
       // Eliminamos la amistad de la base de datos
@@ -182,20 +182,21 @@ export class AmigosComponent {
         if (data.status == 204) {
 
           // Obtiene la amistad de la base de datos perteneciente al usuario registrado
-          this._amigosService.obtenerAmistad(this.credencialesUsuario.id, amigoId).subscribe(data => {
+          this._amigosService.obtenerAmistad(this.credencialesUsuario?.id, amigoId).subscribe(data => {
             this.idAmistad = data.results
 
             // Creamos un objeto AmistadesCanceladas  
-            let amistadCancelada = new AmistadesCanceladas(this.usuarioRegistrado[0].url, this.idAmistad[0].usuario_receptor, this.idAmistad[0].fecha_creacion, this.fecha)
+            let amistadCancelada = new AmistadesCanceladas(this.usuarioRegistrado[0]?.url, this.idAmistad[0].usuario_receptor, this.idAmistad[0].fecha_creacion, this.fecha)
 
             // Añadimos una nueva fila a la tabla AmistadesCanceladas con los datos de la amistad 
             this._amigosService.nuevaCancelacion(amistadCancelada).subscribe()
 
             // Eliminamos la amistad de la base de datos
-            this._amigosService.eliminarAmigo(this.idAmistad[0].url).subscribe(eliminacion => {
+            this._amigosService.eliminarAmigo(this.idAmistad[0]?.url).subscribe(eliminacion => {
 
               if (eliminacion.status == 204) {
-                window.location.reload();
+                this.ngOnInit();
+                //window.location.reload();
               }
             })
 

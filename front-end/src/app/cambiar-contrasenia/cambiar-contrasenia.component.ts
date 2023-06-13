@@ -15,7 +15,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class CambiarContraseniaComponent {
 
   public datosUsuario!: PerfilUsuario;
-  public credenciales = this._obtenerUsuario.obtenerCredenciales();
+  public credenciales = this._obtenerUsuario?.obtenerCredenciales();
   public formularioDatosUsuario! : FormGroup; 
   public errors : Array<any> = [];
   mostrarContrasenia: boolean = false
@@ -35,7 +35,7 @@ export class CambiarContraseniaComponent {
 
   // Editamos los datos de la contraseña y redirigimos a la página de login
   editarDatosUsuario(){
-    this._perfilUsuarioService.editarDatosPerfil(this.credenciales.id, this.formularioDatosUsuario.value).subscribe( data => {
+    this._perfilUsuarioService.editarDatosPerfil(this.credenciales?.id, this.formularioDatosUsuario.value).subscribe( data => {
       
       localStorage.removeItem("userData");
       this.router.navigateByUrl(`/login`);

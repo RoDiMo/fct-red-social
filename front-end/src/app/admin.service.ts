@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class AdminService {
 
   private urlPosts:string = url()+'posts/'
-  private urlUsuarios:string = url()+'usuarios/'
+  public urlUsuarios?:string = url()+'usuarios/'
 
   constructor(private http: HttpClient) { }
 

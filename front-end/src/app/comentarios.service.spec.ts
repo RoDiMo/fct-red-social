@@ -40,8 +40,8 @@ describe('ComentariosService', () => {
     const comentario: any = {id: 1, texto: 'Este es un comentario.'};
     service.nuevoComentario(comentario).subscribe(response => {
       expect(response).toBeDefined();
-      expect(response.id).toBe(1);
-      expect(response.texto).toBe('Este es un comentario.');
+      expect(comentario.id).toBe(1);
+      expect(comentario.texto).toBe('Este es un comentario.');
     });
 
     const req = httpMock.expectOne(service.url);

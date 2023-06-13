@@ -4,6 +4,14 @@ import { HomeComponent } from './home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Usuarios } from './home';
+import { CommonModule } from '@angular/common';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule } from '@angular/router';
+import { AppRoutingModule } from '../app-routing.module';
+import { CabeceraComponent } from '../cabecera/cabecera.component';
+import { ContactosChatComponent } from '../contactos-chat/contactos-chat.component';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -11,11 +19,20 @@ describe('HomeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HomeComponent ],
+      declarations: [ HomeComponent, CabeceraComponent, ContactosChatComponent ],
       imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule, 
+        HttpClientTestingModule,
         RouterTestingModule,
         HttpClientModule,
-
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule,
+        RouterModule,
         ],
     })
     .compileComponents();

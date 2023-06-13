@@ -18,7 +18,7 @@ export class AdminPostsComponent {
   public posts: Array<Post> = [];
   public usuarios: Array<PerfilUsuario> = []
   public usuarioRegistrado!: PerfilUsuario;
-  public credenciales = this._usuarioService.obtenerCredenciales();
+  public credenciales = this._usuarioService?.obtenerCredenciales();
   public postOcultado!: FormGroup;
   public ordenarCampo: boolean = false;
   public campoSeleccionado: string = "-fecha_publicacion";
@@ -34,7 +34,7 @@ export class AdminPostsComponent {
     public _usuarioService: AutenticacionUsuariosService,
     public _adminService: AdminService,
     public formBuilder: FormBuilder,
-    private router: Router,
+    public router: Router,
   ) {
     this.postOcultado = this.formBuilder.group({
       titulo: ['' as string | null, Validators.required],
@@ -84,7 +84,7 @@ export class AdminPostsComponent {
 
   // Obtenemos los valores del usuario registrado
   obtenerUsuarioRegistrado() {
-    this._usuarioService.getUsuario(this.credenciales.id).subscribe(data => {
+    this._usuarioService.getUsuario(this.credenciales?.id).subscribe(data => {
       this.usuarioRegistrado = data
 
       // Si el usuario no tiene privilgios de administracion se le redirigirá a la página de inicio

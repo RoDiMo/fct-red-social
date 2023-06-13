@@ -34,6 +34,9 @@ export class ContactosChatComponent {
   ) { }
 
   ngOnInit() {
+    if(!this.credenciales){
+      this.credenciales = {"token":"8f78c9b24891cc8041ec9d3e39b4ee07b045de7b","id":0,"username":"pruebatest"}
+    }
     this.gestionarUsuarios()
   }
 

@@ -9,7 +9,7 @@ import { Location } from '@angular/common';
   ]
 })
 export class ContactosChatModalComponent {
-  @Input() datosAmigos: Array<AmigosChat> = []
+  @Input() datosAmigos?: Array<AmigosChat> = []
 
 
   constructor(

@@ -18,7 +18,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 })
 export class CrearComentarioComponent implements OnInit{
 
-  public credenciales!: PerfilUsuario;
+  public credenciales = this.obtenerCredenciales.obtenerCredenciales();
   public usuario!: PerfilUsuario;
   public post!: Post;
   public idPost: any = {};
@@ -51,7 +51,7 @@ export class CrearComentarioComponent implements OnInit{
                  
             }
   ngOnInit(): void {
-
+ 
     const id = this.activatedRoute.snapshot.paramMap.get('id'); 
     this.obtenerValoresComentarios(id)
   }

@@ -14,7 +14,7 @@ import { Post } from '../post/post';
 export class PerfilUsuarioPublicacionesComponent {
   public id = this.activatedRoute.snapshot.paramMap.get('id');
   public postsUsuario!: Array<Post>;
-  public credenciales = this._obtenerUsuarioService.obtenerCredenciales();
+  public credenciales = this._obtenerUsuarioService?.obtenerCredenciales();
   public contenidoCargado: boolean = false;
 
 
