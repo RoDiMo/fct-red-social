@@ -112,7 +112,7 @@
                             </thead>
 
                             <tbody class="text-center" style="font-size: 12px;">
-                                <tr *ngFor="let usuario of usuarios " style="height: 50px; width: 50px;">
+                                <tr *ngFor="let usuario of usuarios | paginate: { itemsPerPage: 10, currentPage: p }" style="height: 50px; width: 50px;">
                                     <td></td>
                                     <td>{{usuario.username}}</td>
                                     <td>{{usuario.first_name}} {{usuario.last_name}}</td>
@@ -147,6 +147,7 @@
                                 </tr>
                             </tbody>
                         </table>
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
                     </div>
                 </div>
 

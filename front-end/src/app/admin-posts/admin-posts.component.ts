@@ -27,6 +27,7 @@ export class AdminPostsComponent {
   public contenidoCargado: boolean = false;
   public fecha_inicio: string = ""
   public fecha_fin: string = "";
+  public p: number = 1;
 
   constructor(
     public _postService: PaginaPrincipalService,

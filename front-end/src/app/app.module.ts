@@ -30,7 +30,7 @@ import { AdminUsuariosComponent } from './admin-usuarios/admin-usuarios.componen
 import { ContactosChatModalComponent } from './contactos-chat-modal/contactos-chat-modal.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DetallePostModalComponent } from './detalle-post-modal/detalle-post-modal.component';
-
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -69,7 +69,7 @@ import { DetallePostModalComponent } from './detalle-post-modal/detalle-post-mod
     ReactiveFormsModule,
     RouterModule,
     NgbModule,
-
+    NgxPaginationModule,
 
     
   ],
