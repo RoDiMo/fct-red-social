@@ -9,7 +9,7 @@ import { url } from './utils';
   providedIn: 'root'
 })
 export class PostService {
-  private url:string; 
+  public url:string; 
 
   constructor(private http: HttpClient) { 
       this.url = url()+'posts/'

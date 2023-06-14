@@ -40,12 +40,13 @@ export class PostComponent implements OnInit {
 
   public contenidoCargado: boolean = false;
 
-  constructor(private _postService: PostService,
+  constructor(
+    public _postService: PostService,
     public obtenerUsuario: PerfilUsuarioService,
     public obtenerCredenciales: AutenticacionUsuariosService,
-    private _comentarioService: ComentariosService,
-    private activatedRoute: ActivatedRoute,
-    private router: Router,
+    public _comentarioService: ComentariosService,
+    public activatedRoute: ActivatedRoute,
+    public router: Router,
     public commentPormBuilder: FormBuilder,
     public postFormBuilder: FormBuilder,
     public formBuilder: FormBuilder,
@@ -346,7 +347,7 @@ export class PostComponent implements OnInit {
 
 
       // Comprobamos si el usuario lo ha dado like al post
-      const likeUsuario = this.postsLikes.find(post => post.usuario == this.usuario.url);
+      const likeUsuario = this.postsLikes.find(post => post.usuario == this.usuario?.url);
       let num_likes = 0;
       // Si se al algun usuario significa que ya le ha dado like al Post 
       if (likeUsuario != undefined) {
@@ -362,7 +363,7 @@ export class PostComponent implements OnInit {
 
         // Controlamos el numero de likes
         num_likes = this.postsLikes.length + 1
-        let like = new Likes(this.usuario.url, urlPost)
+        let like = new Likes(this.usuario?.url, urlPost)
         this._gestionLikesService.guardarLike(like).subscribe();
       }
 

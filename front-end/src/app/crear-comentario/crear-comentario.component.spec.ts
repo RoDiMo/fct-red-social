@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule, convertToParamMap } from '@angular/router';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { CrearComentarioComponent } from './crear-comentario.component';
 import { ComentariosService } from '../comentarios.service';
 import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
@@ -21,6 +21,8 @@ describe('CrearComentarioComponent', () => {
   let fixture: ComponentFixture<CrearComentarioComponent>;
   let comentarioService: ComentariosService; // Declara una variable para el servicio de comentarios
   let router: Router; // Declara una variable para el enrutador
+  let httpMock: HttpTestingController;
+
 
 
 
@@ -51,6 +53,8 @@ describe('CrearComentarioComponent', () => {
     component = fixture.componentInstance;
     comentarioService = TestBed.inject(ComentariosService); // Inyecta el servicio de comentarios
     router = TestBed.inject(Router); // Inyecta el enrutador
+    httpMock = TestBed.inject(HttpTestingController);
+
 
     component.ngOnInit();
     fixture.detectChanges();
@@ -145,6 +149,6 @@ describe('CrearComentarioComponent', () => {
   });
 
 
- 
+
 
 });

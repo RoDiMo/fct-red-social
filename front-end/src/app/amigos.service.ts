@@ -7,9 +7,9 @@ import { url } from './utils';
   providedIn: 'root'
 })
 export class AmigosService {
-  private urlAmistades: string = url()+"amigos/"
-  private urlCancelaciones: string = url()+"amistadescanceladas/"
-  private urlUsuarios : string = url() + "usuarios/"
+  public urlAmistades: string = url()+"amigos/"
+  public urlCancelaciones: string = url()+"amistadescanceladas/"
+  public urlUsuarios : string = url() + "usuarios/"
 
   constructor(private http: HttpClient) { }
 

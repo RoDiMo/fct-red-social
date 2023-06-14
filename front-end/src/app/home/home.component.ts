@@ -30,10 +30,10 @@ export class HomeComponent {
 
 
   constructor(
-    private _paginaPrincipalService: PaginaPrincipalService,
-    private _gestionLikesService: GestionLikesService,
-    private _obtenerUsuarioService: AutenticacionUsuariosService,
-    private _postService: PostService,
+    public _paginaPrincipalService: PaginaPrincipalService,
+    public _gestionLikesService: GestionLikesService,
+    public _obtenerUsuarioService: AutenticacionUsuariosService,
+    public _postService: PostService,
     public formBuilder: FormBuilder,
     public router: Router,
   ) {
@@ -93,7 +93,7 @@ export class HomeComponent {
   obtenerMisPost() {
     //this.contenidoCargado = false;
 
-    this._postService.obtenerPostsUsuario(this.credencialesUsuario.id).subscribe(data => {
+    this._postService.obtenerPostsUsuario(this.credencialesUsuario?.id).subscribe(data => {
       this.posts = data.results;
       this.misPost = true;
 
@@ -113,7 +113,7 @@ export class HomeComponent {
 
   gestionarUsuarios() {
     //Obtenemos los datos del usuario logueado
-    this._obtenerUsuarioService.getUsuario(this.credencialesUsuario.id).subscribe(data => {
+    this._obtenerUsuarioService.getUsuario(this.credencialesUsuario?.id).subscribe(data => {
       this.usuarioRegistrado = data
       if (this.usuarioRegistrado.is_staff || this.usuarioRegistrado.es_moderador) {
         this.esAdmin = true
@@ -153,7 +153,7 @@ export class HomeComponent {
       this.postsLikes = data.results;
 
       // Buscamos al usuario registrado en los post con likes
-      let likeUsuario = this.postsLikes.find(post => post.usuario == this.usuarioRegistrado.url);
+      let likeUsuario = this.postsLikes.find(post => post.usuario == this.usuarioRegistrado?.url);
 
       // Si el post no tiene nignuna coincidencia en la tabla like significa que ningún usuario le ha dado like
       if (this.postsLikes.length == 0) {

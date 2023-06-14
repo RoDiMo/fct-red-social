@@ -72,7 +72,7 @@ export class NotificacionesComponent {
       // Actualizamos la notificacion a procesada
       this._notificacionesService.actualizarNotificacion(idNotificacion, this.notificacionActualizada[0]).subscribe(notificacion =>{
         if (notificacion.status == 200) {
-          window.location.reload()
+          this.ngOnInit() // Cambio por el reload
         }
       })
       /*
@@ -96,7 +96,7 @@ export class NotificacionesComponent {
       // Actualizamos la notificacion a procesada
       this._notificacionesService.actualizarNotificacion(idNotificacion, this.notificacionActualizada[0]).subscribe(notificacion=>{
         if (notificacion.status == 200) {
-          window.location.reload()
+          this.ngOnInit() // Cambio por el reload
         }
   
       /*

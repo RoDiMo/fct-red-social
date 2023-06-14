@@ -53,5 +53,54 @@ describe('PerfilUsuarioService', () => {
   });
 
 
+  it('should get user by URL', () => {
+    const url = 'http://localhost:8000/usuarios/4/';
+    const dummyResponse = {
+      /* ... */
+    };
+
+    service.getUsuario(url).subscribe(response => {
+      expect(response).toEqual(dummyResponse);
+    });
+
+    const req = httpMock.expectOne(url);
+    expect(req.request.method).toBe('GET');
+    req.flush(dummyResponse);
+  });
+
+  it('should edit user profile data', () => {
+    const id = '4';
+    const usuario = {
+      /* ... */
+    };
+    const dummyResponse = {
+      /* ... */
+    };
+
+    service.editarDatosPerfil(id, usuario).subscribe(response => {
+
+    });
+
+    const req = httpMock.expectOne(service.url + `${id}/`);
+    expect(req.request.method).toBe('PUT');
+    expect(req.request.body).toEqual(usuario);
+    req.flush(dummyResponse);
+  });
+
+  it('should get chat partners data', () => {
+    const idEmisor = '1';
+    const idReceptor = '2';
+    const dummyResponse = {
+      /* ... */
+    };
+
+    service.obtenerParejaChat(idEmisor, idReceptor).subscribe(response => {
+      expect(response).toEqual(dummyResponse);
+    });
+
+    const req = httpMock.expectOne(service.url + `obtener_pareja_usuarios/?id=${idEmisor}&id=${idReceptor}`);
+    expect(req.request.method).toBe('GET');
+    req.flush(dummyResponse);
+  });
 
 });

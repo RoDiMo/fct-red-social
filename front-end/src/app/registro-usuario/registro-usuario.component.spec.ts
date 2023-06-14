@@ -201,6 +201,131 @@ describe('RegistroUsuarioComponent', () => {
       
       });
 
+
+    it('should retrieve countries and update form value', () => {
+      const paises = [{ id: '1', nombre: 'Country 1' }, { id: '2', nombre: 'Country 2' }];
+    
+      spyOn(component._obtenerDireccionService, 'obtenerPaises').and.returnValue(of({ results: paises }));
+    
+      component.obtenerPais();
+    
+      expect(component._obtenerDireccionService.obtenerPaises).toHaveBeenCalled();
+      expect(component.paises).toEqual(paises);
+   
+    });
+
+
+    it('should update form value and retrieve states', () => {
+      const estados = [{ id: '1', nombre: 'State 1' }, { id: '2', nombre: 'State 2' }];
+      const pais = 'Country';
+    
+      spyOn(component._obtenerDireccionService, 'obtenerEstados').and.returnValue(of({ results: estados }));
+    
+      component.pais = pais;
+      component.obtenerEstado();
+    
+      expect(component.formulario.get('pais')?.value).toBe(pais);
+      expect(component._obtenerDireccionService.obtenerEstados).toHaveBeenCalledWith(pais);
+      expect(component.estados).toEqual(estados);
+    });
+
+
+    it('should update form value and retrieve cities', () => {
+      const ciudades = [{ id: '1', nombre: 'City 1' }, { id: '2', nombre: 'City 2' }];
+      const estado = 'State';
+    
+      spyOn(component._obtenerDireccionService, 'obtenerCiudades').and.returnValue(of({ results: ciudades }));
+    
+      component.estado = estado;
+      component.obtenerCiudad();
+    
+      expect(component.estado).toBe(estado);
+      expect(component.formulario.get('estado')?.value).toBe(estado);
+      expect(component._obtenerDireccionService.obtenerCiudades).toHaveBeenCalledWith(estado);
+      expect(component.ciudades).toEqual(ciudades);
+    });
+
+    it('should update form values and log the form value', () => {
+      const pais = 'Country';
+      const estado = 'State';
+      const ciudad = 'City';
+    
+      component.pais = pais;
+      component.estado = estado;
+      component.ciudad = ciudad;
+      component.guardarDireccionFormulario();
+    
+      expect(component.pais).toBe(pais);
+      expect(component.estado).toBe(estado);
+      expect(component.ciudad).toBe(ciudad);
+      expect(component.formulario.get('pais')?.value).toBe(pais);
+      expect(component.formulario.get('estado')?.value).toBe(estado);
+      expect(component.formulario.get('ciudad')?.value).toBe(ciudad);
+     
+    });
+
+
+    it('should check passwords and update password validation status', () => {
+      const password = 'password123';
+      let confirmacion = 'password123';
+    
+      component.formulario.get('password')?.setValue(password);
+      component.comprobarContrasenias(confirmacion);
+    
+      expect(component.formulario.get('password')?.value).toBe(password);
+      expect(component.contraseniasIguales).toBeTrue();
+      expect(component.contraseniasNoCoinciden).toBe('');
+    
+      confirmacion = 'password456';
+      component.comprobarContrasenias(confirmacion);
+    
+      expect(component.contraseniasIguales).toBeFalse();
+      expect(component.contraseniasNoCoinciden).toEqual({ invalid: 'Las contraseñas no coinciden' });
+
+    });
+
+
+    it('should add selected file to formData', () => {
+      const file = new File(['test'], 'test.jpg', { type: 'image/jpeg' });
+      const event = { target: { files: [file] } };
+    
+      component.onFileSelected(event);
+    
+      expect(component.formData.get('foto_perfil')).toBe(file);
+    });
+
+
+    it('should send user data to registration service', () => {
+      const mockFormData = new FormData();
+      const mockResponse = { success: true };
+      const file = new File(['test'], 'test.jpg', { type: 'image/jpeg' });
+      spyOn(component.formData, 'append').and.callThrough();
+      spyOn(component._registroUsuario, 'nuevoUsuario').and.returnValue(of(mockResponse));
+      spyOn(component._registroUsuario, 'logInUser');
+    
+      component.formulario.setValue({
+        username: 'testuser',
+        email: 'test@example.com',
+        password: 'password',
+        first_name: 'John',
+        last_name: 'Doe',
+        telefono: '123456789',
+        pais: 'Country',
+        estado: 'State',
+        ciudad: 'City',
+        direccion: 'Address',
+        foto_perfil : file
+      });
+    
+      component.contraseniasIguales = true;
+    
+      component.nuevoUsuario();
+    
+      expect(component._registroUsuario.logInUser).toHaveBeenCalledWith(component.formulario.value);
+    });
+   
+    
+  
 });
 
 

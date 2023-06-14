@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ChatService {
-  private url:string; 
+  public url:string; 
   
 
   constructor(private http: HttpClient) { 

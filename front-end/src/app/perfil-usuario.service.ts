@@ -7,7 +7,7 @@ import { url } from './utils';
   providedIn: 'root'
 })
 export class PerfilUsuarioService {
-  private url: string = url()+'usuarios/'
+  public url: string = url()+'usuarios/'
   constructor(private http: HttpClient) {  }
 
   // Obtenemos el usuario por su id

@@ -20,11 +20,11 @@ export class PerfilUsuarioComponent implements OnInit {
 
   constructor(
     public _obtenerUsuarioService: AutenticacionUsuariosService,
-    private _perfilUsuarioService: PerfilUsuarioService,
-    private activatedRoute: ActivatedRoute,
-    private router: Router,
+    public _perfilUsuarioService: PerfilUsuarioService,
+    public activatedRoute: ActivatedRoute,
+    public router: Router,
     public fFormBuilder: FormBuilder,
-    private location: Location,
+    public location: Location,
   ) { 
 
     this.formularioImagenUsuario = this.fFormBuilder.group({
@@ -96,7 +96,7 @@ export class PerfilUsuarioComponent implements OnInit {
 
   
         
-        this._perfilUsuarioService.editarDatosPerfil(this.datosUsuario.id, formData).subscribe(data => {
+        this._perfilUsuarioService.editarDatosPerfil(this.datosUsuario?.id, formData).subscribe(data => {
   
           if (data.status == 200) {
             this.ngOnInit();
