@@ -29,6 +29,7 @@ export class AdminPostsComponent {
   public fecha_fin: string = "";
   public p: number = 1;
 
+
   constructor(
     public _postService: PaginaPrincipalService,
     public _actualizarPost: PostService,
@@ -97,6 +98,8 @@ export class AdminPostsComponent {
 
   enlaceAplicacion() {
     this.router.navigate(['/'])
+    localStorage.removeItem(`enlace-cabecera`)
+    localStorage.setItem(`enlace-cabecera`, 'inicio');
   }
 
   /**

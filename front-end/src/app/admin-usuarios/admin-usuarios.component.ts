@@ -85,6 +85,8 @@ export class AdminUsuariosComponent {
 
   enlaceAplicacion(){
     this.router.navigate(['/'])
+    localStorage.removeItem(`enlace-cabecera`)
+    localStorage.setItem(`enlace-cabecera`, 'inicio');
   }
 
    // Obtenemos los valores del usuario registrado

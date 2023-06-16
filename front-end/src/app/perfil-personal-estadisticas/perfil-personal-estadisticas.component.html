@@ -80,7 +80,7 @@
         <hr>
 
 
-        <div class="row d-flex justify-content-center pe-4 ps-xl-4">
+        <div class="row d-flex justify-content-center pe-4 ps-xl-4 pb-3">
             <div *ngFor="let postViews of postsMasViews" class="card col-10 col-xl-5 ms-3 mt-3" >
                 <img *ngIf="postViews.imagen" class="card-img-top" src="{{postViews.imagen}}" alt="Card image cap">
                 <img *ngIf="!postViews.imagen" class="card-img-top" src="../../assets/imagen_default.jpg"
@@ -121,7 +121,7 @@
         </div>
         <hr>
 
-        <div class="row d-flex justify-content-center pe-4 ps-xl-4">
+        <div class="row d-flex justify-content-center pe-4 ps-xl-4 pb-5">
             <div *ngFor="let postLikes of postMasLikes" class="card col-10 col-xl-5 ms-3 mt-3 ">
                 <img *ngIf="postLikes.imagen" class="card-img-top" src="{{postLikes.imagen}}" alt="Card image cap">
                 <img *ngIf="!postLikes.imagen" class="card-img-top" src="../../assets/imagen_default.jpg"

@@ -108,57 +108,63 @@ export class CabeceraComponent {
 
   enlaceInicio() {
 
-    this.location.replaceState(`/`);
+    //this.location.replaceState(`/`);
     localStorage.removeItem(`enlace-cabecera`)
     localStorage.setItem(`enlace-cabecera`, 'inicio');
-    location.reload();
+    this.router.navigateByUrl(`/`);
+    //location.reload();
   }
 
   enlaceNotificaciones() {
 
-    this.location.replaceState(`/notificaciones`);
+    //this.location.replaceState(`/notificaciones`);
     localStorage.removeItem(`enlace-cabecera`)
     localStorage.setItem(`enlace-cabecera`, 'notificaciones');
-    location.reload();
+    this.router.navigateByUrl(`/notificaciones`);
+    //location.reload();
   }
 
   enlacePerfil() {
-    this.location.replaceState(`/perfil-personal`);
+    //this.location.replaceState(`/perfil-personal`);
     localStorage.removeItem(`enlace-cabecera`)
     localStorage.setItem(`enlace-cabecera`, 'perfil-personal');
-    location.reload();
+    this.router.navigateByUrl(`/perfil-personal`);
+    //location.reload();
   }
 
   enlaceAmigos() {
 
-    this.location.replaceState(`/amigos`);
+    //this.location.replaceState(`/amigos`);
     localStorage.removeItem(`enlace-cabecera`)
     localStorage.setItem(`enlace-cabecera`, 'amigos');
-    location.reload();
+    this.router.navigateByUrl(`/amigos`);
+    //location.reload();
   }
 
   enlacePublicaciones() {
 
-    this.location.replaceState(`/perfil-usuario-publicaciones/${this.credenciales.id}`);
+    //this.location.replaceState(`/perfil-usuario-publicaciones/${this.credenciales.id}`);
     localStorage.removeItem(`enlace-cabecera`)
     localStorage.setItem(`enlace-cabecera`, 'perfil-usuario-publicaciones');
-    location.reload();
+    this.router.navigateByUrl(`/perfil-usuario-publicaciones/${this.credenciales.id}`);
+    //location.reload();
   }
 
   enlaceAdministracion() {
     
-    this.location.replaceState(`/admin-posts`);
+    //this.location.replaceState(`/admin-posts`);
     localStorage.removeItem(`enlace-cabecera`)
-  
-    location.reload();
+    this.router.navigateByUrl(`/admin-posts`);
+    //location.reload();
   }
 
   enlaceFormularioPost() {
 
-    this.location.replaceState(`/formulario-post`);
+    //this.location.replaceState(`/formulario-post`);
     localStorage.removeItem(`enlace-cabecera`)
     localStorage.setItem(`enlace-cabecera`, 'formulario-post');
-    location.reload();
+    this.router.navigateByUrl(`/formulario-post`);
+    //location.reload();
 
   }
 

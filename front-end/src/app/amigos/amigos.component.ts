@@ -7,6 +7,7 @@ import { AmistadesCanceladas } from '../amistades-canceladas/amistades-cancelada
 import { Notificacion } from '../notificaciones/notificaciones';
 import { NotificacionesService } from '../notificaciones.service';
 import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-amigos',
   templateUrl: './amigos.component.html',
@@ -27,11 +28,14 @@ export class AmigosComponent {
   public fecha = new Date();
   public contenidoCargado: boolean = false;
 
+  public valorBusqueda: string = ''
+
   constructor(
     public _obtenerUsuarioService: AutenticacionUsuariosService,
     public _amigosService: AmigosService,
     public _notificacionesService: NotificacionesService,
     private location: Location,
+    public router: Router,
   ) { }
 
 
@@ -42,7 +46,7 @@ export class AmigosComponent {
     this.obtenerUsuarioRegistrado()
 
     this.obtenerAmigos()
-    this.obtenerNoAmigos()
+    this.obtenerNoAmigos(this.valorBusqueda)
 
   
     setTimeout(() => {
@@ -54,17 +58,15 @@ export class AmigosComponent {
   }
 
   enlacePerfil() {
-    this.location.replaceState(`/perfil-personal`);
     localStorage.removeItem(`enlace-cabecera`)
     localStorage.setItem(`enlace-cabecera`, 'perfil-personal');
-    location.reload();
+    this.router.navigateByUrl(`/perfil-personal`);
   }
 
   enlaceEstadisticas() {
-    this.location.replaceState(`/perfil-personal-estadisticas`);
     localStorage.removeItem(`enlace-cabecera`)
     localStorage.setItem(`enlace-cabecera`, 'perfil-personal');
-    location.reload();
+    this.router.navigateByUrl(`/perfil-personal-estadisticas`);
   }
 
   
@@ -88,12 +90,12 @@ export class AmigosComponent {
   }
 
   // Función que nos trae a los usuarios que no son amigos del usuario registrado
-  obtenerNoAmigos() {
-    this._amigosService.noAmigos().subscribe(noAmigos => {
+  obtenerNoAmigos(nombreAmigo: string) {
+    this._amigosService.noAmigos(nombreAmigo).subscribe(noAmigos => {
       this.noAmigos = noAmigos
-      console.log(this.noAmigos)
-      // Marca como pendiente a los usuarios que no sean nuestros amigos, pero que tengan una solicitud de amistad nuestra
 
+      
+      // Marca como pendiente a los usuarios que no sean nuestros amigos, pero que tengan una solicitud de amistad nuestra
       this.obtenerNotificacionPendienteDestino(this.noAmigos)
 
       // Marca como pendiente a aquellos usuarios que nos hayan enviado solicitudes de amistad 
@@ -136,7 +138,7 @@ export class AmigosComponent {
         // Si encuentra un usuario con notificacion, lo pondrá en pendiente de amistad
         if (this.notificaciones?.length != 0   ) {
           usuario.amistadPendiente = true
-          console.log(usuario.amistadPendiente)
+
         }
 
       })
@@ -151,7 +153,7 @@ export class AmigosComponent {
     let notificacion = new Notificacion(null, this.usuarioRegistrado[0]?.url, amigoUrl, "Pendiente", this.fecha, false, null)
 
     this._notificacionesService.nuevaNotificacion(notificacion).subscribe(notificacion => {
-      console.log(notificacion.status)
+   
       if (notificacion.status == 201) {
         this.ngOnInit();
       }

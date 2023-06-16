@@ -54,6 +54,14 @@ describe('PerfilUsuarioComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should navigate to amigos on enlaceAmigos', () => {
+    const routerSpy = spyOn(router, 'navigateByUrl');
+
+    component.enlaceAmigos();
+
+    expect(localStorage.getItem('enlace-cabecera')).toBe('amigos');
+    expect(routerSpy).toHaveBeenCalledWith('/amigos');
+  });
 
   it('should set contenidoCargado to true after 500ms', (done) => {
     const mockUserData = {
@@ -129,4 +137,6 @@ describe('PerfilUsuarioComponent', () => {
     expect(localStorage.removeItem).toHaveBeenCalledWith('userData');
     expect(component.router.navigateByUrl).toHaveBeenCalledWith('/login');
   });
+
+
 });

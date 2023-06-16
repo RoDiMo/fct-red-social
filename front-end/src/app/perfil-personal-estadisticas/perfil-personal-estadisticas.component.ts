@@ -5,6 +5,7 @@ import { PerfilUsuarioService } from '../perfil-usuario.service';
 import { AutenticacionUsuariosService } from '../autenticacion-usuarios.service';
 import { PostService } from '../post.service';
 import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-perfil-personal-estadisticas',
   templateUrl: './perfil-personal-estadisticas.component.html',
@@ -42,7 +43,7 @@ export class PerfilPersonalEstadisticasComponent {
     public _obtenerUsuario: AutenticacionUsuariosService,
     private _postService: PostService,
     private location: Location,
-
+    public router: Router,
 
   ) { }
 
@@ -66,17 +67,19 @@ export class PerfilPersonalEstadisticasComponent {
 
   enlaceAmigos() {
 
-    this.location.replaceState(`/amigos`);
+    //this.location.replaceState(`/amigos`);
     localStorage.removeItem(`enlace-cabecera`)
     localStorage.setItem(`enlace-cabecera`, 'amigos');
-    location.reload();
+    this.router.navigateByUrl(`/amigos`);
+    //location.reload();
   }
 
   enlacePerfil() {
-    this.location.replaceState(`/perfil-personal`);
+    //this.location.replaceState(`/perfil-personal`);
     localStorage.removeItem(`enlace-cabecera`)
     localStorage.setItem(`enlace-cabecera`, 'perfil-personal');
-    location.reload();
+    this.router.navigateByUrl(`/perfil-personal`);
+    //location.reload();
   }
 
 
@@ -101,11 +104,11 @@ export class PerfilPersonalEstadisticasComponent {
 
       // Obtenemos los post ordenasdos por numero de likes
       // Si el usuario no ha publicado ningun post los valores por defecto serán 0
-      this.postMasLikes = this.postsUsuario.sort(this.ordenarPostLikes)
+      this.postMasLikes = this.postsUsuario.sort(this.ordenarPostLikes).slice(0,2)
 
       // Obtenemos los post ordenasdos por numero de visitas
       // Si el usuario no ha publicado ningun post los valores por defecto serán 0
-      this.postsMasViews = this.postsUsuario.sort(this.ordenarPostViews)
+      this.postsMasViews = this.postsUsuario.sort(this.ordenarPostViews).slice(0,2)
 
 
     })

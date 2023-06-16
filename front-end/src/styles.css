@@ -24,11 +24,6 @@
 }
 
 
-
-
-
-
-
 /* AMIGOS */
 
 .card_amigos {
@@ -211,6 +206,7 @@
 
 div.scroll {
   overflow: auto;
+  scrollbar-width: none;
 }
 
 
@@ -503,6 +499,9 @@ hr {
     font-size: 12px;
   }
 
+  #texto{
+    font-size: 12px;
+  }
 
   /*DETALLES POST RESPONSIVE*/
 

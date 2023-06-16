@@ -11,6 +11,7 @@ export class AmigosService {
   public urlCancelaciones: string = url()+"amistadescanceladas/"
   public urlUsuarios : string = url() + "usuarios/"
 
+
   constructor(private http: HttpClient) { }
 
   // -------- GESTION DE AMISTADES --------
@@ -19,8 +20,8 @@ export class AmigosService {
     return this.http.get<any>(this.urlUsuarios+`obtener_amigos/`)
   }
 
-  noAmigos(): Observable<any>{
-    return this.http.get<any>(this.urlUsuarios+`no_amigos/`)
+  noAmigos(nombreAmigo: string): Observable<any>{
+    return this.http.get<any>(this.urlUsuarios+`no_amigos/?query=${nombreAmigo}`)
   }
 
 

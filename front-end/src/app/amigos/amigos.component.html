@@ -47,6 +47,19 @@
             </div>
 
             <hr class="w-75">
+           
+
+                <div class="input-group d-flex justify-content-end ms-5 ms-sm-0 me-3">
+                    <div class="form-outline d-flex">
+                        <input type="search" id="form1" class="form-control w-75 " placeholder="Buscar usuario"
+                            [(ngModel)]="valorBusqueda" />
+                            <button type="button" class="btn btn-dark" (click)=" obtenerNoAmigos(valorBusqueda)">
+                                <i class="fas fa-search"></i>
+                            </button>
+                    </div>
+                 
+                </div>
+      
 
             <div *ngFor=" let amigo of noAmigos" class="col-10 col-md-4 mt-5 mb-3 pb-4">
 
@@ -65,7 +78,7 @@
                                 style="width: 7rem; height: 7rem;  ">
 
                             <h3 class="mt-2">{{amigo.username}}</h3>
-                            <span class="mt-1 clearfix">Amigos desde hace 2 dias</span>
+                            <span class="mt-1 texto_post;" id="texto">Amigos desde hace 2 dias</span>
 
 
                             <div class="social-buttons mt-5">

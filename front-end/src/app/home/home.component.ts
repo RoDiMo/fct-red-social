@@ -76,7 +76,7 @@ export class HomeComponent {
     this._paginaPrincipalService.getPostOrdenados(this.credencialesUsuario?.id).subscribe(data => {
       this.posts = data;
       this.misPost = false;
-      console.log(data)
+  
       // Obtenemos el usuario registrado además de comprobar si le ha dado like a los diferentes posts
       this.gestionarUsuarios();
     })

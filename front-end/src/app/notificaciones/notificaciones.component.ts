@@ -4,6 +4,7 @@ import { AmigosService } from '../amigos.service';
 import { AutenticacionUsuariosService } from '../autenticacion-usuarios.service';
 import { Notificacion } from './notificaciones';
 import { Amigo } from '../amigos/amigo';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-notificaciones',
@@ -18,10 +19,12 @@ export class NotificacionesComponent {
   public fecha = new Date();
   public notificacionActualizada: Array<Notificacion> = [];
 
+
   constructor(
     public _obtenerUsuarioService: AutenticacionUsuariosService,
     public _amigosService: AmigosService,
     public _notificacionesService: NotificacionesService,
+    public router: Router,
 
   ) { }
 
@@ -72,7 +75,11 @@ export class NotificacionesComponent {
       // Actualizamos la notificacion a procesada
       this._notificacionesService.actualizarNotificacion(idNotificacion, this.notificacionActualizada[0]).subscribe(notificacion =>{
         if (notificacion.status == 200) {
-          this.ngOnInit() // Cambio por el reload
+          //this.ngOnInit() // Cambio por el reload
+
+          localStorage.removeItem(`enlace-cabecera`)
+          localStorage.setItem(`enlace-cabecera`, 'inicio');
+          this.router.navigateByUrl(`/`);
         }
       })
       /*

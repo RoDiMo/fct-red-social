@@ -72,8 +72,12 @@
                         <textarea class="form-control" rows=4 formControlName="mensaje" style="width: 90%;" required
                             placeholder="Introduce tu mensaje" [defaultValue]=""></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary">Enviar</button>
+                    <button type="submit" class="btn btn-primary  {{ formularioChat.get('mensaje')?.hasError('required') ||  caracSobrantes ? 'disabled' : ''}} ">Enviar</button>
                 </form>
+
+                <div class="row">
+                    <p *ngIf="!quedanCaracteres">Excedida la capacidad de caracteres por {{caracSobrantes}} </p>
+                  </div>
             </div>
    
     </div>

@@ -274,6 +274,73 @@ describe('CabeceraComponent', () => {
     // Comprueba que se llame a "navigateByUrl" con el argumento correcto
     expect(navigateByUrlSpy).toHaveBeenCalledWith('/login');
   });
+
+
+
+  it('should navigate to home on enlaceInicio', () => {
+    const routerSpy = spyOn(router, 'navigateByUrl');
+
+    component.enlaceInicio();
+
+    expect(localStorage.getItem('enlace-cabecera')).toBe('inicio');
+    expect(routerSpy).toHaveBeenCalledWith('/');
+  });
+
+  it('should navigate to notificaciones on enlaceNotificaciones', () => {
+    const routerSpy = spyOn(router, 'navigateByUrl');
+
+    component.enlaceNotificaciones();
+
+    expect(localStorage.getItem('enlace-cabecera')).toBe('notificaciones');
+    expect(routerSpy).toHaveBeenCalledWith('/notificaciones');
+  });
+
+  it('should navigate to perfil-personal on enlacePerfil', () => {
+    const routerSpy = spyOn(router, 'navigateByUrl');
+
+    component.enlacePerfil();
+
+    expect(localStorage.getItem('enlace-cabecera')).toBe('perfil-personal');
+    expect(routerSpy).toHaveBeenCalledWith('/perfil-personal');
+  });
+
+  it('should navigate to amigos on enlaceAmigos', () => {
+    const routerSpy = spyOn(router, 'navigateByUrl');
+
+    component.enlaceAmigos();
+
+    expect(localStorage.getItem('enlace-cabecera')).toBe('amigos');
+    expect(routerSpy).toHaveBeenCalledWith('/amigos');
+  });
+
+  it('should navigate to perfil-usuario-publicaciones on enlacePublicaciones', () => {
+    const routerSpy = spyOn(router, 'navigateByUrl');
+
+    component.credenciales = { id: '1' }; // Set the value of credenciales
+
+    component.enlacePublicaciones();
+
+    expect(localStorage.getItem('enlace-cabecera')).toBe('perfil-usuario-publicaciones');
+    expect(routerSpy).toHaveBeenCalledWith('/perfil-usuario-publicaciones/1');
+  });
+
+  it('should navigate to admin-posts on enlaceAdministracion', () => {
+    const routerSpy = spyOn(router, 'navigateByUrl');
+
+    component.enlaceAdministracion();
+
+    expect(localStorage.getItem('enlace-cabecera')).toBeNull();
+    expect(routerSpy).toHaveBeenCalledWith('/admin-posts');
+  });
+
+  it('should navigate to formulario-post on enlaceFormularioPost', () => {
+    const routerSpy = spyOn(router, 'navigateByUrl');
+
+    component.enlaceFormularioPost();
+
+    expect(localStorage.getItem('enlace-cabecera')).toBe('formulario-post');
+    expect(routerSpy).toHaveBeenCalledWith('/formulario-post');
+  });
 });
 
 

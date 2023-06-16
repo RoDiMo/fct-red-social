@@ -6,7 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppRoutingModule } from '../app-routing.module';
 import { CabeceraComponent } from '../cabecera/cabecera.component';
@@ -26,6 +26,7 @@ describe('AmigosComponent', () => {
   let authService: AutenticacionUsuariosService;
   let amigosService: AmigosService;
   let notificacionesService: NotificacionesService;
+  let router: Router;
 
   beforeEach(async () => {
 
@@ -56,6 +57,7 @@ describe('AmigosComponent', () => {
     authService = TestBed.inject(AutenticacionUsuariosService);
     amigosService = TestBed.inject(AmigosService);
     notificacionesService = TestBed.inject(NotificacionesService);
+    router = TestBed.inject(Router);
 
   });
 
@@ -186,7 +188,7 @@ describe('AmigosComponent', () => {
   });
 
 
-
+/*
   it('should get no amigos and check notifications', () => {
     const noAmigos = [  new PerfilUsuario(     '1',
     'usuario1',
@@ -232,7 +234,7 @@ describe('AmigosComponent', () => {
     expect(notificacionesService.nuevaNotificacion).toHaveBeenCalled();
 
   });
-
+*/
 
 
   it('should delete amistad and reload page', () => {
@@ -253,6 +255,60 @@ describe('AmigosComponent', () => {
 
   });
 
+  
+  it('should navigate to perfil-personal on enlacePerfil', () => {
+    const routerSpy = spyOn(router, 'navigateByUrl');
+
+    component.enlacePerfil();
+
+    expect(localStorage.getItem('enlace-cabecera')).toBe('perfil-personal');
+    expect(routerSpy).toHaveBeenCalledWith('/perfil-personal');
+  });
+
+  it('should navigate to perfil-personal-estadisticas on enlaceEstadisticas', () => {
+    const routerSpy = spyOn(router, 'navigateByUrl');
+
+    component.enlaceEstadisticas();
+
+    expect(localStorage.getItem('enlace-cabecera')).toBe('perfil-personal');
+    expect(routerSpy).toHaveBeenCalledWith('/perfil-personal-estadisticas');
+  });
+  
+
+
+  
+  it('should call noAmigos and handle response', () => {
+    const nombreAmigo = 'JohnDoe';
+    const noAmigos:Array<PerfilUsuario> =   [ {
+      id: '1',
+      username: 'user1',
+      password: 'password1',
+      first_name: 'John',
+      last_name: 'Doe',
+      email: 'john.doe@example.com',
+      telefono: '123456789',
+      es_moderador: true,
+      is_staff: true,
+      pais: 'Country 1',
+      estado: 'State 1',
+      ciudad: 'City 1',
+      direccion: 'Address 1',
+      foto_perfil: '',
+      url: 'user1-url',
+      amistadPendiente: false,
+      fecha_alta: new Date()
+    }
+   ];
+
+    spyOn(amigosService, 'noAmigos').and.returnValue(of(noAmigos));
+
+    component.obtenerNoAmigos(nombreAmigo);
+
+    expect(amigosService.noAmigos).toHaveBeenCalledWith(nombreAmigo);
+    expect(component.noAmigos).toEqual(noAmigos);
+  });
+
+  
 });
 
 

@@ -72,10 +72,11 @@ export class PerfilUsuarioComponent implements OnInit {
   
   enlaceAmigos() {
 
-    this.location.replaceState(`/amigos`);
+    //this.location.replaceState(`/amigos`);
     localStorage.removeItem(`enlace-cabecera`)
     localStorage.setItem(`enlace-cabecera`, 'amigos');
-    location.reload();
+    this.router.navigateByUrl(`/amigos`);
+    //location.reload();
   }
 
     // Función para manejar la selección de una imagen por parte del usuario

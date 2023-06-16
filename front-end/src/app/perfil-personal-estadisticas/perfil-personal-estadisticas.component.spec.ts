@@ -1,12 +1,11 @@
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
-
 import { PerfilPersonalEstadisticasComponent } from './perfil-personal-estadisticas.component';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppRoutingModule } from '../app-routing.module';
 import { CabeceraComponent } from '../cabecera/cabecera.component';
@@ -20,7 +19,7 @@ describe('PerfilPersonalEstadisticasComponent', () => {
   let fixture: ComponentFixture<PerfilPersonalEstadisticasComponent>;
   let perfilUsuarioService: PerfilUsuarioService;
   let postService: PostService;
-
+  let router: Router;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -50,13 +49,31 @@ describe('PerfilPersonalEstadisticasComponent', () => {
     component = fixture.componentInstance;
     perfilUsuarioService = TestBed.inject(PerfilUsuarioService); // Obtiene una instancia del servicio
     postService = TestBed.inject(PostService); // Obtiene una instancia del servicio
-
+    router = TestBed.inject(Router);
 
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should navigate to amigos on enlaceAmigos', () => {
+    const routerSpy = spyOn(router, 'navigateByUrl');
+
+    component.enlaceAmigos();
+
+    expect(localStorage.getItem('enlace-cabecera')).toBe('amigos');
+    expect(routerSpy).toHaveBeenCalledWith('/amigos');
+  });
+
+  it('should navigate to perfil-personal on enlacePerfil', () => {
+    const routerSpy = spyOn(router, 'navigateByUrl');
+
+    component.enlacePerfil();
+
+    expect(localStorage.getItem('enlace-cabecera')).toBe('perfil-personal');
+    expect(routerSpy).toHaveBeenCalledWith('/perfil-personal');
   });
 
   it('should retrieve user posts and update component variables', () => {

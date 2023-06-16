@@ -62,22 +62,46 @@ class Usuario(viewsets.ModelViewSet):
         serializer = UsuarioSerializer(usuarios_amigos, many=True, context={'request': request})
         return Response(serializer.data)
 
+
+    # @action(detail=False, methods=['get'])
+    # def no_amigos(self, request):
+    #     usuario_actual = request.user
+    #     amigos = Amigos.objects.filter(Q(usuario_solicitante=usuario_actual) | Q(usuario_receptor=usuario_actual))
+    #     if not amigos:
+    #         usuarios_no_amigos = Usuarios.objects.exclude(id=usuario_actual.id)[:9]
+    #     else:
+    #         usuarios_amigos = [amigo.usuario_solicitante for amigo in amigos] + [amigo.usuario_receptor for amigo in
+    #                                                                              amigos]
+    #         usuarios_no_amigos = Usuarios.objects.exclude(id__in=[usuario.id for usuario in usuarios_amigos])[:3]
+    #
+    #     serializer = UsuarioSerializer(usuarios_no_amigos, many=True, context={'request': request})
+    #     return Response(serializer.data)
+    #
+    # def get_permissions(self):
+    #     return permisos_usuarios(self.action)
+
     @action(detail=False, methods=['get'])
     def no_amigos(self, request):
         usuario_actual = request.user
+        query = request.query_params.get('query', '')  # Obtener el término de búsqueda del parámetro 'query'
+
         amigos = Amigos.objects.filter(Q(usuario_solicitante=usuario_actual) | Q(usuario_receptor=usuario_actual))
+
         if not amigos:
-            usuarios_no_amigos = Usuarios.objects.exclude(id=usuario_actual.id)[:9]
+            usuarios_no_amigos = Usuarios.objects.exclude(id=usuario_actual.id)
         else:
             usuarios_amigos = [amigo.usuario_solicitante for amigo in amigos] + [amigo.usuario_receptor for amigo in
                                                                                  amigos]
-            usuarios_no_amigos = Usuarios.objects.exclude(id__in=[usuario.id for usuario in usuarios_amigos])[:3]
+            usuarios_no_amigos = Usuarios.objects.exclude(id__in=[usuario.id for usuario in usuarios_amigos])
+
+        # Aplicar filtro por término de búsqueda si se proporciona
+        if query:
+            usuarios_no_amigos = usuarios_no_amigos.filter(Q(username__icontains=query) | Q(first_name__icontains=query) | Q(last_name__icontains=query) )
+
+        usuarios_no_amigos = usuarios_no_amigos[:3]
 
         serializer = UsuarioSerializer(usuarios_no_amigos, many=True, context={'request': request})
         return Response(serializer.data)
-
-    def get_permissions(self):
-        return permisos_usuarios(self.action)
 
 
     def update(self, request, *args, **kwargs):

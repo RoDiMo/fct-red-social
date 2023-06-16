@@ -23,13 +23,12 @@ export class ChatComponent {
   public usuario_logeado!: PerfilUsuario;
   public usuario_amigo!: PerfilUsuario;
   public formularioChat!: FormGroup;
-  
-
+  public caracRestantes: number = 250;
+  public quedanCaracteres: boolean = true;
+  public caracSobrantes?: number
 
 
   constructor(
-    
-  
     public _chatService: ChatService,
     public _obtenerUsuarioService: AutenticacionUsuariosService,
     public _perfilUsuarioService: PerfilUsuarioService,
@@ -40,7 +39,7 @@ export class ChatComponent {
     this.formularioChat = this.formBuilder.group({
       emisor: ['' as string | null, Validators.required],
       receptor: ['' as string | null, Validators.required],
-      mensaje: ['' as string | null, Validators.required],
+      mensaje: ['' as string, Validators.required],
     })
 
   }
@@ -57,6 +56,13 @@ export class ChatComponent {
       this.obtenerMensajesNoLeidos()
       this.obtenerMensajes()
     }, 1000);
+
+
+    this.formularioChat.valueChanges.subscribe(data => {
+      this.controlarCaracteres(data.mensaje)
+      console.log(data.mensaje)
+    })
+
   }
 
   // Obtiene los datos de los usuarios que conforman el chat
@@ -124,6 +130,20 @@ export class ChatComponent {
     */
   }
 
+
+    // Funcion para controlar que el número de caracteres no sobrepase la capacidad permitida
+    controlarCaracteres(contenido: string) {
+      this.caracRestantes = 250 - contenido.length
+  
+      if (this.caracRestantes > 0) {
+        this.quedanCaracteres = true
+      } else {
+        this.quedanCaracteres = false
+        this.caracSobrantes = - (250 - contenido.length)
+        this.caracRestantes = 0
+      }
+  
+    }
 
 
 }
