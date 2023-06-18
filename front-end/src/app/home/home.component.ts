@@ -62,6 +62,8 @@ export class HomeComponent {
       this.contenidoCargado = true;
 
     }, 500);
+
+    
   }
 
   // Enlace al post seleccionadp

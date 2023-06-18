@@ -44,6 +44,7 @@ export class CabeceraComponent {
     if(!this.credenciales){
       this.credenciales = {"token":"8f78c9b24891cc8041ec9d3e39b4ee07b045de7","id":0,"username":"pruebatest"}
     }
+   
     this.obtenerUsuarioRegistrado()
     this.obtenerNumNotificaciones()
    
@@ -154,6 +155,7 @@ export class CabeceraComponent {
     
     //this.location.replaceState(`/admin-posts`);
     localStorage.removeItem(`enlace-cabecera`)
+    localStorage.setItem(`enlace-cabecera`, 'inicio');
     this.router.navigateByUrl(`/admin-posts`);
     //location.reload();
   }

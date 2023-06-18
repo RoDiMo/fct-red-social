@@ -131,3 +131,7 @@ class Chat(models.Model):
     def __str__(self):
         return "Emisor: {} - Receptor:{}".format(self.emisor, self.receptor)
 
+
+
+
+

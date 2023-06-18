@@ -19,6 +19,7 @@ export class AdminUsuariosComponent {
 
   public posts: Array<Post> = [];
   public usuarios: Array<PerfilUsuario> = []
+  public listadoUsuarios: Array<PerfilUsuario> = []
   public usuarioRegistrado!: PerfilUsuario;
   public credenciales = this._usuarioService.obtenerCredenciales();
   public usuarioModerador!: FormGroup;
@@ -127,7 +128,7 @@ export class AdminUsuariosComponent {
   // True : Se ordenan los campos descendentemente
   // False : Se ordenan los campos ascendentemente
   guardarValorBusqueda() {
-
+    this.p = 1;
     if (this.ordenarCampo) {
       this.campoSeleccionado = '-' + this.campoSeleccionado
       this.ordenarCampo = !this.ordenarCampo
@@ -144,7 +145,7 @@ export class AdminUsuariosComponent {
   obtenerUsuarios() {
     this._adminService.ordenarUsuarios('username', "", this.fecha_inicio, this.fecha_fin).subscribe(data => {
       this.usuarios = data.results
-
+      this.listadoUsuarios = data.results
     })
   }
 

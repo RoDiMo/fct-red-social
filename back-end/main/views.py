@@ -23,7 +23,8 @@ class Paises(viewsets.ModelViewSet):
     queryset = Paises.objects.all()
     serializer_class = PaisesSerializer
     permission_classes = [AllowAny]
-
+    filter_backends = [filters.OrderingFilter]
+    ordering_fields = ['id']
 
 class Estados(viewsets.ModelViewSet):
     queryset = Estados.objects.all()
@@ -268,3 +269,4 @@ class Chats(viewsets.ModelViewSet):
         serializers_context = self.get_serializer_context()
         serializer = ChatSerializer(instance=mensajes_no_leidos, context=serializers_context, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+

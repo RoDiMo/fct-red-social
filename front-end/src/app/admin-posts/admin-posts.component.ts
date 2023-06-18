@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
 })
 export class AdminPostsComponent {
   public posts: Array<Post> = [];
+  public listadoPost: Array<Post> = [];
   public usuarios: Array<PerfilUsuario> = []
   public usuarioRegistrado!: PerfilUsuario;
   public credenciales = this._usuarioService?.obtenerCredenciales();
@@ -128,7 +129,7 @@ export class AdminPostsComponent {
   // True : Se ordenan los campos descendentemente
   // False : Se ordenan los campos ascendentemente
   guardarValorBusqueda() {
-
+    this.p = 1
     if (this.ordenarCampo) {
       this.campoSeleccionado = '-' + this.campoSeleccionado
       this.ordenarCampo = !this.ordenarCampo
@@ -145,8 +146,8 @@ export class AdminPostsComponent {
   // Obtiene los posts ordenados por fecha
   obtenerPost() {
     this._postService.getPost().subscribe(data => {
-      this.posts = data.results
-
+      this.posts = data.results;
+      this.listadoPost = data.results;
     })
   }
 
