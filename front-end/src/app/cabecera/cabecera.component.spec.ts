@@ -328,8 +328,6 @@ describe('CabeceraComponent', () => {
     const routerSpy = spyOn(router, 'navigateByUrl');
 
     component.enlaceAdministracion();
-
-    expect(localStorage.getItem('enlace-cabecera')).toBeNull();
     expect(routerSpy).toHaveBeenCalledWith('/admin-posts');
   });
 

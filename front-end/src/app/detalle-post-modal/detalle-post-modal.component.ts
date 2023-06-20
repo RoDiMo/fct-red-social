@@ -9,6 +9,7 @@ import { FormGroup } from '@angular/forms';
 })
 export class DetallePostModalComponent {
 
+  // Obtenemos los datos del post
   @Input() datosPost?: any;
 
 

@@ -157,9 +157,6 @@ export class AmigosComponent {
       if (notificacion.status == 201) {
         this.ngOnInit();
       }
-      /*setTimeout(() => {
-        window.location.reload();
-      }, 500)*/
     });
   }
 
@@ -198,15 +195,10 @@ export class AmigosComponent {
 
               if (eliminacion.status == 204) {
                 this.ngOnInit();
-                //window.location.reload();
+        
               }
             })
 
-            /*
-            setTimeout(() => {
-              window.location.reload();
-            }, 500)
-            */
           })
 
         }

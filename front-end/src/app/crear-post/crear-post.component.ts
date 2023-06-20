@@ -129,17 +129,16 @@ export class CrearPostComponent implements OnInit {
     const file = event.target.files[0];
     if (file != null) {
       this.formData.append('imagen', file);
-
-
-      //this.formularioPost.get('imagen')?.setValue(file); // se asigna el archivo seleccionado a su campo del formulario
     }
   }
 
+  // Modal que nos muestra una vista previa del post
   detallePostModal(){
     this.formData.append('titulo', this.formularioPost.get('titulo')?.value);
     this.formData.append('contenido', this.formularioPost.get('contenido')?.value);
     this.formData.append('usuario', this.formularioPost.get('usuario')?.value);
 
+    // Abrimos el modal y le pasamois los valores del Post
     const _modal =  this.modal.open(DetallePostModalComponent)
     _modal.componentInstance.datosPost = this.formularioPost.value
 
@@ -160,21 +159,12 @@ export class CrearPostComponent implements OnInit {
     if (!this.modoEdicion) {
       this._postService.nuevoPost(this.formData).subscribe(data => {
     
-        if (data.status == 201) {
-  
-            
-            localStorage.removeItem(`enlace-cabecera`)
+        if (data.status == 201) { // Creamos un nuevo Post
+              localStorage.removeItem(`enlace-cabecera`)
             localStorage.setItem(`enlace-cabecera`, 'inicio');
             this.router.navigateByUrl(`/`);
-            //location.reload();
-
         }
-        /*
-        setTimeout(() => {
-          this.router.navigateByUrl(`/`);
-        }, 50)
-        */
-      }, err => {
+      }, err => { //Controlamos los errores
         if (err instanceof HttpErrorResponse) {
           const ValidationErrors = err.error;
           Object.keys(ValidationErrors).forEach(prop => {
@@ -189,15 +179,13 @@ export class CrearPostComponent implements OnInit {
         this.errors = err.error.message;
       });
 
-
-
     } else {
-      this._postService.modificarPost(this.post.id, this.formularioPost.value).subscribe(data => {
+      this._postService.modificarPost(this.post.id, this.formularioPost.value).subscribe(data => { // Modificamos el post
 
         if (data.status == 200) {
         this.router.navigateByUrl(`post/${this.post.id}`);
         }
-      }, err => {
+      }, err => {  //Controlamos los errores
         if (err instanceof HttpErrorResponse) {
           const ValidationErrors = err.error;
           Object.keys(ValidationErrors).forEach(prop => {

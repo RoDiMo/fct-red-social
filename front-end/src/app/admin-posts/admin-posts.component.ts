@@ -179,12 +179,6 @@ export class AdminPostsComponent {
         this.guardarValorBusqueda();
       }
 
-      /*
-      setTimeout(() => {
-        this.guardarValorBusqueda();
-
-      }, 5)
-      */
     })
   }
 
@@ -207,13 +201,6 @@ export class AdminPostsComponent {
       if (data.status == 200) {
         this.guardarValorBusqueda();
       }
-
-      /*
-      setTimeout(() => {
-        this.guardarValorBusqueda();
-
-      }, 5)
-      */
     })
   }
 

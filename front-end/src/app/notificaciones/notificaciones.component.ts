@@ -75,18 +75,11 @@ export class NotificacionesComponent {
       // Actualizamos la notificacion a procesada
       this._notificacionesService.actualizarNotificacion(idNotificacion, this.notificacionActualizada[0]).subscribe(notificacion =>{
         if (notificacion.status == 200) {
-          //this.ngOnInit() // Cambio por el reload
 
-          localStorage.removeItem(`enlace-cabecera`)
-          localStorage.setItem(`enlace-cabecera`, 'inicio');
-          this.router.navigateByUrl(`/`);
+          this.ngOnInit() 
         }
       })
-      /*
-      setTimeout(() => {
-        window.location.reload()
-      }, 50)
-      */
+
     })
   }
 
@@ -105,12 +98,6 @@ export class NotificacionesComponent {
         if (notificacion.status == 200) {
           this.ngOnInit() // Cambio por el reload
         }
-  
-      /*
-      setTimeout(() => {
-        window.location.reload()
-      }, 50)
-      */
       })
 
 

@@ -25,10 +25,10 @@ export class PerfilUsuarioComponent implements OnInit {
     public router: Router,
     public fFormBuilder: FormBuilder,
     public location: Location,
-  ) { 
+  ) {
 
     this.formularioImagenUsuario = this.fFormBuilder.group({
-  
+
       email: ['' as string | null, Validators.required],
       first_name: ['' as string | null, Validators.required],
       last_name: ['' as string | null, Validators.required],
@@ -48,7 +48,7 @@ export class PerfilUsuarioComponent implements OnInit {
       this.datosUsuario = data;
 
       this.formularioImagenUsuario.patchValue({
-     
+
         email: this.datosUsuario.email!,
         first_name: this.datosUsuario.first_name!,
         last_name: this.datosUsuario.last_name!,
@@ -58,9 +58,8 @@ export class PerfilUsuarioComponent implements OnInit {
         ciudad: this.datosUsuario.ciudad!,
         direccion: this.datosUsuario.direccion!,
       })
-      //console.log(this.formularioImagenUsuario.value)
     });
-    
+
 
     setTimeout(() => {
       this.contenidoCargado = true;
@@ -69,7 +68,7 @@ export class PerfilUsuarioComponent implements OnInit {
   }
 
 
-  
+
   enlaceAmigos() {
 
     //this.location.replaceState(`/amigos`);
@@ -79,39 +78,33 @@ export class PerfilUsuarioComponent implements OnInit {
     //location.reload();
   }
 
-    // Función para manejar la selección de una imagen por parte del usuario
-    onFileSelected(event: any) {
-      const formData: any = new FormData();
-      const file = event.target.files[0];
-  
-      if (file != null) {
-        formData.append('email', this.formularioImagenUsuario.get('email')?.value);
-        formData.append('first_name', this.formularioImagenUsuario.get('first_name')?.value);
-        formData.append('last_name', this.formularioImagenUsuario.get('last_name')?.value);
-        formData.append('telefono', this.formularioImagenUsuario.get('telefono')?.value);
-        formData.append('pais', this.formularioImagenUsuario.get('pais')?.value);
-        formData.append('estado', this.formularioImagenUsuario.get('estado')?.value);
-        formData.append('ciudad', this.formularioImagenUsuario.get('ciudad')?.value);
-        formData.append('direccion', this.formularioImagenUsuario.get('direccion')?.value);
-        formData.append('foto_perfil', file);
+  // Función para manejar la selección de una imagen por parte del usuario
+  onFileSelected(event: any) {
+    const formData: any = new FormData();
+    const file = event.target.files[0];
 
-  
-        
-        this._perfilUsuarioService.editarDatosPerfil(this.datosUsuario?.id, formData).subscribe(data => {
-  
-          if (data.status == 200) {
-            this.ngOnInit();
-          }
-          /*
-          setTimeout(() => {
-            this.obtenerPost();
-            this.gestionarUsuarios();
-          }, 5)
-          */
-        })
-          
-      }
+    if (file != null) {
+      formData.append('email', this.formularioImagenUsuario.get('email')?.value);
+      formData.append('first_name', this.formularioImagenUsuario.get('first_name')?.value);
+      formData.append('last_name', this.formularioImagenUsuario.get('last_name')?.value);
+      formData.append('telefono', this.formularioImagenUsuario.get('telefono')?.value);
+      formData.append('pais', this.formularioImagenUsuario.get('pais')?.value);
+      formData.append('estado', this.formularioImagenUsuario.get('estado')?.value);
+      formData.append('ciudad', this.formularioImagenUsuario.get('ciudad')?.value);
+      formData.append('direccion', this.formularioImagenUsuario.get('direccion')?.value);
+      formData.append('foto_perfil', file);
+
+
+
+      this._perfilUsuarioService.editarDatosPerfil(this.datosUsuario?.id, formData).subscribe(data => {
+
+        if (data.status == 200) {
+          this.ngOnInit();
+        }
+      })
+
     }
+  }
 
 
 

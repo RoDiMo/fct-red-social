@@ -60,7 +60,6 @@ export class ChatComponent {
 
     this.formularioChat.valueChanges.subscribe(data => {
       this.controlarCaracteres(data.mensaje)
-      console.log(data.mensaje)
     })
 
   }
@@ -120,14 +119,6 @@ export class ChatComponent {
         this.formularioChat.reset();
       }
     })
-
-    // Reinicia los valores del formulario
-    /*
-    setTimeout(() => {
-      this.ngOnInit()
-      this.formularioChat.reset();
-    }, 200);
-    */
   }
 
 

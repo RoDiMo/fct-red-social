@@ -67,19 +67,18 @@ export class PerfilPersonalEstadisticasComponent {
 
   enlaceAmigos() {
 
-    //this.location.replaceState(`/amigos`);
     localStorage.removeItem(`enlace-cabecera`)
     localStorage.setItem(`enlace-cabecera`, 'amigos');
     this.router.navigateByUrl(`/amigos`);
-    //location.reload();
+
   }
 
   enlacePerfil() {
-    //this.location.replaceState(`/perfil-personal`);
+
     localStorage.removeItem(`enlace-cabecera`)
     localStorage.setItem(`enlace-cabecera`, 'perfil-personal');
     this.router.navigateByUrl(`/perfil-personal`);
-    //location.reload();
+
   }
 
 
@@ -100,7 +99,6 @@ export class PerfilPersonalEstadisticasComponent {
         this.maxViews = this.postsUsuario.reduce(this.obtenerMaxViews, this.postsUsuario[0]).num_visitas;
         this.maxLikes = this.postsUsuario.reduce(this.obtenerMaxLikes, this.postsUsuario[0]).num_likes;
       }
-      //console.log(this.postsUsuario[0])
 
       // Obtenemos los post ordenasdos por numero de likes
       // Si el usuario no ha publicado ningun post los valores por defecto serán 0

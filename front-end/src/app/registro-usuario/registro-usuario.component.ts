@@ -130,8 +130,6 @@ export class RegistroUsuarioComponent {
   
       this.contraseniasNoCoinciden = {invalid: "Las contraseñas no coinciden"}
     }
-
-    console.log(this.contraseniasIguales)
   }
 
 
@@ -141,9 +139,6 @@ export class RegistroUsuarioComponent {
     const file = event.target.files[0];
     if (file != null) {
       this.formData.append('foto_perfil', file);
-
-
-      //this.formularioPost.get('imagen')?.setValue(file); // se asigna el archivo seleccionado a su campo del formulario
     }
   }
 
@@ -182,13 +177,8 @@ export class RegistroUsuarioComponent {
         })
       }
       this.errors = err.error.message;
-    });
-    //}
-
-    
+    }); 
   }
-
-
   protected readonly Object = Object;
 }
 

@@ -83,18 +83,10 @@ export class HomeComponent {
       this.gestionarUsuarios();
     })
 
-    /*
-    setTimeout(() => {
-      this.contenidoCargado = true;
-  
-    }, 500);
-    */
   }
 
   // Funcion para obtener solo mis posts
   obtenerMisPost() {
-    //this.contenidoCargado = false;
-
     this._postService.obtenerPostsUsuario(this.credencialesUsuario?.id).subscribe(data => {
       this.posts = data.results;
       this.misPost = true;
@@ -103,10 +95,6 @@ export class HomeComponent {
       this.gestionarUsuarios();
     })
 
-    /* setTimeout(() => {
-       this.contenidoCargado = true;
-   
-     }, 500);*/
   }
 
   // -------- GESTION DE USUARIOS --------
@@ -253,16 +241,6 @@ export class HomeComponent {
             this.obtenerMisPost()
           }
         }
-        /*
-        setTimeout(() => {
-          if (!this.misPost) {
-            this.obtenerPosts()
-          } else {
-            this.obtenerMisPost()
-          }
-          //this.ngOnInit()
-        }, 5)
-        */
       })
     })
   }

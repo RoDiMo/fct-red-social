@@ -173,13 +173,6 @@ export class AdminUsuariosComponent {
       if (data.status == 200) {
         this.guardarValorBusqueda();
       }
-
-      /*
-      setTimeout(() => {
-        this.guardarValorBusqueda();
-
-      }, 5)
-      */
     })
 
   }
@@ -198,13 +191,6 @@ export class AdminUsuariosComponent {
       if (data.status == 200) {
         this.guardarValorBusqueda();
       }
-
-      /*
-      setTimeout(() => {
-        this.guardarValorBusqueda();
-
-      }, 5)
-      */
 
     })
   }

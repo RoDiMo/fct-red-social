@@ -109,65 +109,55 @@ export class CabeceraComponent {
 
   enlaceInicio() {
 
-    //this.location.replaceState(`/`);
+
     localStorage.removeItem(`enlace-cabecera`)
     localStorage.setItem(`enlace-cabecera`, 'inicio');
     this.router.navigateByUrl(`/`);
-    //location.reload();
+ 
   }
 
   enlaceNotificaciones() {
 
-    //this.location.replaceState(`/notificaciones`);
     localStorage.removeItem(`enlace-cabecera`)
     localStorage.setItem(`enlace-cabecera`, 'notificaciones');
     this.router.navigateByUrl(`/notificaciones`);
-    //location.reload();
+
   }
 
   enlacePerfil() {
-    //this.location.replaceState(`/perfil-personal`);
+
     localStorage.removeItem(`enlace-cabecera`)
     localStorage.setItem(`enlace-cabecera`, 'perfil-personal');
     this.router.navigateByUrl(`/perfil-personal`);
-    //location.reload();
+
   }
 
   enlaceAmigos() {
 
-    //this.location.replaceState(`/amigos`);
     localStorage.removeItem(`enlace-cabecera`)
     localStorage.setItem(`enlace-cabecera`, 'amigos');
     this.router.navigateByUrl(`/amigos`);
-    //location.reload();
+
   }
 
   enlacePublicaciones() {
-
-    //this.location.replaceState(`/perfil-usuario-publicaciones/${this.credenciales.id}`);
     localStorage.removeItem(`enlace-cabecera`)
     localStorage.setItem(`enlace-cabecera`, 'perfil-usuario-publicaciones');
-    this.router.navigateByUrl(`/perfil-usuario-publicaciones/${this.credenciales.id}`);
-    //location.reload();
+    this.router.navigateByUrl(`/perfil-usuario-publicaciones/${this.credenciales.id}`);;
   }
 
   enlaceAdministracion() {
-    
-    //this.location.replaceState(`/admin-posts`);
     localStorage.removeItem(`enlace-cabecera`)
     localStorage.setItem(`enlace-cabecera`, 'inicio');
     this.router.navigateByUrl(`/admin-posts`);
-    //location.reload();
   }
 
   enlaceFormularioPost() {
 
-    //this.location.replaceState(`/formulario-post`);
     localStorage.removeItem(`enlace-cabecera`)
     localStorage.setItem(`enlace-cabecera`, 'formulario-post');
     this.router.navigateByUrl(`/formulario-post`);
-    //location.reload();
-
+ 
   }
 
   // Removemos los datos usuario del LocalStorage y lo redirigimos a la página de login

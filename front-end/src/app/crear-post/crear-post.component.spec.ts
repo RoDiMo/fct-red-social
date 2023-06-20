@@ -72,6 +72,9 @@ describe('CrearPostComponent', () => {
   });
  
 
+
+
+
   it('should call controlarCaracteres when formularioPost value changes', () => {
     const mockPost = { id: '123', titulo: 'Test', contenido: 'Lorem ipsum', usuario: 'JohnDoe', imagen: 'example.jpg' };
     postServiceSpy.obtenerPost.and.returnValue(of(mockPost));
@@ -133,40 +136,7 @@ describe('CrearPostComponent', () => {
     expect(component.modal.open).toHaveBeenCalledWith(DetallePostModalComponent);
   });
   
- 
-/*
-  it('should create a new post and reload the page', () => {
-    // Arrange
-    spyOn(component._postService, 'nuevoPost').and.returnValue(of({ status: 201 }));
-
-    spyOn(localStorage, 'removeItem');
-    spyOn(localStorage, 'setItem');
    
-  
-    const tituloValue = 'Test Title';
-    const contenidoValue = 'Lorem ipsum dolor sit amet';
-    const usuarioValue = 'http://localhost:8000/usuarios/1/';
-    component.formularioPost.setValue({
-      titulo: tituloValue,
-      contenido: contenidoValue,
-      usuario: usuarioValue,
-      imagen: null
-    });
-  
-    // Act
-    component.enviaPost();
-  
-    // Assert
-    expect(component.formData.get('titulo')).toEqual(tituloValue);
-    expect(component.formData.get('contenido')).toEqual(contenidoValue);
-    expect(component.formData.get('usuario')).toEqual(usuarioValue);
-    expect(component._postService.nuevoPost).toHaveBeenCalledWith(component.formData);
-   
-    expect(localStorage.removeItem).toHaveBeenCalledWith('enlace-cabecera');
-    expect(localStorage.setItem).toHaveBeenCalledWith('enlace-cabecera', 'inicio');
- 
-  });
-  */
 
   it('should update caracRestantes when there are remaining characters', () => {
     const contenido = 'Hello World';

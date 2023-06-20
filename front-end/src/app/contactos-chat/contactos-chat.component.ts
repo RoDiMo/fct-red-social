@@ -50,7 +50,6 @@ export class ContactosChatComponent {
    * Función que gestiona todo el proceso de gestión de amistades
    */
     gestionarUsuarios() {
-      
 
       //Obtenemos los datos del usuario logueado
       this._obtenerUsuarioService.getUsuario(this.credenciales.id).subscribe(data => {

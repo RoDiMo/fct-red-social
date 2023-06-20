@@ -80,10 +80,10 @@ export class CrearComentarioComponent implements OnInit{
     this.http.get<any>(this.comentario.post).subscribe(data => {
       this.idPost = data
    
-
+      // Modificamos el comentario co los valores del formulario
       this._comentarioService.editarComentario(this.comentario.id, this.formularioComent.value).subscribe(data =>{
         this.router.navigateByUrl(`post/${this.idPost.id}`);
-      }, err => {
+      }, err => { //Controlamos los errores
         if (err instanceof HttpErrorResponse) {
           const ValidationErrors = err.error;
           Object.keys(ValidationErrors).forEach(prop => {

@@ -135,8 +135,7 @@ export class PostComponent implements OnInit {
       formData.append('imagen', file);
 
       this._postService.modificarPost(this.posts[0].id, formData).subscribe(data => {
-        console.log(data.status)
-
+   
         if (data.status == 200) {
           this.obtenerPost();
           this.gestionarUsuarios();
@@ -258,6 +257,7 @@ export class PostComponent implements OnInit {
     this._comentarioService.obtenerComentariosPost(id).subscribe({
       next: (data) => {
         this.comentarios = data.results
+     
         this.numComentarios(this.comentarios.length)
 
 
@@ -266,10 +266,11 @@ export class PostComponent implements OnInit {
           this.obtenerUsuario.getUsuario(comentario.usuario).subscribe({
             next: (data) => {
               this.usuariosComentarios = data
-
+    
               // Obtenemos el nombre de cada usuario
               comentario.nombre_usuario = this.usuariosComentarios.username
               comentario.foto_perfil = this.usuariosComentarios.foto_perfil
+        
             }
           })
         }
@@ -281,19 +282,13 @@ export class PostComponent implements OnInit {
   nuevoComentario() {
 
     this._comentarioService.nuevoComentario(this.formularioComent.value).subscribe(comentario => {
-     console.log(comentario.status)
+
       if (comentario.status == 201) {
         this.ngOnInit()
         this.formularioComent.reset(); 
       }
     });
 
-    /*
-    setTimeout(() => {
-      this.ngOnInit()
-      this.formularioComent.reset();
-    }, 200);
-    */
   }
 
 
@@ -304,17 +299,12 @@ export class PostComponent implements OnInit {
   eliminarComentario(id:string){
     this._comentarioService.eliminarComentario(id).subscribe(comentario => {
 
-      console.log(comentario.status)
+    
       if (comentario.status == 204) {
         this.ngOnInit()
       }
     });
 
-    /*
-    setTimeout(() => {
-      this.ngOnInit()
-    }, 200);
-    */
   }
 
   //Obtenemos el numero de comentarios del post y lo añadimos a su respectivo campo en la base de datos
@@ -395,12 +385,6 @@ export class PostComponent implements OnInit {
           this.obtenerPost();
           this.gestionarUsuarios();
         }
-        /*
-        setTimeout(() => {
-          this.obtenerPost();
-          this.gestionarUsuarios();
-        }, 5)
-        */
       })
     })
   }
@@ -453,12 +437,6 @@ export class PostComponent implements OnInit {
           this.obtenerPost();
           this.gestionarUsuarios();
         }
-        /*
-        setTimeout(() => {
-          this.obtenerPost();
-          this.gestionarUsuarios();
-        }, 5)
-        */
 
       })
     });
