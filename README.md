@@ -29,15 +29,17 @@ Las funcionalidades de la aplicación son las siguientes:
 * Gestión de tu perfil y estadísticas personales
 * Gestión de amistades
   * Envío de solicitudes de Amistad
-  * El usuario podrá aceptar o rechazar dichas solicitudes 
+    * El usuario podrá aceptar o rechazar dichas solicitudes
+  * Eliminar amistad
+  * Buscar usuarios
 * Página de administración
   * Administración de Post
     * Fitrado y ordenamiento de los datos de los posts
     * Permite ocultar y mostrar los Posts
   * Administración de Usuarios
     * Filtrado y ordenamiento de los datos de los usuarios
-    * Permite dar y quitar pribilegios de moderador   
-* Chat entre amigos
+    * Permite dar y quitar privilegios de moderador   
+* Chat en tiempo real entre amigos
 
 
 # 3. Imágenes de ejemplo
