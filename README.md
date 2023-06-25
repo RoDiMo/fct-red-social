@@ -1,25 +1,46 @@
 # fct-red-social
 
-Proyecto de fin de grado para el **Ciclo Formativo de Desarrollo de Aplicaciones Web** en el insituto **I.E.S Polígono Sur**
+_Proyecto de fin de grado para el **Ciclo Formativo de Desarrollo de Aplicaciones Web** en el insituto **I.E.S Polígono Sur**_
 
-# 1. Arquitectura
+
+## 1.Datos Generales 
+_Autor_ ✒️
+* **Roberto Eduardo Díaz Morffi**  - [RoDiMo](https://github.com/RoDiMo)
+
+_Herramientas y lenguajes utilizados_ 🧰
+* TypeScript
+* Python
+* HTML
+* CSS
+* Boostrap
+* AWS
+* Docker
+* Apache
+
+
+
+## 2. Arquitectura
 * **Base de datos:** Postgres
 * **Front-end:** Angular 15
 * **Back-end:** Django 4.1.7
   * API: Django Rest Framework 3.14
     
-### Modelo entidad relacion
+_Modelo entidad relacion_
 
 <img width="661" alt="Diagrama Entidad-Relación" src="https://github.com/RoDiMo/fct-red-social/assets/92437534/fc586951-51bf-4830-91d9-5af756245484">
+<br>
+<br>
 
-### Despliegue
-El despliegue se realizó en dos instancias de **Amazon Web Services**, una instancia para el **front-end** y otra para el **back-end**. Cada instancias están desplegadas en un servidor **Apache**
+#### Despliegue
 
+_El despliegue se realizó en dos instancias de **Amazon Web Services**, una instancia para el **front-end** y otra para el **back-end**. Cada instancias están desplegadas en un servidor **Apache**_
+<br>
+<br>
 <img src="https://github.com/RoDiMo/fct-red-social/assets/92437534/d6a8a85c-f166-4481-92e0-a76035060dcc" alt="Descripción de la imagen" width="500" />
 
 
-# 2. Funcionalidades
-Las funcionalidades de la aplicación son las siguientes:
+## 3. Funcionalidades
+_Las funcionalidades de la aplicación son las siguientes:_
 
 * Login y Registro de usuario
   * Validación en todos los formularios 
@@ -41,8 +62,10 @@ Las funcionalidades de la aplicación son las siguientes:
     * Permite dar y quitar privilegios de moderador   
 * Chat en tiempo real entre amigos
 
+<br>
+<br>
 
-# 3. Imágenes de ejemplo
+## 4. Imágenes de ejemplo
 
 | Página Principal | Perfil Personal | Amigos |
 |---|---|---|
